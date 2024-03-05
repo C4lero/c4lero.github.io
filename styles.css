@@ -2,37 +2,24 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
+    background-color: #3498db; /* Fondo azul */
+    color: #fff; /* Texto blanco */
 }
 
-.cabecera {
-    position: relative;
-    height: 400px; /* Puedes ajustar la altura según tus preferencias */
+.cabecera, .contenido, .pie-de-pagina {
     text-align: center;
-    color: #fff; /* Color del texto */
-}
-
-.cabecera img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* La imagen de fondo cubrirá todo el contenedor */
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1; /* Asegura que la imagen de fondo esté detrás del contenido */
+    padding: 20px 0;
 }
 
 .contenedor {
-    position: relative;
-    height: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.contenido-cabecera {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.cabecera h1 {
+    margin: 0;
 }
 
-.contenido-cabecera img {
-    width: 100px; /* Tamaño del icono, ajusta según sea necesario */
+.pie-de-pagina a {
+    color: #fff; /* Color del enlace en el pie de página */
 }
