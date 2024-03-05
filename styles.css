@@ -9,7 +9,7 @@ body {
 .cabecera {
     position: relative;
     height: 300px;
-    background-image: url('Fondo_cabecera.png');
+    background-image: url('Imagenes/Fondo_cabecera.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -28,7 +28,7 @@ body {
     right: 0;
     width: 200px; /* Ajusta el tamaño según sea necesario */
     height: 100%;
-    background-image: url('silueta.png');
+    background-image: url('Imagenes/silueta.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
