@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.cabecera {
+    position: relative;
+    height: 400px; /* Puedes ajustar la altura según tus preferencias */
+    text-align: center;
+    color: #fff; /* Color del texto */
+}
+
+.cabecera img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La imagen de fondo cubrirá todo el contenedor */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Asegura que la imagen de fondo esté detrás del contenido */
+}
+
+.contenedor {
+    position: relative;
+    height: 100%;
+}
+
+.contenido-cabecera {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.contenido-cabecera img {
+    width: 100px; /* Tamaño del icono, ajusta según sea necesario */
+}
