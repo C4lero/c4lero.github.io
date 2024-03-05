@@ -22,17 +22,27 @@ body {
     z-index: 1;
 }
 
-.silueta {
+.silueta, .icono {
     position: absolute;
     top: 0;
     right: 0;
     width: 200px; /* Ajusta el tamaño según sea necesario */
     height: 100%;
-    background-image: url('Imagenes/Silueta.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.silueta {
+    right: 0;
+    background-image: url('Imagenes/Silueta.png');
+}
+
+.icono {
+    left: 0;
+    background-image: url('Imagenes/Icono_C.png');
+}
+
 .contenedor {
     max-width: 800px;
     margin: 0 auto;
