@@ -3,42 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mis Proyectos</title>
+  <title>Juan Antonio Calero | Portfolio</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background-color: #141414; /* estilo Netflix */
+      background-color: #141414;
       color: #ffffff;
     }
 
-    header {
-      padding: 20px 40px;
-      background-color: #000000;
-      border-bottom: 1px solid #222;
+    /* ===== BANNER PRINCIPAL ===== */
+    .hero {
+      min-height: 70vh;
+      padding: 80px 40px;
+      background: linear-gradient(180deg, #000000 0%, #141414 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 28px;
+    .hero h1 {
+      font-size: 64px;
+      margin: 0 0 20px 0;
     }
 
+    .roles {
+      font-size: 36px;
+      font-weight: bold;
+      height: 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .role {
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .role.active {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .role-description {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #cccccc;
+      min-height: 24px;
+      transition: opacity 1s ease;
+    }
+
+    /* ===== SECCIÓN PROYECTOS ===== */
     main {
-      padding: 30px 40px;
+      padding: 40px;
     }
 
-    /* GRID DE PROYECTOS */
+    h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 20px;
     }
 
-    /* CARTA */
     .card {
       background-color: #1f1f1f;
       border-radius: 8px;
@@ -76,20 +110,33 @@
 
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       color: #888;
       font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Mis Proyectos</h1>
-  </header>
 
+  <!-- BANNER -->
+  <section class="hero">
+    <h1>Juan Antonio Calero</h1>
+
+    <div class="roles">
+      <div class="role active" data-description="Diseño experiencias de juego centradas en el jugador, mecánicas y sistemas.">Game Designer</div>
+      <div class="role" data-description="Gestiono equipos, producción y pipelines para llevar proyectos a buen puerto.">Game Producer</div>
+    </div>
+
+    <div class="role-description" id="roleDescription">
+      Diseño experiencias de juego centradas en el jugador, mecánicas y sistemas.
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
   <main>
+    <h2>Mis Proyectos</h2>
+
     <section class="grid">
-      <!-- PROYECTO 1 -->
       <div class="card">
         <img src="https://via.placeholder.com/400x200" alt="Proyecto 1" />
         <div class="card-content">
@@ -98,7 +145,6 @@
         </div>
       </div>
 
-      <!-- PROYECTO 2 -->
       <div class="card">
         <img src="https://via.placeholder.com/400x200" alt="Proyecto 2" />
         <div class="card-content">
@@ -107,7 +153,6 @@
         </div>
       </div>
 
-      <!-- PROYECTO 3 -->
       <div class="card">
         <img src="https://via.placeholder.com/400x200" alt="Proyecto 3" />
         <div class="card-content">
@@ -116,7 +161,6 @@
         </div>
       </div>
 
-      <!-- PROYECTO 4 -->
       <div class="card">
         <img src="https://via.placeholder.com/400x200" alt="Proyecto 4" />
         <div class="card-content">
@@ -128,7 +172,26 @@
   </main>
 
   <footer>
-    © 2025 - Mis proyectos
+    © 2025 - Juan Antonio Calero
   </footer>
+
+  <script>
+    const roles = document.querySelectorAll('.role');
+    const description = document.getElementById('roleDescription');
+    let current = 0;
+
+    setInterval(() => {
+      roles[current].classList.remove('active');
+      current = (current + 1) % roles.length;
+      roles[current].classList.add('active');
+      description.style.opacity = 0;
+
+      setTimeout(() => {
+        description.textContent = roles[current].dataset.description;
+        description.style.opacity = 1;
+      }, 500);
+    }, 10000);
+  </script>
+
 </body>
 </html>
