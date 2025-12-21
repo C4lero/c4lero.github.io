@@ -3,63 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juan Antonio Calero | Portfolio</title>
+  <title>JUAN A. CALERO | Portfolio</title>
+
+  <!-- Fuente más llamativa -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Montserrat', Arial, sans-serif;
       background-color: #141414;
       color: #ffffff;
     }
 
     /* ===== BANNER PRINCIPAL ===== */
     .hero {
-      min-height: 70vh;
-      padding: 80px 40px;
+      min-height: 45vh; /* más pequeño para mostrar proyectos */
+      padding: 60px 40px 40px;
       background: linear-gradient(180deg, #000000 0%, #141414 100%);
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
+      text-align: center;
     }
 
     .hero h1 {
-      font-size: 64px;
-      margin: 0 0 20px 0;
+      font-size: 72px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin: 0 0 25px 0;
+      text-transform: uppercase;
     }
 
+    /* ROLES */
     .roles {
-      font-size: 36px;
-      font-weight: bold;
-      height: 44px;
+      display: flex;
+      gap: 40px;
       position: relative;
-      overflow: hidden;
+      margin-bottom: 20px;
     }
 
     .role {
-      position: absolute;
-      opacity: 0;
+      font-size: 28px;
+      font-weight: 600;
+      opacity: 0.4;
       transform: scale(0.9);
-      transition: opacity 1s ease, transform 1s ease;
+      transition: all 1s ease;
     }
 
     .role.active {
       opacity: 1;
-      transform: scale(1.1);
+      transform: scale(1.3);
     }
 
     .role-description {
-      margin-top: 20px;
       font-size: 18px;
       color: #cccccc;
       min-height: 24px;
-      transition: opacity 1s ease;
+      transition: opacity 0.8s ease;
     }
 
-    /* ===== SECCIÓN PROYECTOS ===== */
+    /* ===== PROYECTOS ===== */
     main {
-      padding: 40px;
+      padding: 30px 40px 60px;
     }
 
     h2 {
@@ -90,7 +99,6 @@
       width: 100%;
       height: 160px;
       object-fit: cover;
-      display: block;
     }
 
     .card-content {
@@ -118,17 +126,17 @@
 </head>
 <body>
 
-  <!-- BANNER -->
+  <!-- HERO -->
   <section class="hero">
-    <h1>Juan Antonio Calero</h1>
+    <h1>JUAN A. CALERO</h1>
 
     <div class="roles">
-      <div class="role active" data-description="Diseño experiencias de juego centradas en el jugador, mecánicas y sistemas.">Game Designer</div>
-      <div class="role" data-description="Gestiono equipos, producción y pipelines para llevar proyectos a buen puerto.">Game Producer</div>
+      <div class="role active" data-description="Gestiono equipos, producción y pipelines para llevar proyectos a buen puerto.">Game Producer</div>
+      <div class="role" data-description="Diseño experiencias de juego centradas en el jugador, mecánicas y sistemas.">Game Designer</div>
     </div>
 
     <div class="role-description" id="roleDescription">
-      Diseño experiencias de juego centradas en el jugador, mecánicas y sistemas.
+      Gestiono equipos, producción y pipelines para llevar proyectos a buen puerto.
     </div>
   </section>
 
@@ -172,7 +180,7 @@
   </main>
 
   <footer>
-    © 2025 - Juan Antonio Calero
+    © 2025 - Juan A. Calero
   </footer>
 
   <script>
@@ -184,13 +192,13 @@
       roles[current].classList.remove('active');
       current = (current + 1) % roles.length;
       roles[current].classList.add('active');
-      description.style.opacity = 0;
 
+      description.style.opacity = 0;
       setTimeout(() => {
         description.textContent = roles[current].dataset.description;
         description.style.opacity = 1;
-      }, 500);
-    }, 10000);
+      }, 400);
+    }, 5000);
   </script>
 
 </body>
