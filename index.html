@@ -1,205 +1,332 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JUAN A. CALERO | Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juan A. Calero | Portfolio</title>
 
-  <!-- Fuente más llamativa -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
-      background-color: #141414;
-      color: #ffffff;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* ===== BANNER PRINCIPAL ===== */
-    .hero {
-      min-height: 45vh; /* más pequeño para mostrar proyectos */
-      padding: 60px 40px 40px;
-      background: linear-gradient(180deg, #000000 0%, #141414 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+        body {
+            background: #050505;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
 
-    .hero h1 {
-      font-size: 72px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin: 0 0 25px 0;
-      text-transform: uppercase;
-    }
+            /* GRID BACKGROUND */
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px);
+                background-size: 40px 40px;
+                opacity: 0.2;
+                pointer-events: none;
+            }
 
-    /* ROLES */
-    .roles {
-      display: flex;
-      gap: 40px;
-      position: relative;
-      margin-bottom: 20px;
-    }
+        /* NAVBAR STICKY */
+        .hero-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6vw;
+            background: rgba(5,5,5,0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #222;
+            z-index: 1000;
+        }
 
-    .role {
-      font-size: 28px;
-      font-weight: 600;
-      opacity: 0.4;
-      transform: scale(0.9);
-      transition: all 1s ease;
-    }
+        .nav-left {
+            display: flex;
+            gap: 20px;
+        }
 
-    .role.active {
-      opacity: 1;
-      transform: scale(1.3);
-    }
+        .nav-item {
+            padding: 12px 20px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
 
-    .role-description {
-      font-size: 18px;
-      color: #cccccc;
-      min-height: 24px;
-      transition: opacity 0.8s ease;
-    }
+            .nav-item:hover {
+                border-color: white;
+                background: #111;
+            }
 
-    /* ===== PROYECTOS ===== */
-    main {
-      padding: 30px 40px 60px;
-    }
+        .nav-cv {
+            padding: 12px 26px;
+            border: 1px solid #555;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
 
-    h2 {
-      font-size: 32px;
-      margin-bottom: 30px;
-    }
+            .nav-cv:hover {
+                background: #111;
+                border-color: white;
+            }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
-    }
+        /* HERO */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 0.9fr;
+            gap: 60px;
+            padding: 160px 6vw 100px; /* espacio extra por navbar */
+            min-height: 100vh;
+        }
 
-    .card {
-      background-color: #1f1f1f;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+        /* COLUMNS */
+        .hero-left {
+            grid-column: 1;
+        }
 
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    }
+        .hero-image {
+            grid-column: 2;
+        }
 
-    .card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
+        .hero-right {
+            grid-column: 3;
+            align-self: start;
+        }
 
-    .card-content {
-      padding: 15px;
-    }
+        /* TEXT */
+        .hero-left h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 0.9;
+        }
 
-    .card-content h3 {
-      margin: 0 0 10px 0;
-      font-size: 18px;
-    }
+        .highlight {
+            font-weight: 600;
+        }
 
-    .card-content p {
-      margin: 0;
-      font-size: 14px;
-      color: #cccccc;
-    }
+        /* ROLES */
+        .roles {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #888;
-      font-size: 14px;
-    }
-  </style>
+            .roles span {
+                transition: 0.3s;
+            }
+
+            .roles .active {
+                opacity: 1;
+            }
+
+            .roles span:not(.active) {
+                opacity: 0.3;
+            }
+
+        .desc {
+            margin-top: 20px;
+            max-width: 500px;
+            opacity: 0.6;
+        }
+
+        /* IMAGE */
+        .hero-image img {
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #222;
+        }
+
+        /* SIDEBAR */
+        .hero-right {
+            border: 1px solid #333;
+            padding: 30px;
+        }
+
+            .hero-right h3 {
+                margin-bottom: 20px;
+                opacity: 0.8;
+            }
+
+        /* CARDS */
+        .card {
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+            .card img {
+                width: 100%;
+                height: 140px;
+                object-fit: cover;
+                margin-bottom: 10px;
+            }
+
+            .card h4 {
+                margin-bottom: 6px;
+            }
+
+            .card p {
+                font-size: 0.85rem;
+                opacity: 0.6;
+            }
+
+        /* SECTIONS */
+        section {
+            padding: 160px 8vw;
+            border-top: 1px solid #111;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+        }
+    </style>
+
 </head>
+
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>JUAN A. CALERO</h1>
+    <!-- NAVBAR -->
 
-    <div class="roles">
-      <div class="role active" data-description="Gestiono equipos, producción y pipelines para llevar proyectos a buen puerto.">Game Producer</div>
-      <div class="role" data-description="Diseño experiencias de juego centradas en el jugador, mecánicas y sistemas.">Game Designer</div>
+    <div class="hero-nav">
+
+        ```
+        <div class="nav-left">
+            <div class="nav-item" onclick="go('#top')">Home</div>
+            <div class="nav-item" onclick="go('#role-designer')">Roles & Projects</div>
+            <a href="articles.html" class="nav-item">Articles</a>
+            <div class="nav-item" onclick="go('#contact')">About</div>
+        </div>
+
+        <div class="nav-right">
+            <a href="cv.pdf" download class="nav-cv">Descargar CV</a>
+        </div>
+        ```
+
     </div>
 
-    <div class="role-description" id="roleDescription">
-      Gestiono equipos, producción y pipelines para llevar proyectos a buen puerto.
+    <!-- HERO -->
+
+    <div id="top" class="hero">
+
+        ```
+        <!-- LEFT -->
+        <div class="hero-left">
+
+            <h1>
+                JUAN A.<br>
+                <span class="highlight">CALERO</span>
+            </h1>
+
+            <p class="roles">
+                <span id="role1">Game Producer</span>
+                <span> | </span>
+                <span id="role2">Game Designer</span>
+            </p>
+
+            <p class="desc">
+                Desarrollador español con experiencia en proyectos profesionales dentro de la industria de videojuegos.
+            </p>
+        </div>
+
+        <!-- IMAGE -->
+        <div class="hero-image">
+            <img src="tu-imagen.jpg" alt="Juan Calero">
+        </div>
+
+        <!-- RIGHT -->
+        <div class="hero-right">
+
+            <h3>Featured pages and articles</h3>
+
+            <div class="card">
+                <img src="img1.jpg">
+                <h4>Artículo 1</h4>
+                <p>Breve descripción del contenido de esta página o artículo.</p>
+            </div>
+
+            <div class="card">
+                <img src="img2.jpg">
+                <h4>Proyecto destacado</h4>
+                <p>Explicación corta sobre el contenido de esta sección.</p>
+            </div>
+
+        </div>
+        ```
+
     </div>
-  </section>
 
-  <!-- PROYECTOS -->
-  <main>
-    <h2>Mis Proyectos</h2>
+    <!-- SECCIONES -->
 
-    <section class="grid">
-      <div class="card">
-        <img src="https://via.placeholder.com/400x200" alt="Proyecto 1" />
-        <div class="card-content">
-          <h3>Proyecto 1</h3>
-          <p>Descripción breve del proyecto.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="https://via.placeholder.com/400x200" alt="Proyecto 2" />
-        <div class="card-content">
-          <h3>Proyecto 2</h3>
-          <p>Descripción breve del proyecto.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="https://via.placeholder.com/400x200" alt="Proyecto 3" />
-        <div class="card-content">
-          <h3>Proyecto 3</h3>
-          <p>Descripción breve del proyecto.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="https://via.placeholder.com/400x200" alt="Proyecto 4" />
-        <div class="card-content">
-          <h3>Proyecto 4</h3>
-          <p>Descripción breve del proyecto.</p>
-        </div>
-      </div>
+    <section id="role-designer">
+        <h2>Game Designer</h2>
     </section>
-  </main>
 
-  <footer>
-    © 2025 - Juan A. Calero
-  </footer>
+    <section id="role-producer">
+        <h2>Game Producer</h2>
+    </section>
 
-  <script>
-    const roles = document.querySelectorAll('.role');
-    const description = document.getElementById('roleDescription');
-    let current = 0;
+    <section id="project-1">
+        <h2>Projects</h2>
+    </section>
 
-    setInterval(() => {
-      roles[current].classList.remove('active');
-      current = (current + 1) % roles.length;
-      roles[current].classList.add('active');
+    <section id="contact">
+        <h2>About / Contact</h2>
+    </section>
 
-      description.style.opacity = 0;
-      setTimeout(() => {
-        description.textContent = roles[current].dataset.description;
-        description.style.opacity = 1;
-      }, 400);
-    }, 5000);
-  </script>
+    <!-- JS -->
+
+    <script>
+        function go(id) {
+            document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ROLES SWITCH
+        let active = 0;
+
+        function switchRole() {
+            const r1 = document.getElementById("role1");
+            const r2 = document.getElementById("role2");
+
+            if (active === 0) {
+                r1.classList.add("active");
+                r2.classList.remove("active");
+                active = 1;
+            } else {
+                r1.classList.remove("active");
+                r2.classList.add("active");
+                active = 0;
+            }
+        }
+
+        switchRole();
+        setInterval(switchRole, 2000);
+    </script>
 
 </body>
 </html>
