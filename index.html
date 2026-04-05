@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juan A. Calero | Portfolio</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary: #fff;
+            --accent: #3498db; /* Color de acento para detalles */
+            --bg: #050505;
+            --border: #222;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -20,185 +25,234 @@
         }
 
         body {
-            background: #050505;
-            color: #fff;
+            background: var(--bg);
+            color: var(--primary);
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
-            /* GRID BACKGROUND */
-            body::before {
-                content: "";
-                position: fixed;
-                inset: 0;
-                background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px);
-                background-size: 40px 40px;
-                opacity: 0.2;
-                pointer-events: none;
-            }
+        /* GRID BACKGROUND ANIMADO */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
+        }
 
-        /* NAVBAR STICKY */
+        /* NAVBAR */
         .hero-nav {
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 6vw;
-            background: rgba(5,5,5,0.9);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid #222;
+            background: rgba(5,5,5,0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
         }
 
         .nav-left {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         .nav-item {
-            padding: 12px 20px;
-            border: 1px solid #333;
+            padding: 10px 18px;
+            border: 1px solid transparent;
             cursor: pointer;
-            transition: 0.3s;
-            font-size: 0.9rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            text-decoration: none;
         }
 
             .nav-item:hover {
-                border-color: white;
-                background: #111;
+                border-color: var(--primary);
+                color: var(--primary);
+                background: rgba(255,255,255,0.05);
             }
 
         .nav-cv {
-            padding: 12px 26px;
-            border: 1px solid #555;
+            padding: 10px 24px;
+            background: var(--primary);
+            color: black;
             text-decoration: none;
-            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
             transition: 0.3s;
         }
 
             .nav-cv:hover {
-                background: #111;
-                border-color: white;
+                background: transparent;
+                color: var(--primary);
+                outline: 1px solid var(--primary);
             }
 
-        /* HERO */
+        /* HERO SECTION */
         .hero {
             display: grid;
-            grid-template-columns: 1.3fr 1fr 0.9fr;
-            gap: 60px;
-            padding: 160px 6vw 100px; /* espacio extra por navbar */
+            grid-template-columns: 1.2fr 0.8fr 1fr;
+            gap: 40px;
+            padding: 180px 6vw 100px;
             min-height: 100vh;
         }
 
-        /* COLUMNS */
-        .hero-left {
-            grid-column: 1;
-        }
-
-        .hero-image {
-            grid-column: 2;
-        }
-
-        .hero-right {
-            grid-column: 3;
-            align-self: start;
-        }
-
-        /* TEXT */
         .hero-left h1 {
-            font-size: clamp(3rem, 7vw, 6rem);
-            line-height: 0.9;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 0.85;
+            letter-spacing: -2px;
         }
 
         .highlight {
-            font-weight: 600;
+            color: #555;
         }
+        /* Contraste sutil */
 
-        /* ROLES */
         .roles {
-            margin-top: 20px;
-            font-size: 1.2rem;
+            margin-top: 30px;
+            font-size: 1.5rem;
+            height: 1.5em; /* Evita saltos de layout */
         }
 
-            .roles span {
-                transition: 0.3s;
-            }
+        .role-text {
+            transition: all 0.5s ease;
+            position: absolute;
+        }
 
-            .roles .active {
-                opacity: 1;
-            }
+        .hidden {
+            opacity: 0;
+            transform: translateY(10px);
+        }
 
-            .roles span:not(.active) {
-                opacity: 0.3;
-            }
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .desc {
-            margin-top: 20px;
-            max-width: 500px;
-            opacity: 0.6;
-        }
-
-        /* IMAGE */
-        .hero-image img {
-            width: 100%;
+            margin-top: 80px;
             max-width: 400px;
-            border: 1px solid #222;
+            line-height: 1.6;
+            opacity: 0.5;
+            font-weight: 300;
         }
 
-        /* SIDEBAR */
+        /* IMAGEN CENTRAL CON EFECTO */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .img-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+
+            .img-container:hover {
+                filter: grayscale(0%);
+            }
+
+            .img-container img {
+                width: 100%;
+                border: 1px solid var(--border);
+            }
+
+        /* CARDS LATERALES */
         .hero-right {
-            border: 1px solid #333;
-            padding: 30px;
+            border-left: 1px solid var(--border);
+            padding-left: 40px;
         }
 
             .hero-right h3 {
-                margin-bottom: 20px;
-                opacity: 0.8;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-bottom: 40px;
+                color: #666;
             }
 
-        /* CARDS */
         .card {
-            margin-bottom: 25px;
-            cursor: pointer;
-            transition: 0.3s;
+            margin-bottom: 40px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
-            .card:hover {
-                transform: translateY(-5px);
-            }
+        .card-img-wrapper {
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
 
-            .card img {
-                width: 100%;
-                height: 140px;
-                object-fit: cover;
-                margin-bottom: 10px;
-            }
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            transition: 0.6s transform;
+        }
 
-            .card h4 {
-                margin-bottom: 6px;
-            }
+        .card:hover img {
+            transform: scale(1.1);
+        }
 
-            .card p {
-                font-size: 0.85rem;
-                opacity: 0.6;
-            }
+        .card p {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-top: 5px;
+        }
 
-        /* SECTIONS */
+        /* SECCIONES */
         section {
-            padding: 160px 8vw;
-            border-top: 1px solid #111;
+            padding: 100px 6vw;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s all ease-out;
         }
 
-        h2 {
-            margin-bottom: 20px;
+            section.reveal {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-right {
+                display: none;
+            }
         }
 
-        /* MOBILE */
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
             .hero {
                 grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .nav-left {
+                display: none;
+            }
+
+            .hero-left h1 {
+                font-size: 4rem;
+            }
+
+            .desc {
+                margin: 40px auto;
             }
 
             .hero-image {
@@ -206,127 +260,113 @@
             }
         }
     </style>
-
 </head>
-
 <body>
 
-    <!-- NAVBAR -->
+    <div class="grid-bg" id="grid"></div>
 
-    <div class="hero-nav">
-
-        ```
+    <nav class="hero-nav">
         <div class="nav-left">
-            <div class="nav-item" onclick="go('#top')">Home</div>
-            <div class="nav-item" onclick="go('#role-designer')">Roles & Projects</div>
-            <a href="articles.html" class="nav-item">Articles</a>
-            <div class="nav-item" onclick="go('#contact')">About</div>
+            <a class="nav-item" onclick="go('#top')">Inicio</a>
+            <a class="nav-item" onclick="go('#projects')">Proyectos</a>
+            <a href="#" class="nav-item">Artículos</a>
         </div>
-
         <div class="nav-right">
-            <a href="cv.pdf" download class="nav-cv">Descargar CV</a>
+            <a href="#" class="nav-cv">DESCARGAR CV</a>
         </div>
-        ```
+    </nav>
 
-    </div>
-
-    <!-- HERO -->
-
-    <div id="top" class="hero">
-
-        ```
-        <!-- LEFT -->
+    <main id="top" class="hero">
         <div class="hero-left">
-
-            <h1>
-                JUAN A.<br>
-                <span class="highlight">CALERO</span>
-            </h1>
-
-            <p class="roles">
-                <span id="role1">Game Producer</span>
-                <span> | </span>
-                <span id="role2">Game Designer</span>
-            </p>
-
+            <h1>JUAN A.<br><span class="highlight">CALERO</span></h1>
+            <div class="roles">
+                <span id="role-text" class="role-text">Game Producer</span>
+            </div>
             <p class="desc">
-                Desarrollador español con experiencia en proyectos profesionales dentro de la industria de videojuegos.
+                Arquitecto de experiencias interactivas. Especializado en diseño de sistemas y gestión de equipos creativos para la industria del videojuego.
             </p>
         </div>
 
-        <!-- IMAGE -->
         <div class="hero-image">
-            <img src="tu-imagen.jpg" alt="Juan Calero">
+            <div class="img-container">
+                <img src="https://via.placeholder.com/400x500" alt="Juan Calero">
+            </div>
         </div>
 
-        <!-- RIGHT -->
         <div class="hero-right">
+            <h3>Featured Content</h3>
 
-            <h3>Featured pages and articles</h3>
+            <a href="#" class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://via.placeholder.com/300x160" alt="Project">
+                </div>
+                <h4>Sistemas de Progresión</h4>
+                <p>Análisis profundo sobre el engagement en RPGs.</p>
+            </a>
 
-            <div class="card">
-                <img src="img1.jpg">
-                <h4>Artículo 1</h4>
-                <p>Breve descripción del contenido de esta página o artículo.</p>
-            </div>
-
-            <div class="card">
-                <img src="img2.jpg">
-                <h4>Proyecto destacado</h4>
-                <p>Explicación corta sobre el contenido de esta sección.</p>
-            </div>
-
+            <a href="#" class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://via.placeholder.com/300x160" alt="Project">
+                </div>
+                <h4>Level Design</h4>
+                <p>Cómo guiar al jugador sin usar flechas.</p>
+            </a>
         </div>
-        ```
+    </main>
 
-    </div>
-
-    <!-- SECCIONES -->
-
-    <section id="role-designer">
-        <h2>Game Designer</h2>
-    </section>
-
-    <section id="role-producer">
-        <h2>Game Producer</h2>
-    </section>
-
-    <section id="project-1">
-        <h2>Projects</h2>
+    <section id="projects">
+        <h2>Proyectos Destacados</h2>
+        <p>Aquí irán tus proyectos con una rejilla más grande...</p>
     </section>
 
     <section id="contact">
-        <h2>About / Contact</h2>
+        <h2>Contacto</h2>
+        <p>Hablemos sobre tu próximo gran proyecto.</p>
     </section>
 
-    <!-- JS -->
-
     <script>
+        // Smooth Scroll
         function go(id) {
             document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ROLES SWITCH
-        let active = 0;
+        // Cambio de Roles elegante
+        const roles = ["Game Producer", "Game Designer", "Creative Director"];
+        let currentRoleIdx = 0;
+        const roleElement = document.getElementById("role-text");
 
-        function switchRole() {
-            const r1 = document.getElementById("role1");
-            const r2 = document.getElementById("role2");
+        setInterval(() => {
+            roleElement.style.opacity = 0;
+            roleElement.style.transform = "translateY(-10px)";
 
-            if (active === 0) {
-                r1.classList.add("active");
-                r2.classList.remove("active");
-                active = 1;
-            } else {
-                r1.classList.remove("active");
-                r2.classList.add("active");
-                active = 0;
-            }
-        }
+            setTimeout(() => {
+                currentRoleIdx = (currentRoleIdx + 1) % roles.length;
+                roleElement.textContent = roles[currentRoleIdx];
+                roleElement.style.opacity = 1;
+                roleElement.style.transform = "translateY(0)";
+            }, 500);
+        }, 3000);
 
-        switchRole();
-        setInterval(switchRole, 2000);
+        // Efecto Parallax en el Grid con el ratón
+        document.addEventListener('mousemove', (e) => {
+            const grid = document.getElementById('grid');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            grid.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+        });
+
+        // Revelar secciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
     </script>
-
 </body>
 </html>
