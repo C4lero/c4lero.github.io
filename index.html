@@ -9,9 +9,10 @@
     <style>
         :root {
             --primary: #fff;
-            --accent: #3498db; /* Color de acento para detalles */
+            --accent: #3498db;
             --bg: #050505;
             --border: #222;
+            --text-dim: rgba(255, 255, 255, 0.6);
         }
 
         * {
@@ -31,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* GRID BACKGROUND ANIMADO */
+        /* GRID BACKGROUND */
         .grid-bg {
             position: fixed;
             inset: 0;
@@ -50,123 +51,120 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 6vw;
+            padding: 25px 6vw;
             background: rgba(5,5,5,0.8);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
         }
 
         .nav-left {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
 
         .nav-item {
-            padding: 10px 18px;
-            border: 1px solid transparent;
+            padding: 8px 15px;
             cursor: pointer;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.85rem;
+            transition: 0.3s;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #aaa;
+            letter-spacing: 1.5px;
+            color: var(--text-dim);
             text-decoration: none;
+            border: 1px solid transparent;
         }
 
             .nav-item:hover {
-                border-color: var(--primary);
                 color: var(--primary);
+                border-color: var(--border);
                 background: rgba(255,255,255,0.05);
             }
 
         .nav-cv {
             padding: 10px 24px;
             background: var(--primary);
-            color: black;
+            color: #000;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
 
             .nav-cv:hover {
-                background: transparent;
-                color: var(--primary);
-                outline: 1px solid var(--primary);
+                background: var(--accent);
+                color: #fff;
             }
 
         /* HERO SECTION */
         .hero {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr 1fr;
-            gap: 40px;
-            padding: 180px 6vw 100px;
+            grid-template-columns: 1.3fr 0.8fr 1fr;
+            gap: 60px;
+            padding: 200px 6vw 100px;
             min-height: 100vh;
+            align-items: start;
         }
 
         .hero-left h1 {
-            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
             line-height: 0.85;
-            letter-spacing: -2px;
+            letter-spacing: -3px;
+            font-weight: 600;
         }
 
         .highlight {
-            color: #555;
+            color: #333;
         }
-        /* Contraste sutil */
 
         .roles {
-            margin-top: 30px;
-            font-size: 1.5rem;
-            height: 1.5em; /* Evita saltos de layout */
+            margin-top: 35px;
+            font-size: 1.4rem;
+            color: var(--accent);
+            font-weight: 300;
+            position: relative;
+            height: 1.5em;
         }
 
         .role-text {
-            transition: all 0.5s ease;
             position: absolute;
-        }
-
-        .hidden {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        .visible {
-            opacity: 1;
-            transform: translateY(0);
+            transition: all 0.5s ease;
         }
 
         .desc {
-            margin-top: 80px;
-            max-width: 400px;
-            line-height: 1.6;
-            opacity: 0.5;
-            font-weight: 300;
+            margin-top: 120px;
+            max-width: 420px;
+            line-height: 1.7;
+            color: var(--text-dim);
+            font-size: 1.05rem;
         }
 
-        /* IMAGEN CENTRAL CON EFECTO */
+        /* IMAGEN CENTRAL */
         .hero-image {
             display: flex;
             justify-content: center;
-            align-items: flex-start;
         }
 
         .img-container {
-            position: relative;
             width: 100%;
-            max-width: 350px;
+            max-width: 380px;
             filter: grayscale(100%);
-            transition: 0.5s;
+            transition: 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 1px solid var(--border);
+            padding: 10px;
+            background: rgba(255,255,255,0.02);
         }
 
             .img-container:hover {
                 filter: grayscale(0%);
+                transform: translateY(-10px);
+                border-color: #444;
             }
 
             .img-container img {
                 width: 100%;
-                border: 1px solid var(--border);
+                display: block;
             }
 
         /* CARDS LATERALES */
@@ -176,49 +174,60 @@
         }
 
             .hero-right h3 {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 text-transform: uppercase;
-                letter-spacing: 2px;
-                margin-bottom: 40px;
-                color: #666;
+                letter-spacing: 3px;
+                margin-bottom: 50px;
+                color: #555;
             }
 
         .card {
-            margin-bottom: 40px;
+            margin-bottom: 45px;
             text-decoration: none;
             color: inherit;
             display: block;
+            group: hover;
         }
 
         .card-img-wrapper {
             overflow: hidden;
             margin-bottom: 15px;
             border: 1px solid var(--border);
+            aspect-ratio: 16/9;
         }
 
         .card img {
             width: 100%;
-            height: 160px;
+            height: 100%;
             object-fit: cover;
-            transition: 0.6s transform;
+            transition: 0.8s transform cubic-bezier(0.19, 1, 0.22, 1);
+            opacity: 0.8;
         }
 
         .card:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .card p {
-            font-size: 0.8rem;
-            opacity: 0.5;
-            margin-top: 5px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.5;
         }
 
-        /* SECCIONES */
+        /* SECCIONES POSTERIORES */
         section {
-            padding: 100px 6vw;
+            padding: 140px 6vw;
+            border-top: 1px solid var(--border);
             opacity: 0;
-            transform: translateY(30px);
-            transition: 1s all ease-out;
+            transform: translateY(40px);
+            transition: 1.2s all ease;
         }
 
             section.reveal {
@@ -226,8 +235,14 @@
                 transform: translateY(0);
             }
 
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+
+        /* MOBILE FIX */
+        @media (max-width: 1100px) {
             .hero {
                 grid-template-columns: 1fr 1fr;
             }
@@ -241,22 +256,23 @@
             .hero {
                 grid-template-columns: 1fr;
                 text-align: center;
+                padding-top: 140px;
+            }
+
+            .hero-left h1 {
+                font-size: 3.5rem;
+            }
+
+            .desc {
+                margin: 60px auto;
+            }
+
+            .img-container {
+                margin: 0 auto;
             }
 
             .nav-left {
                 display: none;
-            }
-
-            .hero-left h1 {
-                font-size: 4rem;
-            }
-
-            .desc {
-                margin: 40px auto;
-            }
-
-            .hero-image {
-                order: -1;
             }
         }
     </style>
@@ -267,9 +283,9 @@
 
     <nav class="hero-nav">
         <div class="nav-left">
-            <a class="nav-item" onclick="go('#top')">Inicio</a>
+            <a class="nav-item" onclick="go('#top')">Portfolio</a>
             <a class="nav-item" onclick="go('#projects')">Proyectos</a>
-            <a href="#" class="nav-item">Artículos</a>
+            <a class="nav-item" onclick="go('#contact')">Sobre mí</a>
         </div>
         <div class="nav-right">
             <a href="#" class="nav-cv">DESCARGAR CV</a>
@@ -283,55 +299,55 @@
                 <span id="role-text" class="role-text">Game Producer</span>
             </div>
             <p class="desc">
-                Arquitecto de experiencias interactivas. Especializado en diseño de sistemas y gestión de equipos creativos para la industria del videojuego.
+                Especializado en la gestión de ciclos de vida de desarrollo y diseño de mecánicas core. Mi enfoque une la eficiencia técnica de la producción con la visión creativa del Game Design.
             </p>
         </div>
 
         <div class="hero-image">
             <div class="img-container">
-                <img src="https://via.placeholder.com/400x500" alt="Juan Calero">
+                <img src="HeroImage.jpeg" alt="Juan Calero">
             </div>
         </div>
 
         <div class="hero-right">
-            <h3>Featured Content</h3>
+            <h3>Contenido Destacado</h3>
 
             <a href="#" class="card">
                 <div class="card-img-wrapper">
-                    <img src="https://via.placeholder.com/300x160" alt="Project">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=600" alt="Sistemas">
                 </div>
                 <h4>Sistemas de Progresión</h4>
-                <p>Análisis profundo sobre el engagement en RPGs.</p>
+                <p>Análisis técnico sobre la retención de usuarios a través de curvas de dificultad y recompensas.</p>
             </a>
 
             <a href="#" class="card">
                 <div class="card-img-wrapper">
-                    <img src="https://via.placeholder.com/300x160" alt="Project">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=600" alt="Pipeline">
                 </div>
-                <h4>Level Design</h4>
-                <p>Cómo guiar al jugador sin usar flechas.</p>
+                <h4>Optimización de Pipelines</h4>
+                <p>Cómo mejorar el flujo de trabajo entre artistas y programadores en entornos de producción rápida.</p>
             </a>
         </div>
     </main>
 
     <section id="projects">
-        <h2>Proyectos Destacados</h2>
-        <p>Aquí irán tus proyectos con una rejilla más grande...</p>
+        <h2>Proyectos Seleccionados</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <p>Aquí puedes incluir una galería de tus juegos o contribuciones principales.</p>
+        </div>
     </section>
 
     <section id="contact">
         <h2>Contacto</h2>
-        <p>Hablemos sobre tu próximo gran proyecto.</p>
+        <p>¿Tienes un proyecto en mente? Hablemos sobre cómo puedo ayudar a tu equipo a alcanzar el siguiente nivel.</p>
     </section>
 
     <script>
-        // Smooth Scroll
         function go(id) {
             document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Cambio de Roles elegante
-        const roles = ["Game Producer", "Game Designer", "Creative Director"];
+        const roles = ["Game Producer", "Game Designer", "Product Owner", "Tech Lead"];
         let currentRoleIdx = 0;
         const roleElement = document.getElementById("role-text");
 
@@ -347,26 +363,20 @@
             }, 500);
         }, 3000);
 
-        // Efecto Parallax en el Grid con el ratón
         document.addEventListener('mousemove', (e) => {
             const grid = document.getElementById('grid');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            grid.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            grid.style.transform = `translate(${x}px, ${y}px)`;
         });
 
-        // Revelar secciones al hacer scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('reveal');
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
