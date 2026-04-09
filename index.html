@@ -7,12 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #f5e3d3;
-            --accent: #67a2cb;
-            --bg: #0a1118;
-            --border: #366c9c;
-            --text-dim: rgba(245, 227, 211, 0.6);
-            --highlight-gray: #eccabe;
+            /* Colores invertidos */
+            --bg: #E1C5B6; /* Fondo Crema */
+            --primary: #2D1E17; /* Texto Marrón Café */
+            /* Nuevos acentos */
+            --nav-navy: #001f3f; /* Azul Navy profundo */
+            --accent-blue: #85C2FF; /* Azul claro para contrastes */
+            --text-dim: #2D1E17;
+            --highlight-role: #6E44FF;
+            --color-apellido: #6E44FF;
         }
 
         * {
@@ -28,19 +31,9 @@
             overflow-x: hidden;
         }
 
-        .grid-bg {
-            position: fixed;
-            inset: -5%;
-            width: 110%;
-            height: 110%;
-            background-image: linear-gradient(rgba(54, 108, 156, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(54, 108, 156, 0.15) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: -1;
-        }
+        /* Se ha eliminado .grid-bg para que el fondo sea liso */
 
-        /* NAVBAR AMPLIADA */
+        /* NAVBAR NAVY */
         .hero-nav {
             position: fixed;
             top: 0;
@@ -48,29 +41,30 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 6vw;
-            background: rgba(10, 17, 24, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(54, 108, 156, 0.2);
+            padding: 20px 6vw;
+            background: var(--nav-navy);
+            border-bottom: 2px solid var(--accent-blue);
             z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .nav-item {
             text-decoration: none;
-            color: var(--text-dim);
+            color: #ffffff; /* Texto blanco para resaltar sobre el navy */
+            font-weight: 600;
             font-size: 0.9rem;
             letter-spacing: 2px;
             transition: 0.3s;
         }
 
             .nav-item:hover {
-                color: var(--accent);
+                color: var(--accent-blue);
             }
 
         .nav-cv-button {
-            padding: 12px 28px;
-            background: var(--accent);
-            color: #fff;
+            padding: 10px 24px;
+            background: #ffffff;
+            color: var(--nav-navy);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.85rem;
@@ -80,41 +74,49 @@
         }
 
             .nav-cv-button:hover {
-                background: var(--primary);
-                color: var(--bg);
+                background: var(--accent-blue);
+                color: var(--nav-navy);
             }
 
-        /* LAYOUT 2/3 (Izquierda) y 1/3 (Derecha) */
+        /* LAYOUT */
         .main-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
             min-height: 100vh;
-            padding: 180px 6vw 80px;
+            padding: 160px 6vw 80px;
             gap: 40px;
-            align-items: start; /* Alineación superior para que ambos bloques suban */
+            align-items: start;
             max-width: 1800px;
             margin: 0 auto;
         }
 
-        /* COLUMNA IZQUIERDA: Perfil centrado consigo mismo */
+        /* COLUMNA IZQUIERDA */
         .hero {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             margin: 0 auto;
-            max-width: 600px;
-            margin-top: 0; /* Subido al máximo permitido por el padding del layout */
+            max-width: 800px;
+        }
+
+        .pre-title {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--nav-navy); /* Usamos el navy para el subtítulo */
+            margin-bottom: 20px;
+            font-weight: 600;
         }
 
         .img-container {
-            width: 260px; /* Tamaño optimizado */
-            height: 260px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid var(--accent);
+            border: 4px solid var(--nav-navy);
             margin-bottom: 30px;
-            box-shadow: 0 0 50px rgba(103, 162, 203, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
             .img-container img {
@@ -124,42 +126,63 @@
             }
 
         .hero h1 {
-            font-size: clamp(3rem, 5.5vw, 5rem);
-            line-height: 0.95;
-            letter-spacing: -3px;
-            margin-bottom: 15px;
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
             text-transform: uppercase;
+            white-space: nowrap;
+            color: var(--primary);
         }
 
         .highlight {
-            color: var(--accent);
+            color: var(--color-apellido); /* El apellido ahora resalta en Navy */
+        }
+
+        .role-sentence {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .and-i-am {
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            font-style: italic;
+            white-space: nowrap;
         }
 
         .roles {
             font-size: 1.8rem;
-            color: var(--highlight-gray);
-            height: 1.6em;
+            color: var(--highlight-role);
+            font-weight: 600;
+            height: 1.2em;
             position: relative;
             overflow: hidden;
-            width: 100%;
-            font-weight: 300;
+            display: inline-block;
+            text-align: left;
+            min-width: 280px;
         }
 
         .role-text {
             position: absolute;
             left: 0;
-            right: 0;
-            transition: 0.5s ease;
+            width: 100%;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .desc {
             color: var(--text-dim);
             line-height: 1.7;
-            margin-top: 25px;
-            font-size: 1.15rem;
+            margin-top: 35px;
+            font-size: 1.1rem;
+            max-width: 550px;
         }
 
-        /* COLUMNA DERECHA: Artículos */
+        /* COLUMNA DERECHA */
         .featured-sidebar {
             display: flex;
             flex-direction: column;
@@ -169,16 +192,17 @@
         .card {
             text-decoration: none;
             color: inherit;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(54, 108, 156, 0.15);
+            background: rgba(0, 0, 0, 0.03); /* Sutil contraste sobre crema */
+            border: 1px solid rgba(0, 31, 63, 0.1);
             transition: 0.4s;
             overflow: hidden;
+            border-radius: 12px;
         }
 
             .card:hover {
-                border-color: var(--accent);
-                background: rgba(103, 162, 203, 0.05);
+                border-color: var(--nav-navy);
                 transform: translateY(-5px);
+                background: rgba(255, 255, 255, 0.5);
             }
 
         .card-img-wrapper {
@@ -191,43 +215,44 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.9;
         }
 
         .card-content {
             padding: 20px;
-            text-align: left;
         }
 
             .card-content h4 {
-                color: var(--accent);
+                color: var(--nav-navy);
                 font-size: 1.1rem;
                 margin-bottom: 8px;
-                line-height: 1.3;
             }
 
             .card-content p {
                 color: var(--text-dim);
                 font-size: 0.9rem;
-                line-height: 1.4;
             }
 
-        /* RESPONSIVE */
         @media (max-width: 1100px) {
             .main-layout {
                 grid-template-columns: 1fr;
-                padding-top: 140px;
             }
 
-            .hero {
-                max-width: 100%;
+            .hero h1 {
+                white-space: normal;
+            }
+
+            .role-sentence {
+                flex-wrap: wrap;
+            }
+
+            .roles {
+                text-align: center;
+                min-width: 100%;
             }
         }
     </style>
 </head>
 <body>
-
-    <div class="grid-bg" id="grid"></div>
 
     <nav class="hero-nav">
         <div class="nav-left">
@@ -240,18 +265,18 @@
     </nav>
 
     <main id="top" class="main-layout">
-
         <section class="hero">
+            <p class="pre-title">I am</p>
             <div class="img-container">
-                <img src="images/HeroImage.jpeg" alt="Juan Calero" onerror="this.src='https://via.placeholder.com/300x300/0a1118/a6d4f2?text=JC'">
+                <img src="images/HeroImage.jpeg" alt="Juan Calero" onerror="this.src='https://via.placeholder.com/300x300/f7cac9/1a0f0a?text=JC'">
             </div>
-
-            <h1>JUAN A.<br><span class="highlight">CALERO</span></h1>
-
-            <div class="roles">
-                <span id="role-text" class="role-text">Game Producer</span>
+            <h1>JUAN A. <span class="highlight">CALERO</span></h1>
+            <div class="role-sentence">
+                <span class="and-i-am">and I am a</span>
+                <div class="roles">
+                    <span id="role-text" class="role-text">Game Producer</span>
+                </div>
             </div>
-
             <p class="desc">
                 Con experiencia en la creación de mecánicas, construcción de mundos y desarrollo de proyectos desde cero. Busco impactar a través del juego y la narrativa emergente.
             </p>
@@ -264,49 +289,39 @@
                 </div>
                 <div class="card-content">
                     <h4>"Her Story" as an example of Nonlinear Storytelling.</h4>
-                    <p>¿Sabías que los videojuegos pueden contar historias de forma que no necesitan un final definitivo?</p>
+                    <p>Análisis técnico sobre cómo narrar sin seguir un orden cronológico.</p>
                 </div>
             </a>
-
             <a href="#" class="card">
                 <div class="card-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800" alt="Workflows">
                 </div>
                 <div class="card-content">
                     <h4>Pipeline Optimization in Indie Dev</h4>
-                    <p>Estructurando el flujo de trabajo entre arte y código para evitar cuellos de botella en la producción.</p>
+                    <p>Estructurando el flujo de trabajo entre arte y código con máxima eficiencia.</p>
                 </div>
             </a>
         </aside>
     </main>
 
     <script>
-        // Lógica de intercambio de roles
         const roles = ["Game Producer", "Game Designer", "2D Artist"];
         let currentRoleIdx = 0;
         const roleElement = document.getElementById("role-text");
 
         setInterval(() => {
             roleElement.style.opacity = 0;
-            roleElement.style.transform = "translateY(-10px)";
+            roleElement.style.transform = "translateY(-15px)";
             setTimeout(() => {
                 currentRoleIdx = (currentRoleIdx + 1) % roles.length;
                 roleElement.textContent = roles[currentRoleIdx];
-                roleElement.style.transform = "translateY(10px)";
+                roleElement.style.transform = "translateY(15px)";
                 setTimeout(() => {
                     roleElement.style.opacity = 1;
                     roleElement.style.transform = "translateY(0)";
                 }, 50);
             }, 500);
         }, 3000);
-
-        // Efecto parallax suave en el fondo de rejilla
-        document.addEventListener('mousemove', (e) => {
-            const grid = document.getElementById('grid');
-            const x = (e.clientX / window.innerWidth - 0.5) * 15;
-            const y = (e.clientY / window.innerHeight - 0.5) * 15;
-            grid.style.transform = `translate(${x}px, ${y}px)`;
-        });
     </script>
 </body>
 </html>
