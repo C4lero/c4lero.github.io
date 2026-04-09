@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Her Story Analysis | Juan A. Calero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #fff;
+            --accent: #3498db;
+            --bg: #050505;
+            --border: #222;
+            --text-dim: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: -5%;
+            width: 110%;
+            height: 110%;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+            transition: transform 0.2s ease-out;
+        }
+
+        .hero-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 6vw;
+            background: rgba(5,5,5,0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            padding: 8px 15px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: 0.3s;
+        }
+
+            .nav-item:hover {
+                color: var(--primary);
+            }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 160px 6vw 100px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 40px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .meta {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .featured-img {
+            width: 100%;
+            border: 1px solid var(--border);
+            margin-bottom: 60px;
+        }
+
+        .text-block h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--primary);
+        }
+
+        .text-block p {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-left {
+                display: none;
+            }
+
+            .article-content {
+                padding-top: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg" id="grid"></div>
+
+    <nav class="hero-nav">
+        <div class="nav-left">
+            <a class="nav-item" href="index.html#top">Home</a>
+            <a class="nav-item" href="index.html#projects">Projects</a>
+            <a class="nav-item" href="index.html#contact">About</a>
+        </div>
+        <div class="nav-right">
+            <a href="index.html" class="nav-item" style="border: 1px solid var(--border)">CLOSE ARTICLE</a>
+        </div>
+    </nav>
+
+    <main class="article-content">
+        <a href="index.html" class="back-btn">← Volver al Portfolio</a>
+
+        <header>
+            <p class="meta">Game Design Analysis • 2024</p>
+            <h1>"Her Story" and the Power of Non-linear Narrative</h1>
+        </header>
+
+        <img src="images/HerStory02.jpg" class="featured-img" alt="Her Story">
+
+        <div class="text-block">
+            <p>
+                En el diseño de juegos, a menudo nos obsesionamos con el flujo lineal: nivel 1, nivel 2, jefe final. Sin embargo, Sam Barlow en "Her Story" decidió que el orden de los factores no altera el producto, sino que lo enriquece.
+            </p>
+
+            <h2>La Mecánica de la Curiosidad</h2>
+            <p>
+                La base del juego es una base de datos fragmentada. No hay una "puerta cerrada" física, sino una barrera de conocimiento. El jugador avanza solo cuando es capaz de formular las preguntas correctas en el buscador.
+            </p>
+
+            <h2>Conclusión</h2>
+            <p>
+                Este proyecto me enseñó que la agencia del jugador no solo reside en apretar botones rápidamente, sino en su capacidad para reconstruir la verdad. Como diseñadores, a veces el mejor mapa es el que el jugador dibuja en su cabeza.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const grid = document.getElementById('grid');
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+            grid.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    </script>
+</body>
+</html>

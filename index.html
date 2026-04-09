@@ -5,24 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juan A. Calero | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <style>
         :root {
-            --primary: #fff;
-            --accent: #3498db;
-            --bg: #050505;
-            --border: #222;
-            --text-dim: rgba(255, 255, 255, 0.6);
+            --primary: #f5e3d3;
+            --accent: #67a2cb;
+            --bg: #0a1118;
+            --border: #366c9c;
+            --text-dim: rgba(245, 227, 211, 0.6);
+            --highlight-gray: #eccabe;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
@@ -32,18 +28,19 @@
             overflow-x: hidden;
         }
 
-        /* GRID BACKGROUND */
         .grid-bg {
             position: fixed;
-            inset: 0;
-            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            inset: -5%;
+            width: 110%;
+            height: 110%;
+            background-image: linear-gradient(rgba(54, 108, 156, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(54, 108, 156, 0.15) 1px, transparent 1px);
             background-size: 50px 50px;
-            opacity: 0.15;
+            opacity: 0.3;
             pointer-events: none;
             z-index: -1;
         }
 
-        /* NAVBAR */
+        /* NAVBAR AMPLIADA */
         .hero-nav {
             position: fixed;
             top: 0;
@@ -51,228 +48,179 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 6vw;
-            background: rgba(5,5,5,0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
+            padding: 30px 6vw;
+            background: rgba(10, 17, 24, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(54, 108, 156, 0.2);
             z-index: 1000;
         }
 
-        .nav-left {
-            display: flex;
-            gap: 20px;
-        }
-
         .nav-item {
-            padding: 8px 15px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-dim);
             text-decoration: none;
-            border: 1px solid transparent;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
         }
 
             .nav-item:hover {
-                color: var(--primary);
-                border-color: var(--border);
-                background: rgba(255,255,255,0.05);
+                color: var(--accent);
             }
 
-        .nav-cv {
-            padding: 10px 24px;
-            background: var(--primary);
-            color: #000;
+        .nav-cv-button {
+            padding: 12px 28px;
+            background: var(--accent);
+            color: #fff;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            border-radius: 50px;
             transition: 0.3s;
+            text-transform: uppercase;
         }
 
-            .nav-cv:hover {
-                background: var(--accent);
-                color: #fff;
+            .nav-cv-button:hover {
+                background: var(--primary);
+                color: var(--bg);
             }
 
-        /* HERO SECTION */
-        .hero {
+        /* LAYOUT 2/3 (Izquierda) y 1/3 (Derecha) */
+        .main-layout {
             display: grid;
-            grid-template-columns: 1.3fr 0.8fr 1fr;
-            gap: 60px;
-            padding: 200px 6vw 100px;
+            grid-template-columns: 2fr 1fr;
             min-height: 100vh;
-            align-items: start;
+            padding: 180px 6vw 80px;
+            gap: 40px;
+            align-items: start; /* Alineación superior para que ambos bloques suban */
+            max-width: 1800px;
+            margin: 0 auto;
         }
 
-        .hero-left h1 {
-            font-size: clamp(3.5rem, 8vw, 6.5rem);
-            line-height: 0.85;
+        /* COLUMNA IZQUIERDA: Perfil centrado consigo mismo */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 600px;
+            margin-top: 0; /* Subido al máximo permitido por el padding del layout */
+        }
+
+        .img-container {
+            width: 260px; /* Tamaño optimizado */
+            height: 260px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--accent);
+            margin-bottom: 30px;
+            box-shadow: 0 0 50px rgba(103, 162, 203, 0.25);
+        }
+
+            .img-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .hero h1 {
+            font-size: clamp(3rem, 5.5vw, 5rem);
+            line-height: 0.95;
             letter-spacing: -3px;
-            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
         .highlight {
-            color: #333;
+            color: var(--accent);
         }
 
         .roles {
-            margin-top: 35px;
-            font-size: 1.4rem;
-            color: var(--accent);
-            font-weight: 300;
+            font-size: 1.8rem;
+            color: var(--highlight-gray);
+            height: 1.6em;
             position: relative;
-            height: 1.5em;
+            overflow: hidden;
+            width: 100%;
+            font-weight: 300;
         }
 
         .role-text {
             position: absolute;
-            transition: all 0.5s ease;
+            left: 0;
+            right: 0;
+            transition: 0.5s ease;
         }
 
         .desc {
-            margin-top: 120px;
-            max-width: 420px;
-            line-height: 1.7;
             color: var(--text-dim);
-            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-top: 25px;
+            font-size: 1.15rem;
         }
 
-        /* IMAGEN CENTRAL */
-        .hero-image {
+        /* COLUMNA DERECHA: Artículos */
+        .featured-sidebar {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            gap: 30px;
         }
-
-        .img-container {
-            width: 100%;
-            max-width: 380px;
-            filter: grayscale(100%);
-            transition: 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-            border: 1px solid var(--border);
-            padding: 10px;
-            background: rgba(255,255,255,0.02);
-        }
-
-            .img-container:hover {
-                filter: grayscale(0%);
-                transform: translateY(-10px);
-                border-color: #444;
-            }
-
-            .img-container img {
-                width: 100%;
-                display: block;
-            }
-
-        /* CARDS LATERALES */
-        .hero-right {
-            border-left: 1px solid var(--border);
-            padding-left: 40px;
-        }
-
-            .hero-right h3 {
-                font-size: 0.75rem;
-                text-transform: uppercase;
-                letter-spacing: 3px;
-                margin-bottom: 50px;
-                color: #555;
-            }
 
         .card {
-            margin-bottom: 45px;
             text-decoration: none;
             color: inherit;
-            display: block;
-            group: hover;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(54, 108, 156, 0.15);
+            transition: 0.4s;
+            overflow: hidden;
         }
 
+            .card:hover {
+                border-color: var(--accent);
+                background: rgba(103, 162, 203, 0.05);
+                transform: translateY(-5px);
+            }
+
         .card-img-wrapper {
+            width: 100%;
+            aspect-ratio: 16 / 9;
             overflow: hidden;
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-            aspect-ratio: 16/9;
         }
 
         .card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.8s transform cubic-bezier(0.19, 1, 0.22, 1);
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
-        .card:hover img {
-            transform: scale(1.05);
-            opacity: 1;
+        .card-content {
+            padding: 20px;
+            text-align: left;
         }
 
-        .card h4 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .card p {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            line-height: 1.5;
-        }
-
-        /* SECCIONES POSTERIORES */
-        section {
-            padding: 140px 6vw;
-            border-top: 1px solid var(--border);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: 1.2s all ease;
-        }
-
-            section.reveal {
-                opacity: 1;
-                transform: translateY(0);
+            .card-content h4 {
+                color: var(--accent);
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+                line-height: 1.3;
             }
 
-        h2 {
-            font-size: 3rem;
-            margin-bottom: 40px;
-            letter-spacing: -1px;
-        }
+            .card-content p {
+                color: var(--text-dim);
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
 
-        /* MOBILE FIX */
+        /* RESPONSIVE */
         @media (max-width: 1100px) {
-            .hero {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .hero-right {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
+            .main-layout {
                 grid-template-columns: 1fr;
-                text-align: center;
                 padding-top: 140px;
             }
 
-            .hero-left h1 {
-                font-size: 3.5rem;
-            }
-
-            .desc {
-                margin: 60px auto;
-            }
-
-            .img-container {
-                margin: 0 auto;
-            }
-
-            .nav-left {
-                display: none;
+            .hero {
+                max-width: 100%;
             }
         }
     </style>
@@ -283,100 +231,82 @@
 
     <nav class="hero-nav">
         <div class="nav-left">
-            <a class="nav-item" onclick="go('#top')">Portfolio</a>
-            <a class="nav-item" onclick="go('#projects')">Proyectos</a>
-            <a class="nav-item" onclick="go('#contact')">Sobre mí</a>
+            <a class="nav-item" href="#top" style="margin-right: 30px;">INICIO</a>
+            <a class="nav-item" href="#projects">PROYECTOS</a>
         </div>
         <div class="nav-right">
-            <a href="#" class="nav-cv">DESCARGAR CV</a>
+            <a href="#" class="nav-cv-button">Download CV</a>
         </div>
     </nav>
 
-    <main id="top" class="hero">
-        <div class="hero-left">
+    <main id="top" class="main-layout">
+
+        <section class="hero">
+            <div class="img-container">
+                <img src="images/HeroImage.jpeg" alt="Juan Calero" onerror="this.src='https://via.placeholder.com/300x300/0a1118/a6d4f2?text=JC'">
+            </div>
+
             <h1>JUAN A.<br><span class="highlight">CALERO</span></h1>
+
             <div class="roles">
                 <span id="role-text" class="role-text">Game Producer</span>
             </div>
+
             <p class="desc">
-                Especializado en la gestión de ciclos de vida de desarrollo y diseño de mecánicas core. Mi enfoque une la eficiencia técnica de la producción con la visión creativa del Game Design.
+                Con experiencia en la creación de mecánicas, construcción de mundos y desarrollo de proyectos desde cero. Busco impactar a través del juego y la narrativa emergente.
             </p>
-        </div>
+        </section>
 
-        <div class="hero-image">
-            <div class="img-container">
-                <img src="HeroImage.jpeg" alt="Juan Calero">
-            </div>
-        </div>
-
-        <div class="hero-right">
-            <h3>Contenido Destacado</h3>
-
-            <a href="#" class="card">
+        <aside class="featured-sidebar">
+            <a href="her-story.html" class="card">
                 <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=600" alt="Sistemas">
+                    <img src="images/HerStory02.jpg" alt="Her Story">
                 </div>
-                <h4>Sistemas de Progresión</h4>
-                <p>Análisis técnico sobre la retención de usuarios a través de curvas de dificultad y recompensas.</p>
+                <div class="card-content">
+                    <h4>"Her Story" as an example of Nonlinear Storytelling.</h4>
+                    <p>¿Sabías que los videojuegos pueden contar historias de forma que no necesitan un final definitivo?</p>
+                </div>
             </a>
 
             <a href="#" class="card">
                 <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=600" alt="Pipeline">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800" alt="Workflows">
                 </div>
-                <h4>Optimización de Pipelines</h4>
-                <p>Cómo mejorar el flujo de trabajo entre artistas y programadores en entornos de producción rápida.</p>
+                <div class="card-content">
+                    <h4>Pipeline Optimization in Indie Dev</h4>
+                    <p>Estructurando el flujo de trabajo entre arte y código para evitar cuellos de botella en la producción.</p>
+                </div>
             </a>
-        </div>
+        </aside>
     </main>
 
-    <section id="projects">
-        <h2>Proyectos Seleccionados</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-            <p>Aquí puedes incluir una galería de tus juegos o contribuciones principales.</p>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Contacto</h2>
-        <p>¿Tienes un proyecto en mente? Hablemos sobre cómo puedo ayudar a tu equipo a alcanzar el siguiente nivel.</p>
-    </section>
-
     <script>
-        function go(id) {
-            document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        const roles = ["Game Producer", "Game Designer", "Product Owner", "Tech Lead"];
+        // Lógica de intercambio de roles
+        const roles = ["Game Producer", "Game Designer", "2D Artist"];
         let currentRoleIdx = 0;
         const roleElement = document.getElementById("role-text");
 
         setInterval(() => {
             roleElement.style.opacity = 0;
             roleElement.style.transform = "translateY(-10px)";
-
             setTimeout(() => {
                 currentRoleIdx = (currentRoleIdx + 1) % roles.length;
                 roleElement.textContent = roles[currentRoleIdx];
-                roleElement.style.opacity = 1;
-                roleElement.style.transform = "translateY(0)";
+                roleElement.style.transform = "translateY(10px)";
+                setTimeout(() => {
+                    roleElement.style.opacity = 1;
+                    roleElement.style.transform = "translateY(0)";
+                }, 50);
             }, 500);
         }, 3000);
 
+        // Efecto parallax suave en el fondo de rejilla
         document.addEventListener('mousemove', (e) => {
             const grid = document.getElementById('grid');
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            const x = (e.clientX / window.innerWidth - 0.5) * 15;
+            const y = (e.clientY / window.innerHeight - 0.5) * 15;
             grid.style.transform = `translate(${x}px, ${y}px)`;
         });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('reveal');
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('section').forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
