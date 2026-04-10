@@ -7,11 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #fff;
-            --accent: #3498db;
-            --bg: #050505;
-            --border: #222;
-            --text-dim: rgba(255, 255, 255, 0.6);
+            --bg: #f8f5f2;
+            --primary: #0a203e;
+            --nav-navy: #001f3f;
+            --nav-hover: #00152b;
+            --accent-blue: #bca679;
+            --text-dim: #b19e95;
+            --highlight-role: #6895f5;
+            --color-apellido: #c0a265;
+            --card-accent: rgba(0, 31, 63, 0.06);
         }
 
         * {
@@ -24,22 +28,9 @@
             background: var(--bg);
             color: var(--primary);
             font-family: 'Inter', sans-serif;
-            line-height: 1.8;
-            overflow-x: hidden;
         }
 
-        .grid-bg {
-            position: fixed;
-            inset: -5%;
-            width: 110%;
-            height: 110%;
-            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.1;
-            z-index: -1;
-            transition: transform 0.2s ease-out;
-        }
-
+        /* NAVBAR - CLONADA EXACTA */
         .hero-nav {
             position: fixed;
             top: 0;
@@ -47,135 +38,250 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 6vw;
-            background: rgba(5,5,5,0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
+            padding: 20px 6vw;
+            background: var(--nav-navy);
+            border-bottom: 2px solid var(--accent-blue);
             z-index: 1000;
         }
 
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-item {
-            padding: 8px 15px;
-            color: var(--text-dim);
             text-decoration: none;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
             transition: 0.3s;
         }
 
             .nav-item:hover {
-                color: var(--primary);
+                color: var(--accent-blue);
             }
 
-        .article-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 160px 6vw 100px;
-        }
-
-        .back-btn {
-            display: inline-block;
-            margin-bottom: 40px;
-            color: var(--accent);
+        .nav-cv-button {
+            padding: 10px 24px;
+            background: #ffffff;
+            color: var(--nav-navy);
             text-decoration: none;
             font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+            .nav-cv-button:hover {
+                background: var(--nav-hover);
+                color: var(--accent-blue);
+                border-color: var(--accent-blue);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+        /* LAYOUT DE ARTÍCULO - BASADO EN TU GRID */
+        .article-layout {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 110px 6vw 60px;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Mismo ratio que la principal */
+            gap: 50px;
+        }
+
+        /* COLUMNA IZQUIERDA: EL ARTÍCULO */
+        .article-main {
+            background: #ffffff;
+            border: 1px solid rgba(0, 31, 63, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+            .back-link:hover {
+                color: var(--nav-navy);
+                transform: translateX(-5px);
+            }
+
+        .meta-data {
             font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-size: clamp(1.8rem, 4vw, 3rem);
             line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-        }
-
-        .meta {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            margin-bottom: 50px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .featured-img {
-            width: 100%;
-            border: 1px solid var(--border);
-            margin-bottom: 60px;
-        }
-
-        .text-block h2 {
-            font-size: 1.8rem;
-            margin: 40px 0 20px;
-            color: var(--primary);
-        }
-
-        .text-block p {
-            font-size: 1.15rem;
-            color: var(--text-dim);
+            color: var(--nav-navy);
             margin-bottom: 30px;
         }
 
-        @media (max-width: 768px) {
-            .nav-left {
-                display: none;
+        .featured-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 31, 63, 0.1);
+        }
+
+        .content-body {
+            max-width: 800px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+            .content-body h2 {
+                margin: 40px 0 20px;
+                font-size: 1.4rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--color-apellido);
             }
 
-            .article-content {
-                padding-top: 120px;
+            .content-body p {
+                margin-bottom: 25px;
+            }
+
+        /* COLUMNA DERECHA (SIDEBAR) */
+        .article-sidebar {
+            padding-left: 40px;
+            border-left: 1px solid rgba(0, 31, 63, 0.1);
+        }
+
+        .sidebar-title {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--nav-navy);
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--accent-blue);
+            padding-bottom: 10px;
+        }
+
+        /* CARD ESTILO PORTFOLIO */
+        .sidebar-card {
+            text-decoration: none;
+            color: inherit;
+            background: #ffffff;
+            border: 1px solid rgba(0, 31, 63, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+            .sidebar-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--accent-blue);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            }
+
+        .sidebar-card-body {
+            padding: 15px;
+            background: rgba(0, 31, 63, 0.02);
+        }
+
+            .sidebar-card-body h4 {
+                font-size: 0.95rem;
+                color: var(--nav-navy);
+            }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .article-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .article-sidebar {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid rgba(0, 31, 63, 0.1);
+                padding-top: 40px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="grid-bg" id="grid"></div>
-
     <nav class="hero-nav">
         <div class="nav-left">
-            <a class="nav-item" href="index.html#top">Home</a>
-            <a class="nav-item" href="index.html#projects">Projects</a>
-            <a class="nav-item" href="index.html#contact">About</a>
+            <a class="nav-item" href="index.html" style="margin-right: 30px;">INICIO</a>
+            <a class="nav-item" href="index.html#projects">PROYECTOS</a>
         </div>
         <div class="nav-right">
-            <a href="index.html" class="nav-item" style="border: 1px solid var(--border)">CLOSE ARTICLE</a>
+            <a href="#" class="nav-cv-button">Download CV</a>
         </div>
     </nav>
 
-    <main class="article-content">
-        <a href="index.html" class="back-btn">← Volver al Portfolio</a>
+    <main class="article-layout">
 
-        <header>
-            <p class="meta">Game Design Analysis • 2024</p>
-            <h1>"Her Story" and the Power of Non-linear Narrative</h1>
-        </header>
+        <section class="article-main">
+            <a href="index.html" class="back-link">← Volver al Portfolio</a>
 
-        <img src="images/HerStory02.jpg" class="featured-img" alt="Her Story">
+            <header>
+                <p class="meta-data">Game Design Analysis • 2024</p>
+                <h1>"Her Story" and the Power of Non-linear Narrative</h1>
+            </header>
 
-        <div class="text-block">
-            <p>
-                En el diseño de juegos, a menudo nos obsesionamos con el flujo lineal: nivel 1, nivel 2, jefe final. Sin embargo, Sam Barlow en "Her Story" decidió que el orden de los factores no altera el producto, sino que lo enriquece.
-            </p>
+            <img src="images/HerStory02.jpg" class="featured-image" alt="Her Story Analysis">
 
-            <h2>La Mecánica de la Curiosidad</h2>
-            <p>
-                La base del juego es una base de datos fragmentada. No hay una "puerta cerrada" física, sino una barrera de conocimiento. El jugador avanza solo cuando es capaz de formular las preguntas correctas en el buscador.
-            </p>
+            <div class="content-body">
+                <p>
+                    En el diseño de juegos, a menudo nos obsesionamos con el flujo lineal: nivel 1, nivel 2, jefe final. Sin embargo, Sam Barlow en <strong>"Her Story"</strong> decidió que el orden de los factores no altera el producto, sino que lo enriquece.
+                </p>
 
-            <h2>Conclusión</h2>
-            <p>
-                Este proyecto me enseñó que la agencia del jugador no solo reside en apretar botones rápidamente, sino en su capacidad para reconstruir la verdad. Como diseñadores, a veces el mejor mapa es el que el jugador dibuja en su cabeza.
-            </p>
-        </div>
+                <h2>La Mecánica de la Curiosidad</h2>
+                <p>
+                    La base del juego es una base de datos fragmentada. No hay una "puerta cerrada" física, sino una barrera de conocimiento. El jugador avanza solo cuando es capaz de formular las preguntas correctas en el buscador.
+                </p>
+
+                <h2>Conclusión</h2>
+                <p>
+                    Este proyecto me enseñó que la agencia del jugador no solo reside en apretar botones rápidamente, sino en su capacidad para reconstruir la verdad. Como diseñadores, a veces el mejor mapa es el que el jugador dibuja en su propia cabeza.
+                </p>
+            </div>
+        </section>
+
+        <aside class="article-sidebar">
+            <h2 class="sidebar-title">Otros Artículos</h2>
+
+            <a href="#" class="sidebar-card">
+                <div class="sidebar-card-body">
+                    <h4>Narrativa Emergente</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Sistemas que crean historias.</p>
+                </div>
+            </a>
+
+            <a href="#" class="sidebar-card">
+                <div class="sidebar-card-body">
+                    <h4>Worldbuilding 101</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Construcción de mundos coherentes.</p>
+                </div>
+            </a>
+        </aside>
+
     </main>
 
-    <script>
-        document.addEventListener('mousemove', (e) => {
-            const grid = document.getElementById('grid');
-            const x = (e.clientX / window.innerWidth - 0.5) * 30;
-            const y = (e.clientY / window.innerHeight - 0.5) * 30;
-            grid.style.transform = `translate(${x}px, ${y}px)`;
-        });
-    </script>
 </body>
 </html>

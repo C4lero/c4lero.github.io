@@ -10,11 +10,12 @@
             --bg: #f8f5f2;
             --primary: #0a203e;
             --nav-navy: #001f3f;
+            --nav-hover: #00152b; /* Azul más oscuro para hover */
             --accent-blue: #bca679;
             --text-dim: #b19e95;
             --highlight-role: #6895f5;
             --color-apellido: #c0a265;
-            --card-accent: rgba(0, 31, 63, 0.03);
+            --card-accent: rgba(0, 31, 63, 0.06); /* Fondo de card un poco más oscuro */
         }
 
         * {
@@ -52,6 +53,10 @@
             transition: 0.3s;
         }
 
+            .nav-item:hover {
+                color: var(--accent-blue);
+            }
+
         .nav-cv-button {
             padding: 10px 24px;
             background: #ffffff;
@@ -61,7 +66,17 @@
             border-radius: 50px;
             text-transform: uppercase;
             font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
+
+            /* Hover del botón de la Navbar */
+            .nav-cv-button:hover {
+                background: var(--nav-hover);
+                color: var(--accent-blue);
+                border-color: var(--accent-blue);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
 
         /* LAYOUT PRINCIPAL */
         .main-layout {
@@ -74,6 +89,7 @@
             align-items: start;
         }
 
+        /* COLUMNA IZQUIERDA */
         .left-content {
             display: flex;
             flex-direction: column;
@@ -83,7 +99,7 @@
         /* FICHA DE PRESENTACIÓN */
         .hero-presentation {
             background: var(--card-accent);
-            border: 1px solid rgba(0, 31, 63, 0.1);
+            border: 1px solid rgba(0, 31, 63, 0.12);
             border-radius: 20px;
             padding: 40px;
             display: flex;
@@ -132,7 +148,6 @@
             color: var(--color-apellido);
         }
 
-        /* NUEVO SISTEMA DE ROLES */
         .role-sentence {
             font-size: 1.2rem;
             display: flex;
@@ -144,12 +159,11 @@
         }
 
         .role-tag {
-            transition: color 0.5s ease, text-shadow 0.5s ease;
+            transition: color 0.5s ease;
             font-style: normal;
             font-weight: 600;
         }
 
-            /* Clase activa para el highlight */
             .role-tag.active {
                 color: var(--highlight-role);
             }
@@ -161,7 +175,7 @@
             color: var(--primary);
         }
 
-        /* PROYECTOS */
+        /* SECCIÓN PROYECTOS */
         .projects-section h2 {
             margin-bottom: 25px;
             font-size: 0.9rem;
@@ -178,11 +192,13 @@
             gap: 25px;
         }
 
-        /* COLUMNA DERECHA */
+        /* COLUMNA DERECHA CON LÍNEA VERTICAL */
         .articles-sidebar {
             display: flex;
             flex-direction: column;
             gap: 25px;
+            padding-left: 40px;
+            border-left: 1px solid rgba(0, 31, 63, 0.1); /* Línea vertical separadora */
         }
 
             .articles-sidebar h2 {
@@ -193,21 +209,24 @@
                 margin-bottom: 10px;
             }
 
+        /* CARDS DE PROYECTOS Y ARTÍCULOS */
         .card {
             text-decoration: none;
             color: inherit;
             background: #ffffff;
-            border: 1px solid rgba(0, 31, 63, 0.1);
+            border: 1px solid rgba(0, 31, 63, 0.08);
             border-radius: 12px;
             overflow: hidden;
-            transition: 0.4s;
+            transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
+            /* Hover de las cards */
             .card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                transform: translateY(-8px);
+                box-shadow: 0 12px 25px rgba(0,0,0,0.08);
                 border-color: var(--accent-blue);
             }
 
@@ -218,34 +237,42 @@
         }
 
         .card-body {
-            padding: 15px;
+            padding: 18px;
+            background: rgba(0, 31, 63, 0.02);
         }
-
+            /* Fondo ligeramente acentuado en el cuerpo */
             .card-body h4 {
                 color: var(--nav-navy);
                 font-size: 1rem;
                 margin-bottom: 5px;
+                transition: 0.3s;
             }
 
-            .card-body p {
-                color: var(--text-dim);
-                font-size: 0.85rem;
-            }
+        .card:hover .card-body h4 {
+            color: var(--color-apellido);
+        }
+        /* Highlight al título en hover */
+        .card-body p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
 
+        /* RESPONSIVE */
         @media (max-width: 1100px) {
             .main-layout {
                 grid-template-columns: 1fr;
-                padding-top: 100px;
+            }
+
+            .articles-sidebar {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid rgba(0, 31, 63, 0.1);
+                padding-top: 40px;
             }
 
             .hero-presentation {
                 flex-direction: column;
                 text-align: center;
-                padding: 30px;
-            }
-
-            .hero-text-content {
-                align-items: center;
             }
 
             .role-sentence {
@@ -306,20 +333,20 @@
             <section class="projects-section">
                 <h2>Proyectos Destacados</h2>
                 <div class="projects-grid">
-                    <div class="card">
+                    <a href="#" class="card">
                         <div style="background: #e2e2e2; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">Img Proyecto 1</div>
                         <div class="card-body">
                             <h4>Pipeline Optimization</h4>
                             <p>Flujo de trabajo eficiente entre arte y código.</p>
                         </div>
-                    </div>
-                    <div class="card">
+                    </a>
+                    <a href="#" class="card">
                         <div style="background: #e2e2e2; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">Img Proyecto 2</div>
                         <div class="card-body">
                             <h4>Level Design: Urban Maps</h4>
                             <p>Creación de entornos para juegos de acción.</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </section>
         </div>
@@ -348,15 +375,10 @@
         const totalRoles = 3;
 
         setInterval(() => {
-            // Quitar clase activa al actual
             document.getElementById(`role-${currentRoleIdx}`).classList.remove('active');
-
-            // Pasar al siguiente
             currentRoleIdx = (currentRoleIdx + 1) % totalRoles;
-
-            // Poner clase activa al nuevo
             document.getElementById(`role-${currentRoleIdx}`).classList.add('active');
-        }, 2000); // Cambia cada 2 segundos
+        }, 2000);
     </script>
 </body>
 </html>
