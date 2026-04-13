@@ -10,12 +10,10 @@
             --bg: #f8f5f2;
             --primary: #0a203e;
             --nav-navy: #001f3f;
-            --nav-hover: #00152b; /* Azul más oscuro para hover */
             --accent-blue: #bca679;
             --text-dim: #b19e95;
             --highlight-role: #6895f5;
             --color-apellido: #c0a265;
-            --card-accent: rgba(0, 31, 63, 0.06); /* Fondo de card un poco más oscuro */
         }
 
         * {
@@ -28,6 +26,7 @@
             background: var(--bg);
             color: var(--primary);
             font-family: 'Inter', sans-serif;
+            line-height: 1.6;
         }
 
         /* NAVBAR */
@@ -38,7 +37,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 6vw;
+            padding: 15px 6vw;
             background: var(--nav-navy);
             border-bottom: 2px solid var(--accent-blue);
             z-index: 1000;
@@ -48,73 +47,49 @@
             text-decoration: none;
             color: #ffffff;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 2px;
-            transition: 0.3s;
         }
 
-            .nav-item:hover {
-                color: var(--accent-blue);
-            }
-
         .nav-cv-button {
-            padding: 10px 24px;
+            padding: 8px 20px;
             background: #ffffff;
             color: var(--nav-navy);
             text-decoration: none;
             font-weight: 600;
             border-radius: 50px;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            font-size: 0.75rem;
         }
-
-            /* Hover del botón de la Navbar */
-            .nav-cv-button:hover {
-                background: var(--nav-hover);
-                color: var(--accent-blue);
-                border-color: var(--accent-blue);
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            }
 
         /* LAYOUT PRINCIPAL */
         .main-layout {
             max-width: 1600px;
             margin: 0 auto;
-            padding: 110px 6vw 60px;
+            padding: 110px 6vw 40px;
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 50px;
-            align-items: start;
-        }
-
-        /* COLUMNA IZQUIERDA */
-        .left-content {
-            display: flex;
-            flex-direction: column;
+            grid-template-columns: 2.2fr 1fr;
             gap: 40px;
         }
 
-        /* FICHA DE PRESENTACIÓN */
+        /* HERO SECCIÓN */
         .hero-presentation {
-            background: var(--card-accent);
-            border: 1px solid rgba(0, 31, 63, 0.12);
+            background: rgba(0, 31, 63, 0.04);
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
         .img-container {
             flex-shrink: 0;
-            width: 260px;
-            height: 260px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             overflow: hidden;
-            border: 5px solid var(--nav-navy);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 3px solid var(--nav-navy);
         }
 
             .img-container img {
@@ -124,150 +99,152 @@
             }
 
         .hero-text-content {
-            display: flex;
-            flex-direction: column;
+            flex-grow: 1;
         }
 
-        .pre-title {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            color: var(--nav-navy);
-            font-weight: 600;
-            letter-spacing: 3px;
-            margin-bottom: 8px;
-        }
-
-        .hero-text-content h1 {
-            font-size: clamp(1.8rem, 4vw, 3.2rem);
-            line-height: 1;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        .highlight {
-            color: var(--color-apellido);
-        }
-
-        .role-sentence {
-            font-size: 1.2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 15px;
-            color: var(--text-dim);
-            font-style: italic;
-        }
-
-        .role-tag {
-            transition: color 0.5s ease;
-            font-style: normal;
-            font-weight: 600;
-        }
-
-            .role-tag.active {
-                color: var(--highlight-role);
+            .hero-text-content h1 {
+                font-size: 2.2rem;
+                text-transform: uppercase;
+                line-height: 1.2;
             }
 
-        .desc-main {
-            max-width: 550px;
-            font-size: 1.1rem;
-            line-height: 1.7;
+        .desc-personal {
+            max-width: 500px;
+            margin-top: 10px;
+            font-size: 0.95rem;
             color: var(--primary);
         }
 
-        /* SECCIÓN PROYECTOS */
-        .projects-section h2 {
-            margin-bottom: 25px;
-            font-size: 0.9rem;
+        .role-tag.active {
+            color: var(--highlight-role);
+            font-weight: 600;
+        }
+
+        /* CARRUSEL DE PROYECTOS */
+        .projects-section h2, .articles-sidebar h2 {
+            font-size: 0.8rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--nav-navy);
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--accent-blue);
+            padding-bottom: 8px;
+        }
+
+        .projects-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            scroll-snap-type: x mandatory;
             padding-bottom: 10px;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
         }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+            .projects-container::-webkit-scrollbar {
+                display: none;
+            }
+
+        .project-card-full {
+            position: relative;
+            min-width: 100%;
+            aspect-ratio: 16/7;
+            border-radius: 15px;
+            overflow: hidden;
+            scroll-snap-align: start;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        /* COLUMNA DERECHA CON LÍNEA VERTICAL */
+        .project-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card-full:hover .project-bg {
+            transform: scale(1.05);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,20,40,0.95) 0%, rgba(0,20,40,0.4) 60%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 8%;
+            color: white;
+        }
+
+        .project-content {
+            max-width: 55%;
+        }
+
+        .project-category {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+        }
+
+        .project-content h3 {
+            font-size: 2rem;
+            margin: 5px 0 10px;
+            text-transform: uppercase;
+        }
+
+        .project-content p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* SIDEBAR ARTÍCULOS */
         .articles-sidebar {
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            padding-left: 40px;
-            border-left: 1px solid rgba(0, 31, 63, 0.1); /* Línea vertical separadora */
+            gap: 20px;
         }
 
-            .articles-sidebar h2 {
-                font-size: 0.9rem;
-                letter-spacing: 3px;
-                text-transform: uppercase;
-                color: var(--nav-navy);
-                margin-bottom: 10px;
-            }
-
-        /* CARDS DE PROYECTOS Y ARTÍCULOS */
-        .card {
+        .article-card {
             text-decoration: none;
             color: inherit;
-            background: #ffffff;
-            border: 1px solid rgba(0, 31, 63, 0.08);
+            background: #fff;
             border-radius: 12px;
             overflow: hidden;
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: 0.3s;
         }
 
-            /* Hover de las cards */
-            .card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 12px 25px rgba(0,0,0,0.08);
-                border-color: var(--accent-blue);
+            .article-card:hover {
+                transform: translateY(-3px);
             }
 
-        .card-img {
+        .article-img {
             width: 100%;
             aspect-ratio: 16/9;
+            background: #ddd;
             object-fit: cover;
         }
 
-        .card-body {
-            padding: 18px;
-            background: rgba(0, 31, 63, 0.02);
+        .article-body {
+            padding: 15px;
         }
-            /* Fondo ligeramente acentuado en el cuerpo */
-            .card-body h4 {
+
+            .article-body h4 {
+                font-size: 0.95rem;
                 color: var(--nav-navy);
-                font-size: 1rem;
                 margin-bottom: 5px;
-                transition: 0.3s;
             }
 
-        .card:hover .card-body h4 {
-            color: var(--color-apellido);
-        }
-        /* Highlight al título en hover */
-        .card-body p {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 1100px) {
+        @media (max-width: 900px) {
             .main-layout {
                 grid-template-columns: 1fr;
-            }
-
-            .articles-sidebar {
-                border-left: none;
-                padding-left: 0;
-                border-top: 1px solid rgba(0, 31, 63, 0.1);
-                padding-top: 40px;
             }
 
             .hero-presentation {
@@ -275,19 +252,18 @@
                 text-align: center;
             }
 
-            .role-sentence {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .project-card-full {
+                aspect-ratio: 4/3;
             }
 
-            .img-container {
-                width: 200px;
-                height: 200px;
+            .project-overlay {
+                background: linear-gradient(to top, rgba(0,20,40,0.95) 30%, transparent 100%);
+                justify-content: flex-end;
+                padding-bottom: 30px;
+            }
+
+            .project-content {
+                max-width: 100%;
             }
         }
     </style>
@@ -296,89 +272,126 @@
 
     <nav class="hero-nav">
         <div class="nav-left">
-            <a class="nav-item" href="#top" style="margin-right: 30px;">INICIO</a>
-            <a class="nav-item" href="#projects">PROYECTOS</a>
+            <a class="nav-item" href="#">INICIO</a>
+            <a class="nav-item" href="#projects" style="margin-left:20px;">PROYECTOS</a>
         </div>
-        <div class="nav-right">
-            <a href="CVJuanAntonioCalero.pdf" download="CVJuanAntonioCalero.pdf" class="nav-cv-button">Download CV</a>
-        </div>
+        <a href="#" class="nav-cv-button">Download CV</a>
     </nav>
 
     <main class="main-layout">
         <div class="left-content">
             <section class="hero-presentation">
                 <div class="img-container">
-                    <img src="images/HeroImage.jpeg" alt="Juan Calero" onerror="this.src='https://via.placeholder.com/300x300/f7cac9/1a0f0a?text=JC'">
+                    <img src="images/HeroImage.jpeg" alt="Juan Calero" onerror="this.src='https://via.placeholder.com/140'">
                 </div>
-
                 <div class="hero-text-content">
-                    <p class="pre-title">I AM</p>
-                    <h1>JUAN A. <span class="highlight">CALERO</span></h1>
-
-                    <div class="role-sentence">
-                        <span>and I am a</span>
-                        <span class="role-tag active" id="role-0">Game Producer</span>
-                        <span>|</span>
-                        <span class="role-tag" id="role-1">Game Designer</span>
-                        <span>|</span>
+                    <p style="font-size: 0.7rem; letter-spacing: 2px; font-weight: 600;">PORTFOLIO</p>
+                    <h1>JUAN A. <span style="color:var(--color-apellido)">CALERO</span></h1>
+                    <p style="color:var(--text-dim); font-style:italic; margin-bottom: 8px;">
+                        and I am a <span class="role-tag active" id="role-0">Game Producer</span> |
+                        <span class="role-tag" id="role-1">Game Designer</span> |
                         <span class="role-tag" id="role-2">2D Artist</span>
-                    </div>
-
-                    <p class="desc-main">
-                        Con experiencia en la creación de mecánicas, construcción de mundos y desarrollo de proyectos desde cero. Busco impactar a través del juego y la narrativa emergente.
+                    </p>
+                    <p class="desc-personal">
+                        Experto en mecánicas, worldbuilding y desarrollo de videojuegos desde cero.
+                        Busco crear un impacto significativo a través de experiencias interactivas y narrativa emergente.
                     </p>
                 </div>
             </section>
 
-            <section class="projects-section">
+            <section id="projects" class="projects-section">
                 <h2>Proyectos Destacados</h2>
-                <div class="projects-grid">
-                    <a href="#" class="card">
-                        <div style="background: #e2e2e2; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">Img Proyecto 1</div>
-                        <div class="card-body">
-                            <h4>Pipeline Optimization</h4>
-                            <p>Flujo de trabajo eficiente entre arte y código.</p>
+                <div class="projects-container" id="main-carousel">
+
+                    <div class="project-card-full">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1000" class="project-bg" alt="Pipeline">
+                        <div class="project-overlay">
+                            <div class="project-content">
+                                <span class="project-category">Producción & Liderazgo</span>
+                                <h3>Pipeline Optimization</h3>
+                                <p>Optimización de flujos de trabajo para equipos multidisciplinares, reduciendo tiempos de iteración en un 30%.</p>
+                            </div>
                         </div>
-                    </a>
-                    <a href="#" class="card">
-                        <div style="background: #e2e2e2; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">Img Proyecto 2</div>
-                        <div class="card-body">
-                            <h4>Level Design: Urban Maps</h4>
-                            <p>Creación de entornos para juegos de acción.</p>
+                    </div>
+
+                    <div class="project-card-full">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000" class="project-bg" alt="Level Design">
+                        <div class="project-overlay">
+                            <div class="project-content">
+                                <span class="project-category">Diseño de Niveles</span>
+                                <h3>Urban Combat Maps</h3>
+                                <p>Creación de mapas tácticos centrados en la verticalidad y la narrativa ambiental para shooters competitivos.</p>
+                            </div>
                         </div>
-                    </a>
+                    </div>
+
+                    <div class="project-card-full">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=1000" class="project-bg" alt="Narrative">
+                        <div class="project-overlay">
+                            <div class="project-content">
+                                <span class="project-category">Diseño Narrativo</span>
+                                <h3>Narrative Systems</h3>
+                                <p>Implementación de sistemas de diálogo ramificados y eventos sistémicos para mundos abiertos.</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </div>
 
         <aside class="articles-sidebar">
             <h2>Artículos y Notas</h2>
-            <a href="her-story.html" class="card">
-                <img src="images/HerStory02.jpg" alt="Her Story" class="card-img">
-                <div class="card-body">
-                    <h4>"Her Story" as Nonlinear Storytelling</h4>
-                    <p>Análisis técnico sobre cómo narrar sin seguir un orden cronológico.</p>
+            <a href="her-story.html" class="article-card">
+                <img src="images/HerStory02.jpg" class="article-img" onerror="this.src='https://via.placeholder.com/300x160'">
+                <div class="article-body">
+                    <h4>"Her Story" Nonlinear Storytelling</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Un desglose técnico sobre narrativa fragmentada.</p>
                 </div>
             </a>
-            <a href="#" class="card">
-                <div style="background: #eee; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #aaa;">Img Articulo</div>
-                <div class="card-body">
+            <a href="#" class="article-card">
+                <div class="article-img" style="display:flex; align-items:center; justify-content:center; color:#999;">Imagen Artículo</div>
+                <div class="article-body">
                     <h4>Narrativa Emergente</h4>
-                    <p>Cómo los sistemas crean historias sin guion previo.</p>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Sistemas que permiten historias únicas sin guion previo.</p>
                 </div>
             </a>
         </aside>
     </main>
 
     <script>
+        // 1. Cambio de roles dinámico
         let currentRoleIdx = 0;
         const totalRoles = 3;
+        setInterval(() => {
+            document.querySelectorAll('.role-tag').forEach(t => t.classList.remove('active'));
+            currentRoleIdx = (currentRoleIdx + 1) % totalRoles;
+            const tag = document.getElementById(`role-${currentRoleIdx}`);
+            if (tag) tag.classList.add('active');
+        }, 2500);
+
+        // 2. Lógica del Carrusel Automático
+        const carousel = document.getElementById('main-carousel');
+        let isMovingForward = true;
 
         setInterval(() => {
-            document.getElementById(`role-${currentRoleIdx}`).classList.remove('active');
-            currentRoleIdx = (currentRoleIdx + 1) % totalRoles;
-            document.getElementById(`role-${currentRoleIdx}`).classList.add('active');
-        }, 2000);
+            const cardWidth = carousel.offsetWidth;
+            const maxScroll = carousel.scrollWidth - cardWidth;
+
+            if (isMovingForward) {
+                if (carousel.scrollLeft >= maxScroll - 10) {
+                    isMovingForward = false;
+                } else {
+                    carousel.scrollLeft += cardWidth + 20; // +20 por el gap
+                }
+            } else {
+                if (carousel.scrollLeft <= 0) {
+                    isMovingForward = true;
+                } else {
+                    carousel.scrollLeft -= cardWidth + 20;
+                }
+            }
+        }, 3500);
     </script>
 </body>
 </html>
