@@ -10,6 +10,7 @@
             --bg: #f8f5f2;
             --primary: #0a203e;
             --nav-navy: #001f3f;
+            --nav-hover: #00152b;
             --accent-blue: #bca679;
             --text-dim: #b19e95;
             --highlight-role: #6895f5;
@@ -27,6 +28,7 @@
             color: var(--primary);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* NAVBAR */
@@ -37,36 +39,55 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 6vw;
+            padding: 20px 6vw;
             background: var(--nav-navy);
             border-bottom: 2px solid var(--accent-blue);
             z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
         }
 
         .nav-item {
             text-decoration: none;
             color: #ffffff;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             letter-spacing: 2px;
+            transition: 0.3s;
         }
 
+            .nav-item:hover {
+                color: var(--accent-blue);
+            }
+
         .nav-cv-button {
-            padding: 8px 20px;
+            padding: 10px 24px;
             background: #ffffff;
             color: var(--nav-navy);
             text-decoration: none;
             font-weight: 600;
             border-radius: 50px;
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
+
+            .nav-cv-button:hover {
+                background: var(--nav-hover);
+                color: var(--accent-blue);
+                border-color: var(--accent-blue);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
 
         /* LAYOUT PRINCIPAL */
         .main-layout {
             max-width: 1600px;
             margin: 0 auto;
-            padding: 110px 6vw 40px;
+            padding: 120px 6vw 40px;
             display: grid;
             grid-template-columns: 2.2fr 1fr;
             gap: 40px;
@@ -85,9 +106,9 @@
 
         .img-container {
             flex-shrink: 0;
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            border-radius: 15px;
             overflow: hidden;
             border: 3px solid var(--nav-navy);
         }
@@ -120,7 +141,7 @@
             font-weight: 600;
         }
 
-        /* CARRUSEL DE PROYECTOS */
+        /* PROYECTOS Y CARRUSEL */
         .projects-section h2, .articles-sidebar h2 {
             font-size: 0.8rem;
             letter-spacing: 3px;
@@ -131,28 +152,33 @@
             padding-bottom: 8px;
         }
 
-        .projects-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 20px;
-            scroll-snap-type: x mandatory;
-            padding-bottom: 10px;
-            scrollbar-width: none;
-            scroll-behavior: smooth;
+        /* Contenedor de máscara para el carrusel */
+        .carousel-wrapper {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+            position: relative;
         }
 
-            .projects-container::-webkit-scrollbar {
-                display: none;
-            }
+        .projects-container {
+            display: flex;
+            width: 100%;
+            /* Sin gaps para que el cálculo 100% sea exacto */
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
         .project-card-full {
             position: relative;
-            min-width: 100%;
+            width: 100%;
             aspect-ratio: 16/7;
-            border-radius: 15px;
             overflow: hidden;
-            scroll-snap-align: start;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .project-bg {
@@ -204,7 +230,7 @@
             font-weight: 300;
         }
 
-        /* SIDEBAR ARTÍCULOS */
+        /* SIDEBAR */
         .articles-sidebar {
             display: flex;
             flex-direction: column;
@@ -272,70 +298,81 @@
 
     <nav class="hero-nav">
         <div class="nav-left">
-            <a class="nav-item" href="#">INICIO</a>
-            <a class="nav-item" href="#projects" style="margin-left:20px;">PROYECTOS</a>
+            <a class="nav-item" href="#">HOME</a>
+            <a class="nav-item" href="#projects" style="margin-left:30px;">PROJECTS</a>
+            <a class="nav-item" href="#about" style="margin-left:30px;">ABOUT</a>
         </div>
-        <a href="#" class="nav-cv-button">Download CV</a>
+        <div class="nav-right">
+            <a href="CVJuanAntonioCalero.pdf" download="CVJuanAntonioCalero.pdf" class="nav-cv-button">Download CV</a>
+        </div>
     </nav>
 
     <main class="main-layout">
         <div class="left-content">
             <section class="hero-presentation">
                 <div class="img-container">
-                    <img src="images/HeroImage.jpeg" alt="Juan Calero" onerror="this.src='https://via.placeholder.com/140'">
+                    <img src="images/HeroImage.jpeg" alt="Juan Calero" onerror="this.src='https://via.placeholder.com/180'">
                 </div>
                 <div class="hero-text-content">
-                    <p style="font-size: 0.7rem; letter-spacing: 2px; font-weight: 600;">PORTFOLIO</p>
+                    <p style="font-size: 0.7rem; letter-spacing: 2px; font-weight: 600;">I AM</p>
                     <h1>JUAN A. <span style="color:var(--color-apellido)">CALERO</span></h1>
                     <p style="color:var(--text-dim); font-style:italic; margin-bottom: 8px;">
-                        and I am a <span class="role-tag active" id="role-0">Game Producer</span> |
-                        <span class="role-tag" id="role-1">Game Designer</span> |
+                        and I am a Video Game <span class="role-tag active" id="role-0"> Producer</span> |
+                        <span class="role-tag" id="role-1"> Designer</span> |
                         <span class="role-tag" id="role-2">2D Artist</span>
                     </p>
                     <p class="desc-personal">
-                        Experto en mecánicas, worldbuilding y desarrollo de videojuegos desde cero.
-                        Busco crear un impacto significativo a través de experiencias interactivas y narrativa emergente.
+                        <strong>"Videogames have always been my passion and I strive to take part in projects that create a meaningful impact in people, just as games have done on me."</strong>
+                        <br>I have experience working with agile methodologies and big multidisciplinary groups working both as a designer and a producer.
                     </p>
                 </div>
             </section>
 
             <section id="projects" class="projects-section">
-                <h2>Proyectos Destacados</h2>
-                <div class="projects-container" id="main-carousel">
+                <h2>Featured Projects</h2>
+                <div class="carousel-wrapper">
+                    <div class="projects-container" id="main-carousel">
 
-                    <div class="project-card-full">
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1000" class="project-bg" alt="Pipeline">
-                        <div class="project-overlay">
-                            <div class="project-content">
-                                <span class="project-category">Producción & Liderazgo</span>
-                                <h3>Pipeline Optimization</h3>
-                                <p>Optimización de flujos de trabajo para equipos multidisciplinares, reduciendo tiempos de iteración en un 30%.</p>
+                        <a href="dorothy-project.html" class="carousel-item">
+                            <div class="project-card-full">
+                                <img src="images/Dorothy01.png" class="project-bg" alt="Dorothy-Job">
+                                <div class="project-overlay">
+                                    <div class="project-content">
+                                        <span class="project-category">3D Twin Stick Shooter </span>
+                                        <h3>Dorothy's Job</h3>
+                                        <p>Isometric twin-stick shooter with procedural levels.<br><br>Currently on Steam, the game combines fast-paced combat and cleaning mechanics.</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </a>
 
-                    <div class="project-card-full">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000" class="project-bg" alt="Level Design">
-                        <div class="project-overlay">
-                            <div class="project-content">
-                                <span class="project-category">Diseño de Niveles</span>
-                                <h3>Urban Combat Maps</h3>
-                                <p>Creación de mapas tácticos centrados en la verticalidad y la narrativa ambiental para shooters competitivos.</p>
+                        <a href="urban-combat.html" class="carousel-item">
+                            <div class="project-card-full">
+                                <img src="images/WalkingTime01.png" class="project-bg" alt="Walking-Time">
+                                <div class="project-overlay">
+                                    <div class="project-content">
+                                        <span class="project-category">Educational 2D Puzzle Game</span>
+                                        <h3>Walking Time</h3>
+                                        <p>Tactical maps focused on verticality and environmental storytelling.</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </a>
 
-                    <div class="project-card-full">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=1000" class="project-bg" alt="Narrative">
-                        <div class="project-overlay">
-                            <div class="project-content">
-                                <span class="project-category">Diseño Narrativo</span>
-                                <h3>Narrative Systems</h3>
-                                <p>Implementación de sistemas de diálogo ramificados y eventos sistémicos para mundos abiertos.</p>
+                        <a href="narrative-systems.html" class="carousel-item">
+                            <div class="project-card-full">
+                                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=1000" class="project-bg" alt="Narrative">
+                                <div class="project-overlay">
+                                    <div class="project-content">
+                                        <span class="project-category">Narrative Design</span>
+                                        <h3>Narrative Systems</h3>
+                                        <p>Implementation of branching dialogue systems for open worlds.</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </a>
 
+                    </div>
                 </div>
             </section>
         </div>
@@ -346,14 +383,14 @@
                 <img src="images/HerStory02.jpg" class="article-img" onerror="this.src='https://via.placeholder.com/300x160'">
                 <div class="article-body">
                     <h4>"Her Story" Nonlinear Storytelling</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">Un desglose técnico sobre narrativa fragmentada.</p>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Desglose técnico sobre narrativa fragmentada.</p>
                 </div>
             </a>
             <a href="#" class="article-card">
                 <div class="article-img" style="display:flex; align-items:center; justify-content:center; color:#999;">Imagen Artículo</div>
                 <div class="article-body">
                     <h4>Narrativa Emergente</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">Sistemas que permiten historias únicas sin guion previo.</p>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Sistemas que permiten historias únicas sin guion.</p>
                 </div>
             </a>
         </aside>
@@ -370,28 +407,29 @@
             if (tag) tag.classList.add('active');
         }, 2500);
 
-        // 2. Lógica del Carrusel Automático
+        // 2. Lógica de Carrusel Infinito Robusta
         const carousel = document.getElementById('main-carousel');
-        let isMovingForward = true;
 
-        setInterval(() => {
-            const cardWidth = carousel.offsetWidth;
-            const maxScroll = carousel.scrollWidth - cardWidth;
+        function rotateCarousel() {
+            // Animamos el contenedor hacia la izquierda el 100% de su ancho
+            carousel.style.transition = "transform 0.8s cubic-bezier(0.45, 0, 0.55, 1)";
+            carousel.style.transform = "translateX(-100%)";
 
-            if (isMovingForward) {
-                if (carousel.scrollLeft >= maxScroll - 10) {
-                    isMovingForward = false;
-                } else {
-                    carousel.scrollLeft += cardWidth + 20; // +20 por el gap
-                }
-            } else {
-                if (carousel.scrollLeft <= 0) {
-                    isMovingForward = true;
-                } else {
-                    carousel.scrollLeft -= cardWidth + 20;
-                }
-            }
-        }, 3500);
+            // Al terminar la animación (0.8s), reordenamos
+            setTimeout(() => {
+                const firstItem = carousel.querySelector('.carousel-item');
+                // Quitamos la transición para que el "salto" de vuelta al origen sea invisible
+                carousel.style.transition = "none";
+                carousel.appendChild(firstItem);
+                carousel.style.transform = "translateX(0)";
+            }, 800);
+        }
+
+        let carouselInterval = setInterval(rotateCarousel, 4000);
+
+        // Pausar al pasar el ratón para que el usuario pueda hacer clic
+        carousel.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+        carousel.addEventListener('mouseleave', () => carouselInterval = setInterval(rotateCarousel, 4000));
     </script>
 </body>
 </html>
