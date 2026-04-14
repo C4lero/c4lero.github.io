@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juan A. Calero | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        @view-transition {
+            navigation: auto;
+
+            ::view-transition-old(root),
+            ::view-transition-new(root) {
+                animation-duration: 0.5s;
+            }
+        }
+
         :root {
             --bg: #f8f5f2;
             --primary: #0a203e;
@@ -31,7 +41,7 @@
             overflow-x: hidden;
         }
 
-        /* NAVBAR */
+        /* NAVBAR - Respetando tu diseño original */
         .hero-nav {
             position: fixed;
             top: 0;
@@ -39,7 +49,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 6vw;
+            padding: 20px 6vw; /* Tamaño original */
             background: var(--nav-navy);
             border-bottom: 2px solid var(--accent-blue);
             z-index: 1000;
@@ -48,6 +58,7 @@
         .nav-left {
             display: flex;
             align-items: center;
+            gap: 30px;
         }
 
         .nav-item {
@@ -61,6 +72,46 @@
 
             .nav-item:hover {
                 color: var(--accent-blue);
+            }
+
+        /* Nuevos datos de contacto integrados sutilmente */
+        .nav-contact-data {
+            display: flex;
+            gap: 20px;
+            margin-left: 20px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 20px;
+        }
+
+        .contact-link {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+
+            .contact-link:hover {
+                color: var(--accent-blue);
+            }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+            .social-link:hover {
+                color: var(--accent-blue);
+                transform: translateY(-2px);
             }
 
         .nav-cv-button {
@@ -119,15 +170,11 @@
                 object-fit: cover;
             }
 
-        .hero-text-content {
-            flex-grow: 1;
+        .hero-text-content h1 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            line-height: 1.2;
         }
-
-            .hero-text-content h1 {
-                font-size: 2.2rem;
-                text-transform: uppercase;
-                line-height: 1.2;
-            }
 
         .desc-personal {
             max-width: 500px;
@@ -152,7 +199,6 @@
             padding-bottom: 8px;
         }
 
-        /* Contenedor de máscara para el carrusel */
         .carousel-wrapper {
             width: 100%;
             overflow: hidden;
@@ -163,7 +209,6 @@
         .projects-container {
             display: flex;
             width: 100%;
-            /* Sin gaps para que el cálculo 100% sea exacto */
         }
 
         .carousel-item {
@@ -199,7 +244,6 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to right, rgba(0,20,40,1) 0%, rgba(0,20,40,0.6) 70%, transparent 100%);
-            /*background: linear-gradient(to right, rgba(0,20,40,0.95) 0%, rgba(0,20,40,0.4) 60%, transparent 100%);*/
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -223,12 +267,6 @@
             font-size: 2rem;
             margin: 5px 0 10px;
             text-transform: uppercase;
-        }
-
-        .project-content p {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            font-weight: 300;
         }
 
         /* SIDEBAR */
@@ -269,6 +307,12 @@
                 margin-bottom: 5px;
             }
 
+        @media (max-width: 1150px) {
+            .nav-contact-data {
+                display: none;
+            }
+        }
+
         @media (max-width: 900px) {
             .main-layout {
                 grid-template-columns: 1fr;
@@ -299,11 +343,17 @@
 
     <nav class="hero-nav">
         <div class="nav-left">
-            <a class="nav-item" href="#">HOME</a>
-            <a class="nav-item" href="#projects" style="margin-left:30px;">PROJECTS</a>
-            <a class="nav-item" href="#about" style="margin-left:30px;">ABOUT</a>
+            <a class="nav-item" href="index.html">HOME</a>
+            <a class="nav-item" href="projects.html">PROJECTS</a>
+            <a class="nav-item" href="whoami.html">WHO AM I</a>
+
+            <div class="nav-contact-data">
+                <a href="mailto:jacalerodev@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> jacalerodev@gmail.com</a>
+                <a href="tel:+34633614852" class="contact-link"><i class="fas fa-phone"></i> +34 633 614 852</a>
+            </div>
         </div>
         <div class="nav-right">
+            <a href="https://linkedin.com/in/juanantoniocalero" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
             <a href="CVJuanAntonioCalero.pdf" download="CVJuanAntonioCalero.pdf" class="nav-cv-button">Download CV</a>
         </div>
     </nav>
@@ -330,10 +380,9 @@
             </section>
 
             <section id="projects" class="projects-section">
-                <h2>Featured Projects</h2>
+                <h2>Featured Game Projects</h2>
                 <div class="carousel-wrapper">
                     <div class="projects-container" id="main-carousel">
-
                         <a href="dorothy-project.html" class="carousel-item">
                             <div class="project-card-full">
                                 <img src="images/Dorothy01.png" class="project-bg" alt="Dorothy-Job">
@@ -341,7 +390,7 @@
                                     <div class="project-content">
                                         <span class="project-category">3D Twin Stick Shooter </span>
                                         <h3>Dorothy's Job</h3>
-                                        <p>Isometric twin-stick shooter with procedural levels.<br><br>Currently on Steam, the game combines fast-paced combat and cleaning mechanics.</p>
+                                        <p>Isometric twin-stick shooter with procedural levels.<br><br>Currently on Steam.</p>
                                     </div>
                                 </div>
                             </div>
@@ -354,7 +403,7 @@
                                     <div class="project-content">
                                         <span class="project-category">Educational 2D Puzzle Game</span>
                                         <h3>Walking Time</h3>
-                                        <p>A 2D adventure game made for kids and learning to develop computational thinking skills while playing!<br><br>The game is in Spanish, but gameplay and mechanics are universally accessible.</p>
+                                        <p>A 2D adventure game made for kids to develop computational thinking skills!</p>
                                     </div>
                                 </div>
                             </div>
@@ -367,7 +416,7 @@
                                     <div class="project-content">
                                         <span class="project-category">Available on itch.io</span>
                                         <h3>Jam Projects</h3>
-                                        <p>Some small games that were developed in a short span of time following a (very) specific set of rules!</p>
+                                        <p>Small games developed in short spans of time following an specific set of rules.</p>
                                     </div>
                                 </div>
                             </div>
@@ -380,7 +429,7 @@
                                     <div class="project-content">
                                         <span class="project-category">A game in the works</span>
                                         <h3>Unnanounced indie project</h3>
-                                        <p>Check more about my work as Game Designer and Producer in <br>some serious indie projects which will be soon revealed!</p>
+                                        <p>Check more about my work as Game Designer and Producer.</p>
                                     </div>
                                 </div>
                             </div>
@@ -391,59 +440,45 @@
         </div>
 
         <aside class="articles-sidebar">
-            <h2>Artículos y Notas</h2>
+            <h2>Articles and writing</h2>
             <a href="her-story.html" class="article-card">
                 <img src="images/HerStory02.jpg" class="article-img" onerror="this.src='https://via.placeholder.com/300x160'">
                 <div class="article-body">
-                    <h4>"Her Story" as an example of Nonlinear Storytelling in Video Games</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">
-                        In Her Story, the mystery remains open, and the solution you think of is yours.<br>
-                        Discover how I played this game using a sheet of paper and taking notes.
-                    </p>
+                    <h4>"Her Story" as an example of Nonlinear Storytelling</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">The mystery remains open.</p>
                 </div>
             </a>
-            <a href="#" class="article-card">
-                <div class="article-img" style="display:flex; align-items:center; justify-content:center; color:#999;">Imagen Artículo</div>
+            <a href="gone-home.html" class="article-card">
+                <img src="images/GoneHome01.png" class="article-img" onerror="this.src='https://via.placeholder.com/300x160'">
                 <div class="article-body">
-                    <h4>Narrativa Emergente</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">Sistemas que permiten historias únicas sin guion.</p>
+                    <h4>"Gone Home": Video Games as a Reflection of Generational Identity</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">How can a video game portrays feelings, generational gaps and family connections.</p>
                 </div>
             </a>
         </aside>
     </main>
 
     <script>
-        // 1. Cambio de roles dinámico
         let currentRoleIdx = 0;
-        const totalRoles = 3;
         setInterval(() => {
             document.querySelectorAll('.role-tag').forEach(t => t.classList.remove('active'));
-            currentRoleIdx = (currentRoleIdx + 1) % totalRoles;
+            currentRoleIdx = (currentRoleIdx + 1) % 3;
             const tag = document.getElementById(`role-${currentRoleIdx}`);
             if (tag) tag.classList.add('active');
         }, 2500);
 
-        // 2. Lógica de Carrusel Infinito Robusta
         const carousel = document.getElementById('main-carousel');
-
         function rotateCarousel() {
-            // Animamos el contenedor hacia la izquierda el 100% de su ancho
             carousel.style.transition = "transform 0.8s cubic-bezier(0.45, 0, 0.55, 1)";
             carousel.style.transform = "translateX(-100%)";
-
-            // Al terminar la animación (0.8s), reordenamos
             setTimeout(() => {
                 const firstItem = carousel.querySelector('.carousel-item');
-                // Quitamos la transición para que el "salto" de vuelta al origen sea invisible
                 carousel.style.transition = "none";
                 carousel.appendChild(firstItem);
                 carousel.style.transform = "translateX(0)";
             }, 800);
         }
-
         let carouselInterval = setInterval(rotateCarousel, 4000);
-
-        // Pausar al pasar el ratón para que el usuario pueda hacer clic
         carousel.addEventListener('mouseenter', () => clearInterval(carouselInterval));
         carousel.addEventListener('mouseleave', () => carouselInterval = setInterval(rotateCarousel, 4000));
     </script>
