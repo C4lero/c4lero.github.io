@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* TRANSICIÓN SUAVE */
         @view-transition {
             navigation: auto;
         }
@@ -35,7 +34,6 @@
             overflow-x: hidden;
         }
 
-        /* --- ANIMACIONES --- */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -79,7 +77,6 @@
             animation-delay: 0.6s;
         }
 
-        /* NAVBAR */
         .hero-nav {
             position: fixed;
             top: 0;
@@ -144,7 +141,6 @@
                 box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             }
 
-        /* ESTILO BOTÓN */
         .btn-styled {
             padding: 10px 24px;
             background: var(--nav-navy);
@@ -166,7 +162,6 @@
                 transform: translateY(-2px);
             }
 
-        /* CABECERA */
         .project-hero {
             margin-top: 80px;
             padding: 80px 6vw;
@@ -204,7 +199,6 @@
             font-size: 1rem;
         }
 
-        /* FICHA TÉCNICA */
         .project-spec-card {
             flex: 0 1 400px;
             background: rgba(255, 255, 255, 0.1);
@@ -259,7 +253,6 @@
                 color: var(--accent-blue);
             }
 
-        /* CONTENIDO PRINCIPAL */
         .main-container {
             max-width: 1300px;
             margin: 60px auto;
@@ -304,7 +297,6 @@
                 transform: scale(1.02);
             }
 
-        /* SIDEBAR */
         .project-sidebar {
             display: flex;
             flex-direction: column;
@@ -340,7 +332,6 @@
             border: 1px solid rgba(0,31,63,0.1);
         }
 
-        /* RESPONSIVE */
         @media (max-width: 1000px) {
             .project-hero {
                 flex-direction: column;
@@ -388,18 +379,18 @@
 
     <header class="project-hero animate-fade">
         <div class="hero-title-area animate-slide delay-1">
-            <p class="project-tagline">3D Twin Stick Shooter</p>
-            <h1>DOROTHY'S <span style="color:var(--color-apellido)">JOB</span></h1>
+            <p class="project-tagline">Clean and battle at the same time in...</p>
+            <h1>DOROTHY'S JOB</h1>
         </div>
 
         <div class="project-spec-card animate-slide delay-2">
             <div class="spec-item">
-                <h5>MY ROLES</h5>
-                <p>Producer & Game Designer</p>
+                <h5>WHAT IS THE GAME?</H5>
+                <p>3D</p>
             </div>
             <div class="spec-item">
-                <h5>TEAM SIZE</h5>
-                <p>12 multidisciplinary members</p>
+                <h5>MY ROLES</h5>
+                <p>Producer & Game Designer</p>
             </div>
             <div class="spec-item">
                 <h5>PLATFORM</h5>
@@ -407,7 +398,11 @@
             </div>
             <div class="spec-item">
                 <h5>TOOLS</h5>
-                <p>Unity, Jira, Trello</p>
+                <p> <ul>
+    <li>Diseño de niveles procedurales.</li>
+    <li>Gestión de equipo de 5 personas.</li>
+    <li>Optimización de rendimiento en Unity.</li>
+</ul></p>
             </div>
         </div>
     </header>
