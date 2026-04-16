@@ -10,11 +10,6 @@
         /* TRANSICIÓN SUAVE */
         @view-transition {
             navigation: auto;
-
-            ::view-transition-old(root),
-            ::view-transition-new(root) {
-                animation-duration: 0.5s;
-            }
         }
 
         :root {
@@ -41,7 +36,7 @@
             line-height: 1.6;
         }
 
-        /* NAVBAR - SINCRONIZADA */
+        /* NAVBAR */
         .hero-nav {
             position: fixed;
             top: 0;
@@ -74,7 +69,6 @@
                 color: var(--accent-blue);
             }
 
-        /* Datos de contacto integrados */
         .nav-contact-data {
             display: flex;
             gap: 20px;
@@ -114,6 +108,28 @@
                 transform: translateY(-2px);
             }
 
+        /* ESTILO BOTÓN (AZUL de normal, DORADO en hover) */
+        .btn-styled {
+            padding: 12px 28px;
+            background: var(--nav-navy); /* Fondo Azul */
+            color: var(--accent-blue); /* Texto Dorado */
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-blue); /* Borde dorado siempre */
+            display: inline-block;
+            cursor: pointer;
+        }
+
+            .btn-styled:hover {
+                background: var(--accent-blue); /* Fondo Dorado */
+                color: var(--nav-navy); /* Texto Azul */
+                box-shadow: 0 4px 15px rgba(188, 166, 121, 0.4);
+                transform: translateY(-2px);
+            }
         .nav-cv-button {
             padding: 10px 24px;
             background: #ffffff;
@@ -134,6 +150,7 @@
                 box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             }
 
+
         /* LAYOUT PRINCIPAL */
         .main-layout {
             max-width: 1600px;
@@ -149,17 +166,6 @@
             background: rgba(0, 31, 63, 0.02);
             border-radius: 20px;
             padding: 40px;
-        }
-
-        .back-link {
-            text-decoration: none;
-            color: var(--accent-blue);
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 20px;
         }
 
         h1 {
@@ -187,16 +193,59 @@
             padding-bottom: 5px;
         }
 
-        /* SIDEBAR */
-        .articles-sidebar h2 {
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--nav-navy);
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--accent-blue);
-            padding-bottom: 8px;
+        /* CONTENEDOR IMAGEN INTERNA */
+        .article-image-container {
+            max-width: 75%;
+            margin: 40px auto;
+            text-align: center;
         }
+
+            .article-image-container .featured-img {
+                margin: 0;
+                width: 100%;
+            }
+
+        .image-caption {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 12px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        .back-container {
+            margin-top: 50px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 30px;
+            text-align: left;
+        }
+
+        /* SIDEBAR ESTILIZADA (Más visible) */
+        .articles-sidebar {
+            background: rgba(0, 31, 63, 0.07); /* Color de fondo aumentado */
+            padding: 30px;
+            border-radius: 20px;
+            height: fit-content;
+            border: 1px solid rgba(0, 31, 63, 0.1); /* Borde más marcado */
+        }
+
+            .articles-sidebar h2 {
+                font-size: 0.8rem;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: var(--nav-navy);
+                margin-bottom: 25px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+                .articles-sidebar h2::after {
+                    content: "";
+                    flex: 1;
+                    height: 2px; /* Línea más gruesa */
+                    background: var(--accent-blue);
+                }
 
         .article-card {
             text-decoration: none;
@@ -212,7 +261,7 @@
 
             .article-card:hover {
                 transform: translateY(-3px);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             }
 
         .article-img {
@@ -231,6 +280,7 @@
                 margin-bottom: 5px;
             }
 
+        /* RESPONSIVE */
         @media (max-width: 1150px) {
             .nav-contact-data {
                 display: none;
@@ -240,6 +290,10 @@
         @media (max-width: 900px) {
             .main-layout {
                 grid-template-columns: 1fr;
+            }
+
+            .article-image-container {
+                max-width: 100%;
             }
         }
     </style>
@@ -251,7 +305,6 @@
             <a class="nav-item" href="index.html">HOME</a>
             <a class="nav-item" href="projects.html">PROJECTS</a>
             <a class="nav-item" href="whoami.html">WHO AM I</a>
-
             <div class="nav-contact-data">
                 <a href="mailto:jacalerodev@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> jacalerodev@gmail.com</a>
                 <a href="tel:+34633614852" class="contact-link"><i class="fas fa-phone"></i> +34 633 614 852</a>
@@ -259,7 +312,7 @@
         </div>
         <div class="nav-right">
             <a href="https://linkedin.com/in/juanantoniocalero" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
-            <a href="CVJuanAntonioCalero.pdf" download="CVJuanAntonioCalero.pdf" class="nav-cv-button">Download CV</a>
+            <a href="CVJuanAntonioCalero.pdf" download class="nav-cv-button">Download CV</a>
         </div>
     </nav>
 
@@ -274,25 +327,23 @@
                 <div class="text-block">
                     <h2>What is “Her Story”?</h2>
                     <p><i>‘Her Story’</i> is a story told in pieces. The game is presented to the player as a police search engine, in which you have access to lots of short videos representing unorganized pieces of some interrogations of a woman about a <strong>murder</strong> and depending on the search terms you introduce, some videos are shown to you. That’s the key point, the story is given to you in pieces, and it’s your job to put it all together and assemble the story in your head.</p>
-                    <h2>Unraveling the story:</h2>
-                    <p>
-                        Sincerely, I started playing <i>‘Her Story’</i> because I’m such a fan of narrative games and this was sold to me as that. What I did not expect was to  find that the main gameplay was based around watching videos.  Dozens and dozens of videos without an apparent order or sense.
-                        <br>
-                        The truth is that I started to watch the videos as they appeared, without any particular order. Names, dates and places that I did not know and did not tell me anything about anything were mentioned. That’s when the search function came into play. I decided to <strong>pick up a sheet of paper</strong> and write down all the names that seemed more relevant to me when I heard them in the videos (pure <i>“Do not feed the monkeys”</i> style), the ones which seemed more important to the story or were repeated many times. In my head, I thought it was logical that if a word was repeated a lot it would be key to the story but. <strong>What if it wasn’t?</strong> I wrote down all the unresolved questions near each of the names, making notes and writing words down so I didn’t forget to search them later in the video searcher.
-                        <br>
-                        That was the most magical part of <i>‘Her Story’</i> to me, and what <strong>constitutes nonlinear</strong> storytelling, based on ambiguity, when nobody confirms or denies if you are on a right path to a conclusion, if what you are thinking is correct or not, or if you have misunderstood a video. Maybe a quote you thought meant nothing gains new meaning all of a sudden when you later watch a video that opens up a new possibility. Even after all the conclusions you may think, nobody will tell you if they are correct or not. Maybe you have already watched all the videos and even then you haven’t still figured out the whole story and the resolution of the murder, because that’s when this type of narrative comes to shine, when you are the one who makes up the story, so what you think about it is correct for you.
-                        <br>
-                        Little by little, my paper sheet became full with notes until it ended up as seen in the photo below and when I noticed I couldn’t help but think about the experience I felt during the 2 hours that it took me to play it whole. It was something that had never happened to me before. I felt like a true detective, who set the case as concluded when I could think of a story that, for me, made sense. After this I searched the web for videos and articles about the game and its ending and I found out that the story did not even have an “oficial” resolution, so that was when I cataloged <i>‘Her Story’</i> as one of the best examples of immersion and nonlinear storytelling that I have ever played.</p>
-                    <h2>The potential of nonlinear narrative</h2>
-                    <p>
-                        Ultimately, <i>‘Her Story’</i> gave me the chance to discover the power of nonlinear narrative in video games and how this (des)structure promotes such a unique and personal experience. We reconstruct and give new meaning to a story our way, when the players interpretation is given an essential protagonist and its imagination is this process’ key.
-                        <br>
-                        This experience proves that, in video games, narrative does not need to be explained or conclusive to keep the impact. <i>‘Her Story’</i> challenges us to be the narrators of our own thought and meaning, which makes it become one of the most immersive games I’ve had the pleasure to play. It stands as a reminder of that, in the video game world, sometimes the personal journey and interpretation have more weight than the existence of a determined ending.
-                        <br>
-                        <br>
-                        <a href="index.html" class="back-link">← BACK TO PORTFOLIO</a>
 
-                    </p>
+                    <h2>Unraveling the story:</h2>
+                    <p>Sincerely, I started playing <i>‘Her Story’</i> because I’m such a fan of narrative games and this was sold to me as that. What I did not expect was to find that the main gameplay was based around watching videos. Dozens and dozens of videos without an apparent order or sense.</p>
+
+                    <div class="article-image-container">
+                        <img src="images/HerStory01.png" class="featured-img" alt="Investigation notes">
+                        <p class="image-caption">My detective notes: connecting the dots of the interrogation.</p>
+                    </div>
+
+                    <p>That was the most magical part of <i>‘Her Story’</i> to me, and what constitutes nonlinear storytelling... (etc) ...cataloged <i>‘Her Story’</i> as one of the best examples of immersion.</p>
+
+                    <h2>The potential of nonlinear narrative</h2>
+                    <p>Ultimately, <i>‘Her Story’</i> gave me the chance to discover the power of nonlinear narrative in video games and how this (des)structure promotes such a unique and personal experience...</p>
+
+                    <div class="back-container">
+                        <a href="index.html" class="btn-styled">← Back to Portfolio</a>
+                    </div>
                 </div>
             </article>
         </div>
@@ -304,7 +355,7 @@
                 <img src="images/GoneHome01.png" class="article-img">
                 <div class="article-body">
                     <h4>"Gone Home": Generational Identity</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">How video games portray family connections.</p>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Family connections in gaming.</p>
                 </div>
             </a>
 

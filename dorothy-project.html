@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dorothy's Job | Project Case Study</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #f8f5f2;
+            --primary: #0a203e;
+            --nav-navy: #001f3f;
+            --nav-hover: #00152b;
+            --accent-blue: #bca679;
+            --text-dim: #b19e95;
+            --color-apellido: #c0a265;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .animate-slide {
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        /* NAVBAR */
+        .hero-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6vw;
+            background: var(--nav-navy);
+            border-bottom: 2px solid var(--accent-blue);
+            z-index: 1000;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+            .nav-item:hover {
+                color: var(--accent-blue);
+            }
+
+        .social-link {
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+            .social-link:hover {
+                color: var(--accent-blue);
+                transform: translateY(-2px);
+            }
+
+        .nav-cv-button {
+            padding: 10px 24px;
+            background: #ffffff;
+            color: var(--nav-navy);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+            .nav-cv-button:hover {
+                background: var(--nav-hover);
+                color: var(--accent-blue);
+                border-color: var(--accent-blue);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+        /* ESTILO BOTÓN */
+        .btn-styled {
+            padding: 10px 24px;
+            background: var(--nav-navy);
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-blue);
+            display: inline-block;
+            text-align: center;
+        }
+
+            .btn-styled:hover {
+                background: var(--accent-blue);
+                color: var(--nav-navy);
+                transform: translateY(-2px);
+            }
+
+        /* CABECERA */
+        .project-hero {
+            margin-top: 80px;
+            padding: 80px 6vw;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+            background: linear-gradient(rgba(0,31,63,0.7), rgba(0,31,63,0.85)), url('images/Dorothy01.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-title-area {
+            flex: 1;
+            text-align: left;
+        }
+
+            .hero-title-area h1 {
+                font-size: 4rem;
+                line-height: 1;
+                margin: 10px 0;
+                text-transform: uppercase;
+            }
+
+        .project-tagline {
+            color: var(--accent-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 1rem;
+        }
+
+        /* FICHA TÉCNICA */
+        .project-spec-card {
+            flex: 0 1 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .spec-item h5 {
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .spec-item p {
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .main-container {
+            max-width: 1300px;
+            margin: 60px auto;
+            padding: 0 6vw;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 60px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+            .content-section h2 {
+                font-size: 1.8rem;
+                color: var(--nav-navy);
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+                .content-section h2::after {
+                    content: "";
+                    flex: 1;
+                    height: 1px;
+                    background: var(--accent-blue);
+                }
+
+        .project-image-large {
+            width: 100%;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: transform 0.4s ease;
+        }
+
+            .project-image-large:hover {
+                transform: scale(1.02);
+            }
+
+        /* SIDEBAR */
+        .project-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .action-card {
+            background: var(--nav-navy);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 1px solid var(--accent-blue);
+        }
+
+            .action-card:hover {
+                transform: translateY(-5px);
+                background: var(--nav-hover);
+                box-shadow: 0 10px 25px rgba(0,31,63,0.2);
+            }
+
+            .action-card i {
+                font-size: 2rem;
+                color: var(--accent-blue);
+                margin-bottom: 15px;
+            }
+
+        .sidebar-box {
+            background: rgba(0,31,63,0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0,31,63,0.1);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .project-hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 120px;
+            }
+
+            .hero-title-area {
+                text-align: center;
+            }
+
+            .project-spec-card {
+                width: 100%;
+                flex: none;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title-area h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="hero-nav">
+        <div class="nav-left">
+            <a class="nav-item" href="index.html">HOME</a>
+            <a class="nav-item" href="projects.html">PROJECTS</a>
+            <a class="nav-item" href="whoami.html">WHO AM I</a>
+        </div>
+        <div class="nav-right">
+            <a href="https://linkedin.com/in/juanantoniocalero" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+            <a href="CVJuanAntonioCalero.pdf" download class="nav-cv-button">Download CV</a>
+        </div>
+    </nav>
+
+    <header class="project-hero animate-fade">
+        <div class="hero-title-area animate-slide delay-1">
+            <p class="project-tagline">3D Twin Stick Shooter</p>
+            <h1>DOROTHY'S <span style="color:var(--color-apellido)">JOB</span></h1>
+        </div>
+
+        <div class="project-spec-card animate-slide delay-2">
+            <div class="spec-item">
+                <h5>MY ROLES</h5>
+                <p>Producer & Game Designer</p>
+            </div>
+            <div class="spec-item">
+                <h5>TEAM SIZE</h5>
+                <p>12 multidisciplinary members</p>
+            </div>
+            <div class="spec-item">
+                <h5>PLATFORM</h5>
+                <p>PC (Steam)</p>
+            </div>
+            <div class="spec-item">
+                <h5>TOOLS</h5>
+                <p>Unity, Jira, Trello</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="project-grid">
+            <div class="project-main-content">
+                <section class="content-section animate-slide delay-1">
+                    <h2>Overview</h2>
+                    <p>Dorothy's Job is an isometric twin-stick shooter with procedural levels. The project focuses on high-speed combat and a unique corporate-dystopian aesthetic.</p>
+                    <img src="images/Dorothy01.png" class="project-image-large" alt="Gameplay screenshot">
+                </section>
+
+                <section class="content-section animate-slide delay-2">
+                    <h2>The Challenge</h2>
+                    <p>Creating a balanced procedural system that maintains narrative pacing was our biggest hurdle. We developed a "Room Weight" algorithm to ensure high-intensity encounters were spaced correctly.</p>
+                </section>
+            </div>
+
+            <aside class="project-sidebar animate-slide delay-3">
+                <a href="https://store.steampowered.com" target="_blank" class="action-card">
+                    <i class="fab fa-steam"></i>
+                    <h3>View on Steam</h3>
+                    <p>Check the final version and play the game.</p>
+                </a>
+
+                <div class="sidebar-box">
+                    <h4 style="margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; color: var(--nav-navy);">Key Features</h4>
+                    <p style="font-size: 0.95rem;">
+                        • Procedural Dungeons<br>
+                        • Fast-paced combat<br>
+                        • Boss Encounters<br>
+                        • Narrative missions
+                    </p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="projects.html" class="btn-styled">← Back to Projects</a>
+                    <a href="index.html" class="btn-styled">← Back to Portfolio</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+</body>
+</html>
