@@ -200,7 +200,7 @@
         }
 
         .project-spec-card {
-            flex: 0 1 400px;
+            flex: 0 1 550px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -284,7 +284,16 @@
                     height: 1px;
                     background: var(--accent-blue);
                 }
-
+        .project-image-small {
+            width: 70%;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: transform 0.4s ease;
+        }
+            .project-image-small:hover {
+                transform: scale(1.02);
+            }
         .project-image-large {
             width: 100%;
             border-radius: 20px;
@@ -306,7 +315,7 @@
         .action-card {
             background: var(--nav-navy);
             color: white;
-            padding: 30px;
+            padding: 15px;
             border-radius: 20px;
             text-decoration: none;
             transition: 0.3s;
@@ -356,6 +365,118 @@
                 font-size: 2.8rem;
             }
         }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px; /* Distancia desde el fondo del hero */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+            .scroll-indicator:hover {
+                opacity: 1;
+            }
+
+        .scroll-text {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+
+        .arrow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            height: 50px; /* Altura total de la línea + flecha */
+        }
+
+        .arrow-line {
+            width: 1px;
+            height: 100%; /* Ocupa toda la altura del contenedor */
+            background: linear-gradient(to bottom, rgba(188, 166, 121, 0), var(--accent-blue) 50%, var(--accent-blue));
+            animation: lengthenLine 2s infinite;
+            transform-origin: top;
+        }
+
+        .arrow-head {
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            position: absolute;
+            bottom: -5px; /* Ajuste para que la punta de la flecha toque la línea */
+            animation: nudgeArrow 2s infinite;
+        }
+
+        /* --- ANIMACIONES PARA EL SCROLL --- */
+        @keyframes lengthenLine {
+            0% {
+                transform: scaleY(0);
+                opacity: 0;
+            }
+
+            30% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+
+            60% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+
+            90% {
+                transform: scaleY(1);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scaleY(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes nudgeArrow {
+            0% {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+
+            30% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            60% {
+                transform: translateY(5px);
+                opacity: 1;
+            }
+
+            90% {
+                transform: translateY(5px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(5px);
+                opacity: 0;
+            }
+        }
+
+        /* Ajuste para que no moleste en móviles muy pequeños */
+        @media (max-height: 600px) {
+            .scroll-indicator {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -379,30 +500,51 @@
 
     <header class="project-hero animate-fade">
         <div class="hero-title-area animate-slide delay-1">
-            <p class="project-tagline">Clean and battle at the same time in...</p>
-            <h1>DOROTHY'S JOB</h1>
+            <p class="project-tagline">Battle (and clean) your way through in...</p>
+            <img src="images/Dorothy02.png" class="project-image-small" alt="Project-logo">
+
         </div>
 
         <div class="project-spec-card animate-slide delay-2">
             <div class="spec-item">
-                <h5>WHAT IS THE GAME?</H5>
-                <p>3D</p>
+                <h5>WHAT IS THE GAME?</h5>
+                <p>
+                    <ul>
+                        <li>3D Twin-stick shooter.</li>
+                        <li>Play as Dorothy and clean and battle through procedurally generated levels.</li>
+                    </ul>
+                </p>
             </div>
             <div class="spec-item">
                 <h5>MY ROLES</h5>
-                <p>Producer & Game Designer</p>
+                <p>
+                    <ul>
+                        <li>Producer</li>
+                        <li>Game Designer</li>
+                        <li>UI Artist</li>
+                    </ul>
+                </p>
             </div>
             <div class="spec-item">
                 <h5>PLATFORM</h5>
                 <p>PC (Steam)</p>
             </div>
             <div class="spec-item">
-                <h5>TOOLS</h5>
-                <p> <ul>
-    <li>Diseño de niveles procedurales.</li>
-    <li>Gestión de equipo de 5 personas.</li>
-    <li>Optimización de rendimiento en Unity.</li>
-</ul></p>
+                <h5>PROJECT SPECIFICS</h5>
+                <p>
+                    <ul>
+                        <li>Worked with a 20 multidisciplinary core team which grew to 40.</li>
+                        <li>Developed a procedural system in Unreal 5 which created levels based on a set of rules.</li>
+                        <li>Created a core loop that combines combat and cleaning of both enemies and debris.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <div class="scroll-indicator animate-fade delay-3">
+            <span class="scroll-text">Check out more</span>
+            <div class="arrow-container">
+                <div class="arrow-line"></div>
+                <i class="fas fa-chevron-down arrow-head"></i>
             </div>
         </div>
     </header>
@@ -411,7 +553,7 @@
         <div class="project-grid">
             <div class="project-main-content">
                 <section class="content-section animate-slide delay-1">
-                    <h2>Overview</h2>
+                    <h2>About the game</h2>
                     <p>Dorothy's Job is an isometric twin-stick shooter with procedural levels. The project focuses on high-speed combat and a unique corporate-dystopian aesthetic.</p>
                     <img src="images/Dorothy01.png" class="project-image-large" alt="Gameplay screenshot">
                 </section>
@@ -423,10 +565,10 @@
             </div>
 
             <aside class="project-sidebar animate-slide delay-3">
-                <a href="https://store.steampowered.com" target="_blank" class="action-card">
+                <a href="https://store.steampowered.com/app/3926730/Dorothys_Job/" target="_blank" class="action-card">
                     <i class="fab fa-steam"></i>
-                    <h3>View on Steam</h3>
-                    <p>Check the final version and play the game.</p>
+                    <h3>Dorothy's Job is on Steam!</h3>
+                    <p>Click here to check the final version and play the game for free!</p>
                 </a>
 
                 <div class="sidebar-box">
