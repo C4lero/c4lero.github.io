@@ -286,12 +286,25 @@
                 }
         .project-image-small {
             width: 70%;
+            max-width: 200px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: transform 0.4s ease;
+
+        }
+            .project-image-small:hover {
+                transform: scale(1.02);
+            }
+        .project-image-medium {
+            width: 70%;
             border-radius: 20px;
             margin: 20px 0;
             border: 1px solid rgba(0,0,0,0.1);
             transition: transform 0.4s ease;
         }
-            .project-image-small:hover {
+
+            .project-image-medium:hover {
                 transform: scale(1.02);
             }
         .project-image-large {
@@ -320,6 +333,8 @@
             text-decoration: none;
             transition: 0.3s;
             border: 1px solid var(--accent-blue);
+            align-items: center; /* <--- ESTO CENTRA TODO HORIZONTALMENTE */
+            text-align: center; /* <--- ESTO CENTRA LOS TEXTOS (h3 y p) */
         }
 
             .action-card:hover {
@@ -501,7 +516,7 @@
     <header class="project-hero animate-fade">
         <div class="hero-title-area animate-slide delay-1">
             <p class="project-tagline">Battle (and clean) your way through in...</p>
-            <img src="images/Dorothy02.png" class="project-image-small" alt="Project-logo">
+            <img src="images/Dorothy02.png" class="project-image-medium" alt="Project-logo">
 
         </div>
 
@@ -553,23 +568,46 @@
         <div class="project-grid">
             <div class="project-main-content">
                 <section class="content-section animate-slide delay-1">
-                    <h2>About the game</h2>
-                    <p>Dorothy's Job is an isometric twin-stick shooter with procedural levels. The project focuses on high-speed combat and a unique corporate-dystopian aesthetic.</p>
-                    <img src="images/Dorothy01.png" class="project-image-large" alt="Gameplay screenshot">
+                    <div class="project-main-content">
+                        <section class="content-section animate-slide delay-1">
+                            <h2>About the game</h2>
+                            <p>
+                                <strong>Dorothy's Job</strong> is a fast-paced isometric twin-stick shooter starring <strong>Dorothy</strong>, a buff maid
+                                tasked with maintaining a Dark Lord's mansion. Master a high-stakes gameplay loop that forces you to balance heavy-duty cleaning
+                                with intense combat, all while racing against time.
+                            </p>
+                            <div style="margin: 30px 0;">
+                                <video controls muted width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                                    <source src="images/DorothyTrailer.mp4" type="video/mp4">
+                                </video>
+                                <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">Dorothy's Job Trailer'</p>
+                                
+                            </div>
+                        </section>
+                    </div>
                 </section>
-
                 <section class="content-section animate-slide delay-2">
-                    <h2>The Challenge</h2>
+                    <h2>My roles</h2>
+                    <p>During the <strong>10 month</strong> development period I carried multiple roles and responsibilites:</p>
+                    <h3>Game producer:</h3>
+
+                    <img src="images/Dorothy01.png" class="project-image-large" alt="Gameplay screenshot">
                     <p>Creating a balanced procedural system that maintains narrative pacing was our biggest hurdle. We developed a "Room Weight" algorithm to ensure high-intensity encounters were spaced correctly.</p>
                 </section>
             </div>
 
             <aside class="project-sidebar animate-slide delay-3">
-                <a href="https://store.steampowered.com/app/3926730/Dorothys_Job/" target="_blank" class="action-card">
-                    <i class="fab fa-steam"></i>
-                    <h3>Dorothy's Job is on Steam!</h3>
-                    <p>Click here to check the final version and play the game for free!</p>
-                </a>
+                    <a href="https://store.steampowered.com/app/3926730/Dorothys_Job/" target="_blank" class="action-card">
+                        <img src="images/Dorothy03.png" class="project-image-small" alt="Dorothy-Case">
+
+                        <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                            <i class="fab fa-steam" style="font-size: 1.5rem; color: var(--accent-blue);"></i>
+                            <h3 style="margin: 0; ">Dorothy's Job is on Steam!</h3>
+                        </div>
+
+                        <p>Click here to check the final version and play the game for free!</p>
+                    </a>
+                
 
                 <div class="sidebar-box">
                     <h4 style="margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; color: var(--nav-navy);">Key Features</h4>
