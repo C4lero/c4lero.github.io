@@ -492,6 +492,61 @@
                 display: none;
             }
         }
+
+        /* Estilo para el Desplegable (Acordeón) */
+        .project-accordion {
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,31,63,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(0,31,63,0.02);
+            transition: 0.3s;
+        }
+
+            .project-accordion[open] {
+                background: #ffffff;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                border-color: var(--accent-blue);
+            }
+
+            .project-accordion summary {
+                padding: 20px;
+                list-style: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: 600;
+                color: var(--nav-navy);
+                cursor: pointer;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 0.9rem;
+            }
+
+                /* Icono de la flecha */
+                .project-accordion summary::after {
+                    content: '\f078'; /* Icono de FontAwesome */
+                    font-family: 'Font Awesome 6 Free';
+                    font-weight: 900;
+                    color: var(--accent-blue);
+                    transition: transform 0.3s ease;
+                }
+
+            .project-accordion[open] summary::after {
+                transform: rotate(180deg);
+            }
+
+        .accordion-content {
+            padding: 0 20px 20px 20px;
+            font-size: 0.95rem;
+            color: var(--primary);
+            line-height: 1.6;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .project-accordion summary::-webkit-details-marker {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -574,10 +629,18 @@
                             <p>
                                 <strong>Dorothy's Job</strong> is a fast-paced isometric twin-stick shooter starring <strong>Dorothy</strong>, a buff maid
                                 tasked with maintaining a Dark Lord's mansion. Master a high-stakes gameplay loop that forces you to balance heavy-duty cleaning
-                                with intense combat, all while racing against time.
+                                with intense combat, all while racing against time.<br><br>
+                            <p>
+                                This game was developed during a <strong>10 month</strong> period by the team <strong>Bola 13 Studios</strong>.<br />
+                                Throughout this time, I've taken the roles of both Game Designer and Producer for the whole development while I also helped as a 2D Artist a few
+                                months pre-launch.<br><br>
+                            </p>
+                            <strong>The team</strong> consisted of <strong>20 core members</strong> divided in programmers, designers, generalist artists and environmental artists, but throughout
+                            the project, some outsourcing teams were added to help in some areas such as animation, 3D sculpting and rigging which made the team grow
+                            to <strong>almost 40 people</strong> at some stages.
                             </p>
                             <div style="margin: 30px 0;">
-                                <video controls muted width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                                <video controls autoplay loop muted width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
                                     <source src="images/DorothyTrailer.mp4" type="video/mp4">
                                 </video>
                                 <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">Dorothy's Job Trailer</p>
@@ -586,39 +649,98 @@
                     </div>
                 </section>
                 <section class="content-section animate-slide delay-2">
-                    <h2>My roles</h2>
-                    <p>
-                        This game was developed during a <strong>10 month</strong> period by the team <strong>Bola 13 Studios</strong>.<br />
-                        Throughout this time, I've taken the roles of both Game Designer and Producer for the whole development while I also helped as a 2D Artist a few
-                        months pre-launch.
-                    </p><br>
-                    <h3>PRODUCER</h3>
+                    <h2>Roles</h2>
+                    <h3 style="font-size: 1.2rem;">Producer</h3>
                     <div class="sidebar-box">
                         <h4 style="margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; color: var(--accent-blue);">KEY RESPONSIBILITIES</h4>
                         <p style="font-size: 0.95rem;">
-                            • Coordinated a core 20 people team through the whole proccess of making a game from scratch.<br>
-                            • Planned and organized departmental and interdepartmental meetings to ensure project milestones were met on time.<br>
-                            • Reviewed project scope and prioritized objectives iteratively to ensure the game would be launched according to plan.<br>
-                            • Resolved internal an cross-department conflicts, facilitating a collaborative work environment.
+                            • Coordinated a <strong>core 20 people team</strong> through the whole proccess of making a game from scratch.<br>
+                            • Planned and organized departmental and interdepartmental meetings to ensure project <strong>milestones were met on time</strong>.<br>
+                            • Reviewed project scope and <strong>prioritized objectives</strong> iteratively to ensure the game would be launched according to plan.<br>
+                            • <strong>Resolved internal an cross-department conflicts</strong>, facilitating a collaborative work environment.
                         </p>
                     </div>
-                    <img src="images/Dorothy04.png" class="project-image-large" alt="Gameplay screenshot">
+                    <br>
                     <p>
-                        <h4 style="margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; color: var(--nav-navy);"><u>ROLE BREAKDOWN & CHALLENGES:</u></h4>
-                        As Producer, I coordinated the team from the very start of the project. The first months we created a production team which ensured
-                        the game concept was appealing to every department, then, after we made sure the design team (which I was also part of) had the game idea
-                        defined, we started creating the work pipeline for each specific department. <br><br>
-                        <strong>The team</strong> consisted of <strong>20 core members</strong> divided in programmers, designers, generalist artists and environmental artists, but throughout
-                        the project, some outsourcing teams were added to help in some areas such as animation, 3D sculpting and rigging which made the team grow
-                        to <strong>almost 40 people</strong> at some stages.<br><br>
-                        
+                        <h4 style="margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; color: var(--nav-navy);"><u>ROLE BREAKDOWN:</u></h4>
+                        As Producer, I coordinated the team from the very start of the project. <br>
+                        The first months we created a production team which ensured the team selected an idea amongst all the brainstormed ones after rating them based
+                        on the teams interests during development. <br><br>
+                        This was particularly important because some of the <strong>hardest challenges</strong> for the whole team were defined due to the game that Dorothy's Job came to be
+                        since the very begginning.<br><br>
+                        The procedurally generated level system, how to show the different types of dirt on the floor, keeping the twin-stick genre core mechanics adjusting
+                        them to a cleaning-like gameplay... <br>All these things repercuted in the game's development roadmap and made us constantly reconsider
+                        the game's scope.
+                        <br><br>
                     <p style="font-size: 0.95rem;">
-                        • The project's scope had to be redefined at the early stages to make it feasible.<br>
-                        • Being such a big team for the game we were planning brought up some disagreements on the team which had to be adressed.<br>
-                        • It was necessary to make some agreements to stop iterative processes an thus ensure that the game would release on time.<br>
-                        • Had to evaluate the productivity of team members to ensure there were no bottlenecks and to detect potential problems.
+                        • The <strong>procedural level generator tool</strong> was a requirement from the programming team which challenged them to have it on time
+                        for release, and forced the production team to have constant backup plans in case it didn't meet the quality standards.<br>
+                        • <strong>Visibility</strong> carried though decisions. The two types of dirt planned for the game (liquid and dust) needed to be shown on the floor, and must be visible through all
+                        the different enemies, bullets and status effects, the UI. That created some disagreements, discussions and iterations throughout the
+                        development in which production needed to adress and mediate.<br>
+                        • Had to evaluate the productivity of team members to ensure there were <strong>no bottlenecks</strong> and to detect <strong>potential problems</strong>, for example
+                        stopping iterative processes on time so some features didn't need to be delayed.<br>
                     </p>
+                    /* desplegable */
+                    <section class="content-section">
+                        <h2>Additional Information</h2>
+
+                        <details class="project-accordion">
+                            <summary>Technical Stack & Tools</summary>
+                            <div class="accordion-content">
+                                <p>For this project, we utilized <strong>Unreal Engine 5</strong> as the core engine, using Blueprints for rapid prototyping and C++ for the procedural generator optimization.</p>
+                                <ul style="margin-top: 10px; padding-left: 20px;">
+                                    <li>Version Control: Perforce (Helix Core)</li>
+                                    <li>Task Management: Jira & Confluence</li>
+                                    <li>Design: Figma for UI Mockups</li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <details class="project-accordion">
+                            <summary>Challenges & Solutions</summary>
+                            <div class="accordion-content">
+                                <p>One of the biggest hurdles was the <strong>visibility system</strong>. With so many enemies and dirt types, the screen could become cluttered. We solved this by implementing a custom shader that outlines key interactive elements when they are covered by VFX.</p>
+                            </div>
+                        </details>
+                    </section>
+                    <img src="images/Dorothy04.png" class="project-image-large" alt="Gameplay screenshot">
                     </p>
+                    <br>
+                    <h3>Game Designer</h3>
+                    <div class="sidebar-box">
+                        <h4 style="margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; color: var(--accent-blue);">KEY RESPONSIBILITIES</h4>
+                        <p style="font-size: 0.95rem;">
+                            • Designed and iterated on the game's core mechanics.<br>
+                            • Tested and created a gameplay loop focused on the combination of cleaning and combat.<br>
+                            • Collaborated with programming and art teams to implement mechanics according to design's vision.<br>
+                            • Documented design decisions and system features to ensure alignment across departments.
+                        </p>
+                    </div>
+                    <p>
+                        <h4 style="margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; color: var(--nav-navy);"><u>ROLE BREAKDOWN:</u></h4>
+                        As Game Designer, I was part of team of 6. We picked up the game since the brainstorming phase and starting developing the game concept
+                        into gameplay. Since the game idea came from the main character, Dorothy, the whole game needed to circle around a buff cleaning maid.<br><br>
+
+                        The nature of the game made us have to take some concessions in what twin-sticks shooters are and some mechanics which are common in
+                        this genre. For example, given that Dorothy is supposed to clean the mansion, props couldn't break by player actions and leave debris.<br><br>
+                        This was particularly important because some of the <strong>hardest challenges</strong> for the whole team were defined due to the game that Dorothy's Job came to be
+                        since the very begginning.<br><br>
+                        The procedurally generated level system, how to show the different types of dirt on the floor, keeping the twin-stick genre core mechanics adjusting
+                        them to a cleaning-like gameplay... <br>All these things repercuted in the game's development roadmap and made us constantly reconsider
+                        the game's scope.
+                        <br><br>
+                    <p style="font-size: 0.95rem;">
+                        • The <strong>procedural level generator tool</strong> was a requirement from the programming team which challenged them to have it on time
+                        for release, and forced the production team to have constant backup plans in case it didn't meet the quality standards.<br>
+                        • <strong>Visibility</strong> carried though decisions. The two types of dirt planned for the game (liquid and dust) needed to be shown on the floor, and must be visible through all
+                        the different enemies, bullets and status effects, the UI. That created some disagreements, discussions and iterations throughout the
+                        development in which production needed to adress and mediate.<br>
+                        • Had to evaluate the productivity of team members to ensure there were <strong>no bottlenecks</strong> and to detect <strong>potential problems</strong>, for example
+                        stopping iterative processes on time so some features didn't need to be delayed.<br>
+
+                    </p>
+                    <img src="images/Dorothy05.png" class="project-image-large" alt="Gameplay screenshot">
                 </section>
             </div>
 
