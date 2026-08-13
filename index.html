@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPG Shop Portfolio - Game Producer</title>
+    <title>Calero - Portfolio</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,7 +28,7 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* Fondo de la tienda con la imagen del Zelda Shop */
+        /*background*/
         .shop-background {
             background-image: url('assets/shop-background.png');
             background-size: cover;
@@ -36,17 +36,17 @@
             background-repeat: no-repeat;
         }
 
-        /* Contenedor del Diálogo */
+        /*dialoguebox*/
         .dialogue-box-container {
-            background-image: url('assets/UI_DIALOGUES_DialogueBox.png');
+            background-image: url('assets/dialogue-box.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             filter: drop-shadow(0px 10px 25px rgba(0,0,0,0.85));
         }
 
-        /* Etiqueta del Nombre */
+        /*nametag*/
         .nametag-container {
-            background-image: url('assets/UI_DIALOGUES_NameTag.png');
+            background-image: url('assets/name-tag.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.6));
@@ -68,12 +68,11 @@
                 box-shadow: 0 0 25px rgba(245, 158, 11, 0.8);
             }
 
-        /* Transición de movimiento suave */
         .smooth-transition {
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.6s ease, max-width 0.6s ease;
         }
 
-        /* Animación flotante del vendedor */
+        /*vendor anim*/
         @keyframes float {
             0%, 100% {
                 transform: translateY(0px);
@@ -91,7 +90,7 @@
 </head>
 <body class="h-screen flex flex-col select-none overflow-hidden">
 
-    <!-- 1. TOP NAVBAR -->
+    <!--NAVBAR -->
     <header class="fixed top-0 left-0 w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-6 py-3 flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center text-slate-950 font-extrabold font-ui text-base shadow-lg tracking-wider">
@@ -105,15 +104,15 @@
 
         <!-- Contact Info / CV -->
         <div class="flex items-center gap-6 text-xs md:text-sm">
-            <a href="tel:+34600000000" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition">
+            <a href="tel:+34 633 614 852" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition">
                 <i class="fa-solid fa-phone text-amber-500"></i>
-                <span class="hidden sm:inline">+34 600 000 000</span>
+                <span class="hidden sm:inline">+34 633 614 852</span>
             </a>
-            <a href="mailto:contacto@juanacalero.dev" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition">
+            <a href="mailto:jacalerodev@gmail.com" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition">
                 <i class="fa-solid fa-envelope text-amber-500"></i>
-                <span class="hidden sm:inline">contacto@juanacalero.dev</span>
+                <span class="hidden sm:inline">jacalerodev@gmail.com</span>
             </a>
-            <a href="#cv" onclick="alert('Downloading CV...')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-lg transition flex items-center gap-2 shadow-md hover:shadow-amber-500/20 font-ui text-xs tracking-wider uppercase">
+            <a href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-lg transition flex items-center gap-2 shadow-md hover:shadow-amber-500/20 font-ui text-xs tracking-wider uppercase">
                 <i class="fa-solid fa-download"></i>
                 <span>Download CV</span>
             </a>
@@ -121,7 +120,7 @@
     </header>
 
 
-    <!-- 2. MAIN SHOP SCENE CON LA IMAGEN DE FONDO -->
+    <!-- Shop Scene-->
     <main id="mainScene" onclick="handleBackgroundClick(event)" class="shop-background relative flex-1 w-full pt-16 overflow-hidden flex items-center justify-center cursor-pointer">
 
         <!-- Viñeta de oscurecimiento suave -->
@@ -143,27 +142,27 @@
             <button onclick="selectItem('featured-game', 'left', event)"
                     class="rpg-shelf-item absolute left-[5%] md:left-[8%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
                 <div class="w-full h-20 md:h-28 flex items-center justify-center">
-                    <img src="assets/item-juego.png" alt="Featured Game" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    <img src="assets/item-projects.png" alt="Featured Projects" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
                 </div>
-                <span class="font-ui font-extrabold text-[10px] md:text-xs text-cyan-200 text-center uppercase tracking-wider leading-tight">Featured Game</span>
+                <span class="font-ui font-extrabold text-[10px] md:text-xs text-cyan-200 text-center uppercase tracking-wider leading-tight">Featured Projects</span>
             </button>
 
             <!-- BALDA DERECHA - SUPERIOR (Articles) -->
             <button onclick="selectItem('articles', 'right', event)"
                     class="rpg-shelf-item absolute right-[5%] md:right-[8%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
                 <div class="w-full h-20 md:h-28 flex items-center justify-center">
-                    <img src="assets/item-articulos.png" alt="Articles" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    <img src="assets/item-designer.png" alt="Game Designer" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
                 </div>
-                <span class="font-ui font-extrabold text-[10px] md:text-xs text-emerald-200 text-center uppercase tracking-wider leading-tight">Articles</span>
+                <span class="font-ui font-extrabold text-[10px] md:text-xs text-emerald-200 text-center uppercase tracking-wider leading-tight">Game Designer</span>
             </button>
 
             <!-- BALDA DERECHA - INFERIOR (Projects Log) -->
             <button onclick="selectItem('projects-log', 'right', event)"
                     class="rpg-shelf-item absolute right-[5%] md:right-[8%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
                 <div class="w-full h-28 flex items-center justify-center">
-                    <img src="assets/item-historial.png" alt="Projects Log" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    <img src="assets/item-articles.png" alt="Articles" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
                 </div>
-                <span class="font-ui font-extrabold text-[10px] md:text-xs text-purple-200 text-center uppercase tracking-wider leading-tight">Projects Log</span>
+                <span class="font-ui font-extrabold text-[10px] md:text-xs text-purple-200 text-center uppercase tracking-wider leading-tight">Articles</span>
             </button>
 
         </div>
@@ -187,7 +186,7 @@
                     <!-- Name Tag Box -->
                     <div class="nametag-container absolute -top-8 left-6 md:left-8 w-48 md:w-56 h-14 md:h-16 flex items-end justify-center pb-2.5 pt-4 px-3">
                         <span class="font-ui font-extrabold text-xs md:text-[13px] text-amber-100 tracking-wider uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-center leading-none">
-                            Juan A. Calero
+                            Shopkeeper
                         </span>
                     </div>
 
