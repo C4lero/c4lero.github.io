@@ -1,485 +1,458 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juan A. Calero | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>RPG Shop Portfolio - Game Producer</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        @view-transition {
-            navigation: auto;
-            ::view-transition-old(root),
-            ::view-transition-new(root) {
-                animation-duration: 0.5s;
-            }
-        }
-
-        :root {
-            --bg: #f8f5f2;
-            --primary: #0a203e;
-            --nav-navy: #001f3f;
-            --nav-hover: #00152b;
-            --accent-blue: #bca679;
-            --text-dim: #b19e95;
-            --highlight-role: #6895f5;
-            --color-apellido: #c0a265;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            background: var(--bg);
-            color: var(--primary);
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            background-color: #0b0d11;
+            color: #e2e8f0;
             overflow-x: hidden;
         }
 
-        .hero-nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 6vw; /* Tamaño original */
-            background: var(--nav-navy);
-            border-bottom: 2px solid var(--accent-blue);
-            z-index: 1000;
+        .font-ui {
+            font-family: 'Outfit', sans-serif;
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 30px;
+        /* Fondo de la tienda con la imagen del Zelda Shop */
+        .shop-background {
+            background-image: url('assets/shop-background.png');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
         }
 
-        .nav-item {
-            text-decoration: none;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
+        /* Contenedor del Diálogo */
+        .dialogue-box-container {
+            background-image: url('assets/UI_DIALOGUES_DialogueBox.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            filter: drop-shadow(0px 10px 25px rgba(0,0,0,0.85));
         }
 
-            .nav-item:hover {
-                color: var(--accent-blue);
+        /* Etiqueta del Nombre */
+        .nametag-container {
+            background-image: url('assets/UI_DIALOGUES_NameTag.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.6));
+        }
+
+        /* Estilo transparente/dorado para los ítems sobre la balda */
+        .rpg-shelf-item {
+            background: rgba(15, 12, 10, 0.75);
+            backdrop-filter: blur(4px);
+            border: 2px solid #d97706;
+            box-shadow: 0 0 15px rgba(217, 119, 6, 0.4), inset 0 0 10px rgba(0,0,0,0.8);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+            .rpg-shelf-item:hover {
+                transform: scale(1.1) translateY(-4px);
+                background: rgba(25, 20, 15, 0.9);
+                border-color: #fbbf24;
+                box-shadow: 0 0 25px rgba(245, 158, 11, 0.8);
             }
 
-        /* Nuevos datos de contacto integrados sutilmente */
-        .nav-contact-data {
-            display: flex;
-            gap: 20px;
-            margin-left: 20px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            padding-left: 20px;
+        /* Transición de movimiento suave */
+        .smooth-transition {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.6s ease, max-width 0.6s ease;
         }
 
-        .contact-link {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.3s;
-        }
-
-            .contact-link:hover {
-                color: var(--accent-blue);
+        /* Animación flotante del vendedor */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
             }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .social-link {
-            color: white;
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-
-            .social-link:hover {
-                color: var(--accent-blue);
-                transform: translateY(-2px);
-            }
-
-
-        .nav-cv-button {
-            padding: 10px 24px;
-            background: #ffffff;
-            color: var(--nav-navy);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 50px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-            .nav-cv-button:hover {
-                background: var(--nav-hover);
-                color: var(--accent-blue);
-                border-color: var(--accent-blue);
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            }
-
-        /* LAYOUT PRINCIPAL */
-        .main-layout {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 120px 6vw 40px;
-            display: grid;
-            grid-template-columns: 2.2fr 1fr;
-            gap: 40px;
-        }
-
-        /* HERO SECCIÓN */
-        .hero-presentation {
-            background: rgba(0, 31, 63, 0.04);
-            border-radius: 20px;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .img-container {
-            flex-shrink: 0;
-            width: 180px;
-            height: 180px;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 3px solid var(--nav-navy);
-        }
-
-            .img-container img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-        .hero-text-content h1 {
-            font-size: 2.2rem;
-            text-transform: uppercase;
-            line-height: 1.2;
-        }
-
-        .desc-personal {
-            max-width: 500px;
-            margin-top: 10px;
-            font-size: 0.95rem;
-            color: var(--primary);
-        }
-
-        .role-tag.active {
-            color: var(--highlight-role);
-            font-weight: 600;
-        }
-
-        /* PROYECTOS Y CARRUSEL */
-        .projects-section h2, .articles-sidebar h2 {
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--nav-navy);
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--accent-blue);
-            padding-bottom: 8px;
-        }
-
-        .carousel-wrapper {
-            width: 100%;
-            overflow: hidden;
-            border-radius: 15px;
-            position: relative;
-        }
-
-        .projects-container {
-            display: flex;
-            width: 100%;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .project-card-full {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/7;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .project-bg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card-full:hover .project-bg {
-            transform: scale(1.05);
-        }
-
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(0,20,40,1) 0%, rgba(0,20,40,0.6) 70%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 8%;
-            color: white;
-        }
-
-        .project-content {
-            max-width: 55%;
-        }
-
-        .project-category {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-        }
-
-        .project-content h3 {
-            font-size: 2rem;
-            margin: 5px 0 10px;
-            text-transform: uppercase;
-        }
-
-        /* SIDEBAR */
-        .articles-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .article-card {
-            text-decoration: none;
-            color: inherit;
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-
-            .article-card:hover {
-                transform: translateY(-3px);
-            }
-
-        .article-img {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #ddd;
-            object-fit: cover;
-        }
-
-        .article-body {
-            padding: 15px;
-        }
-
-            .article-body h4 {
-                font-size: 0.95rem;
-                color: var(--nav-navy);
-                margin-bottom: 5px;
-            }
-
-        @media (max-width: 1150px) {
-            .nav-contact-data {
-                display: none;
+            50% {
+                transform: translateY(-8px);
             }
         }
 
-        @media (max-width: 900px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-presentation {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .project-card-full {
-                aspect-ratio: 4/3;
-            }
-
-            .project-overlay {
-                background: linear-gradient(to top, rgba(0,20,40,0.95) 30%, transparent 100%);
-                justify-content: flex-end;
-                padding-bottom: 30px;
-            }
-
-            .project-content {
-                max-width: 100%;
-            }
+        .shopkeeper-idle {
+            animation: float 4s ease-in-out infinite;
         }
     </style>
 </head>
-<body>
+<body class="h-screen flex flex-col select-none overflow-hidden">
 
-    <nav class="hero-nav">
-        <div class="nav-left">
-            <a class="nav-item" href="index.html">HOME</a>
-            <a class="nav-item" href="projects.html">PROJECTS</a>
-            <a class="nav-item" href="whoami.html">WHO AM I</a>
-
-            <div class="nav-contact-data">
-                <a href="mailto:jacalerodev@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> jacalerodev@gmail.com</a>
-                <a href="tel:+34633614852" class="contact-link"><i class="fas fa-phone"></i> +34 633 614 852</a>
+    <!-- 1. TOP NAVBAR -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-6 py-3 flex flex-wrap justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center text-slate-950 font-extrabold font-ui text-base shadow-lg tracking-wider">
+                JC
+            </div>
+            <div>
+                <h1 class="font-bold text-slate-100 text-base tracking-wide font-ui">Juan A. Calero</h1>
+                <p class="text-xs text-amber-400 font-medium">Game Producer & Developer</p>
             </div>
         </div>
-        <div class="nav-right">
-            <a href="https://linkedin.com/in/juanantoniocalero" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
-            <a href="CVJuanAntonioCalero.pdf" download="CVJuanAntonioCalero.pdf" class="nav-cv-button">Download CV</a>
+
+        <!-- Contact Info / CV -->
+        <div class="flex items-center gap-6 text-xs md:text-sm">
+            <a href="tel:+34600000000" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition">
+                <i class="fa-solid fa-phone text-amber-500"></i>
+                <span class="hidden sm:inline">+34 600 000 000</span>
+            </a>
+            <a href="mailto:contacto@juanacalero.dev" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition">
+                <i class="fa-solid fa-envelope text-amber-500"></i>
+                <span class="hidden sm:inline">contacto@juanacalero.dev</span>
+            </a>
+            <a href="#cv" onclick="alert('Downloading CV...')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-lg transition flex items-center gap-2 shadow-md hover:shadow-amber-500/20 font-ui text-xs tracking-wider uppercase">
+                <i class="fa-solid fa-download"></i>
+                <span>Download CV</span>
+            </a>
         </div>
-    </nav>
+    </header>
 
-    <main class="main-layout">
-        <div class="left-content">
-            <section class="hero-presentation">
-                <div class="img-container">
-                    <img src="images/HeroImage.jpeg" alt="Juan Calero" onerror="this.src='https://via.placeholder.com/180'">
+
+    <!-- 2. MAIN SHOP SCENE CON LA IMAGEN DE FONDO -->
+    <main id="mainScene" onclick="handleBackgroundClick(event)" class="shop-background relative flex-1 w-full pt-16 overflow-hidden flex items-center justify-center cursor-pointer">
+
+        <!-- Viñeta de oscurecimiento suave -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none"></div>
+
+        <!-- CONTENEDOR ESCALADO 16:9 (Alinea los ítems exactamente sobre la imagen de fondo) -->
+        <div id="shelvesContainer" class="smooth-transition relative w-full max-w-6xl aspect-[16/9] max-h-[85vh] pointer-events-auto">
+
+            <!-- BALDA IZQUIERDA - SUPERIOR (Game Producer) -->
+            <button onclick="selectItem('game-producer', 'left', event)"
+                    class="rpg-shelf-item absolute left-[5%] md:left-[8%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                <div class="w-full h-20 md:h-28 flex items-center justify-center">
+                    <img src="assets/item-producer.png" alt="Game Producer" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
                 </div>
-                <div class="hero-text-content">
-                    <p style="font-size: 0.7rem; letter-spacing: 2px; font-weight: 600;">I AM</p>
-                    <h1>JUAN A. <span style="color:var(--color-apellido)">CALERO</span></h1>
-                    <p style="color:var(--text-dim); font-style:italic; margin-bottom: 8px;">
-                        and I am a Video Game <span class="role-tag active" id="role-0">Producer</span> |
-                        <span class="role-tag" id="role-1">Designer</span> |
-                        <span class="role-tag" id="role-2">2D Artist</span>
-                    </p>
-                    <p class="desc-personal">
-                        <strong>"Videogames have always been my passion and I strive to take part in projects that create a meaningful impact in people, just as games have done on me."</strong>
-                        <br>I have experience with agile methodologies and big multidisciplinary teams working both as a designer and a producer.
-                    </p>
+                <span class="font-ui font-extrabold text-[10px] md:text-xs text-amber-200 text-center uppercase tracking-wider leading-tight">Game Producer</span>
+            </button>
+
+            <!-- BALDA IZQUIERDA - INFERIOR (Featured Game) -->
+            <button onclick="selectItem('featured-game', 'left', event)"
+                    class="rpg-shelf-item absolute left-[5%] md:left-[8%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                <div class="w-full h-20 md:h-28 flex items-center justify-center">
+                    <img src="assets/item-juego.png" alt="Featured Game" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
                 </div>
-            </section>
+                <span class="font-ui font-extrabold text-[10px] md:text-xs text-cyan-200 text-center uppercase tracking-wider leading-tight">Featured Game</span>
+            </button>
 
-            <section id="projects" class="projects-section">
-                <h2>Featured Game Projects</h2>
-                <div class="carousel-wrapper">
-                    <div class="projects-container" id="main-carousel">
-                        <a href="dorothy-project.html" class="carousel-item">
-                            <div class="project-card-full">
-                                <img src="images/Dorothy01.png" class="project-bg" alt="Dorothy-Job">
-                                <div class="project-overlay">
-                                    <div class="project-content">
-                                        <span class="project-category">3D Twin Stick Shooter </span>
-                                        <h3>Dorothy's Job</h3>
-                                        <p>Isometric twin-stick shooter with procedural levels.<br><br>Currently on Steam.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+            <!-- BALDA DERECHA - SUPERIOR (Articles) -->
+            <button onclick="selectItem('articles', 'right', event)"
+                    class="rpg-shelf-item absolute right-[5%] md:right-[8%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                <div class="w-full h-20 md:h-28 flex items-center justify-center">
+                    <img src="assets/item-articulos.png" alt="Articles" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                </div>
+                <span class="font-ui font-extrabold text-[10px] md:text-xs text-emerald-200 text-center uppercase tracking-wider leading-tight">Articles</span>
+            </button>
 
-                        <a href="walking-project.html" class="carousel-item">
-                            <div class="project-card-full">
-                                <img src="images/WalkingTime01.png" class="project-bg" alt="Walking-Time">
-                                <div class="project-overlay">
-                                    <div class="project-content">
-                                        <span class="project-category">Educational 2D Puzzle Game</span>
-                                        <h3>Walking Time</h3>
-                                        <p>A 2D adventure game made for kids to develop computational thinking skills!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+            <!-- BALDA DERECHA - INFERIOR (Projects Log) -->
+            <button onclick="selectItem('projects-log', 'right', event)"
+                    class="rpg-shelf-item absolute right-[5%] md:right-[8%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                <div class="w-full h-28 flex items-center justify-center">
+                    <img src="assets/item-historial.png" alt="Projects Log" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                </div>
+                <span class="font-ui font-extrabold text-[10px] md:text-xs text-purple-200 text-center uppercase tracking-wider leading-tight">Projects Log</span>
+            </button>
 
-                        <a href="jam-project.html" class="carousel-item">
-                            <div class="project-card-full">
-                                <img src="images/JamProject01.png" class="project-bg" alt="Jam-Project">
-                                <div class="project-overlay">
-                                    <div class="project-content">
-                                        <span class="project-category">Available on itch.io</span>
-                                        <h3>Jam Projects</h3>
-                                        <p>Small games developed in short spans of time following an specific set of rules.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+        </div>
 
-                        <a href="indie-project.html" class="carousel-item">
-                            <div class="project-card-full">
-                                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=1000" class="project-bg" alt="Indie-Project">
-                                <div class="project-overlay">
-                                    <div class="project-content">
-                                        <span class="project-category">A game in the works</span>
-                                        <h3>Unnanounced indie project</h3>
-                                        <p>Check more about my work as Game Designer and Producer.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+
+        <!-- 3. SHOPKEEPER + DIALOGUE GROUP -->
+        <div id="characterGroup" class="smooth-transition absolute inset-x-0 bottom-0 top-16 flex flex-col items-center justify-end pb-3 z-20 pointer-events-none">
+
+            <!-- THE SHOPKEEPER (Escalado de tamaño porcentual relativo al viewport) -->
+            <div onclick="handleShopkeeperClick(event)" class="relative flex flex-col items-center justify-end pointer-events-auto cursor-pointer -mb20 md:-mb20 z-10 -translate-y-12">
+                <div class="shopkeeper-idle relative h-[38vh] sm:h-[45vh] lg:h-[52vh] w-auto aspect-square flex items-center justify-center">
+                    <div class="absolute w-[80%] h-[80%] bg-amber-500/20 rounded-full blur-3xl"></div>
+                    <img src="assets/vendedor.png" alt="Shopkeeper" class="w-full h-full object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.95)]">
+                </div>
+            </div>
+
+            <!-- DIALOGUE BOX -->
+            <div id="dialogueWrapper" onclick="handleShopkeeperClick(event)" class="pointer-events-auto relative w-full max-w-4xl px-4 pt-3 smooth-transition cursor-pointer">
+                <div class="dialogue-box-container relative px-6 md:px-8 py-5 md:py-6 min-h-[110px] flex items-center">
+
+                    <!-- Name Tag Box -->
+                    <div class="nametag-container absolute -top-8 left-6 md:left-8 w-48 md:w-56 h-14 md:h-16 flex items-end justify-center pb-2.5 pt-4 px-3">
+                        <span class="font-ui font-extrabold text-xs md:text-[13px] text-amber-100 tracking-wider uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-center leading-none">
+                            Juan A. Calero
+                        </span>
+                    </div>
+
+                    <!-- Dialogue Text -->
+                    <p id="dialogueText" class="font-ui font-semibold text-slate-800 text-xs md:text-sm lg:text-base leading-relaxed pl-2 pr-6">
+                        <!-- Dynamic typewriter text -->
+                    </p>
+
+                    <!-- Pulsing Arrow Indicator -->
+                    <div class="absolute bottom-3 right-6 text-slate-700 animate-bounce text-xs md:text-sm">
+                        <i class="fa-solid fa-caret-down"></i>
                     </div>
                 </div>
-            </section>
+            </div>
+
         </div>
 
-        <aside class="articles-sidebar">
-            <h2>Articles and writing</h2>
-            <a href="her-story-article.html" class="article-card">
-                <img src="images/HerStory02.jpg" class="article-img" onerror="this.src='https://via.placeholder.com/300x160'">
-                <div class="article-body">
-                    <h4>"Her Story" as an example of Nonlinear Storytelling</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">The mystery remains open.</p>
+
+        <!-- 4. SLIDING DETAILS PANEL -->
+        <!-- Left Drawer -->
+        <aside id="detailsPanelLeft" onclick="event.stopPropagation()" class="fixed top-16 left-0 bottom-0 bg-slate-950/95 border-r-4 border-amber-500 shadow-2xl z-50 transform -translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
+            <div class="p-6 border-b border-slate-800 flex items-center gap-4 bg-slate-900/50">
+                <div id="panelIconLeft" class="w-14 h-14 rounded-xl bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center text-amber-400 text-2xl overflow-hidden p-1"></div>
+                <div>
+                    <span id="panelCategoryLeft" class="text-xs font-ui font-bold text-amber-400 uppercase tracking-widest">Category</span>
+                    <h2 id="panelTitleLeft" class="text-xl md:text-2xl font-extrabold text-slate-100 font-ui">Title</h2>
                 </div>
-            </a>
-            <a href="gone-home.html" class="article-card">
-                <img src="images/GoneHome01.png" class="article-img" onerror="this.src='https://via.placeholder.com/300x160'">
-                <div class="article-body">
-                    <h4>"Gone Home": Video Games as a Reflection of Generational Identity</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">How can a video game portrays feelings, generational gaps and family connections.</p>
-                </div>
-            </a>
+            </div>
+
+            <div id="panelBodyLeft" class="p-6 flex-1 overflow-y-auto space-y-4 text-slate-300 text-sm md:text-base leading-relaxed"></div>
+
+            <div class="p-5 border-t border-slate-800 bg-slate-900/80 flex flex-col gap-3">
+                <a id="buyButtonLeft" href="#" target="_blank" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-ui font-bold text-sm py-3.5 px-4 rounded-lg text-center transition flex items-center justify-center gap-2 shadow-lg hover:shadow-amber-500/20 uppercase tracking-wider">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="buyButtonTextLeft">BUY / VIEW MORE</span>
+                </a>
+                <button onclick="closePanel()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-ui font-semibold text-xs py-2.5 px-4 rounded-lg transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>RETURN TO SHOP</span>
+                </button>
+            </div>
         </aside>
+
+        <!-- Right Drawer -->
+        <aside id="detailsPanelRight" onclick="event.stopPropagation()" class="fixed top-16 right-0 bottom-0 bg-slate-950/95 border-l-4 border-amber-500 shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
+            <div class="p-6 border-b border-slate-800 flex items-center gap-4 bg-slate-900/50">
+                <div id="panelIconRight" class="w-14 h-14 rounded-xl bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center text-amber-400 text-2xl overflow-hidden p-1"></div>
+                <div>
+                    <span id="panelCategoryRight" class="text-xs font-ui font-bold text-amber-400 uppercase tracking-widest">Category</span>
+                    <h2 id="panelTitleRight" class="text-xl md:text-2xl font-extrabold text-slate-100 font-ui">Title</h2>
+                </div>
+            </div>
+
+            <div id="panelBodyRight" class="p-6 flex-1 overflow-y-auto space-y-4 text-slate-300 text-sm md:text-base leading-relaxed"></div>
+
+            <div class="p-5 border-t border-slate-800 bg-slate-900/80 flex flex-col gap-3">
+                <a id="buyButtonRight" href="#" target="_blank" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-ui font-bold text-sm py-3.5 px-4 rounded-lg text-center transition flex items-center justify-center gap-2 shadow-lg hover:shadow-amber-500/20 uppercase tracking-wider">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="buyButtonTextRight">BUY / VIEW MORE</span>
+                </a>
+                <button onclick="closePanel()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-ui font-semibold text-xs py-2.5 px-4 rounded-lg transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>RETURN TO SHOP</span>
+                </button>
+            </div>
+        </aside>
+
     </main>
 
-    <script>
-        let currentRoleIdx = 0;
-        setInterval(() => {
-            document.querySelectorAll('.role-tag').forEach(t => t.classList.remove('active'));
-            currentRoleIdx = (currentRoleIdx + 1) % 3;
-            const tag = document.getElementById(`role-${currentRoleIdx}`);
-            if (tag) tag.classList.add('active');
-        }, 2500);
 
-        const carousel = document.getElementById('main-carousel');
-        function rotateCarousel() {
-            carousel.style.transition = "transform 0.8s cubic-bezier(0.45, 0, 0.55, 1)";
-            carousel.style.transform = "translateX(-100%)";
-            setTimeout(() => {
-                const firstItem = carousel.querySelector('.carousel-item');
-                carousel.style.transition = "none";
-                carousel.appendChild(firstItem);
-                carousel.style.transform = "translateX(0)";
-            }, 800);
+    <!-- 5. JAVASCRIPT LOGIC -->
+    <script>
+        const PANEL_WIDTH_PERCENT = 45;
+        let isPanelOpen = false;
+
+        const shopItems = {
+            'game-producer': {
+                category: 'Career & Experience',
+                title: 'Game Producer Resume',
+                imgSrc: 'assets/item-producer.png',
+                dialogue: "Ah, interested in my work as a Game Producer? Here is my experience managing milestones, budgets, and leading cross-functional teams.",
+                buyText: "DOWNLOAD FULL CV",
+                buyLink: "#download-cv",
+                description: `
+                  <p class="font-bold text-amber-400">Specialized in technical production and video game project management.</p>
+                  <ul class="list-disc pl-5 space-y-2 mt-2">
+                    <li><strong>Team Leadership:</strong> Coordinating art, programming, and narrative design under Agile frameworks (Scrum/Kanban).</li>
+                    <li><strong>Development Pipeline:</strong> Roadmap definition, scope control, and risk mitigation.</li>
+                    <li><strong>Toolstack:</strong> Jira, Notion, Trello, Git, Unity & Unreal Engine.</li>
+                  </ul>
+                `
+            },
+            'featured-game': {
+                category: 'Featured Project',
+                title: 'Indie RPG: Project Quest',
+                imgSrc: 'assets/item-juego.png',
+                dialogue: "Excellent choice! This item represents my latest developed title. You can check out its Steam page and play the demo.",
+                buyText: "CHECK ON STEAM",
+                buyLink: "https://store.steampowered.com",
+                description: `
+                  <p class="font-bold text-cyan-400">A retro Action-RPG built with attention to detail.</p>
+                  <p class="mt-2">Role: <strong>Lead Producer & Game Designer</strong>.</p>
+                  <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 mt-3 space-y-2 text-xs md:text-sm">
+                    <p>🎮 <strong>Platforms:</strong> PC / Steam</p>
+                    <p>⭐ <strong>Milestone:</strong> Over 10,000 demo downloads during Steam Next Fest.</p>
+                  </div>
+                `
+            },
+            'articles': {
+                category: 'Publications',
+                title: 'Articles & Postmortems',
+                imgSrc: 'assets/item-articulos.png',
+                dialogue: "I love sharing knowledge about production and design. Take a look at my published postmortems and articles.",
+                buyText: "READ ON MEDIUM",
+                buyLink: "https://medium.com",
+                description: `
+                  <p class="font-bold text-emerald-400">Deep dives into game production, level design, and game economics.</p>
+                  <ul class="list-disc pl-5 space-y-2 mt-2">
+                    <li><em>"Surviving Pre-Production Without Scope Creep"</em></li>
+                    <li><em>"Designing Incentive Systems in Classic RPGs"</em></li>
+                  </ul>
+                `
+            },
+            'projects-log': {
+                category: 'Portfolio',
+                title: 'Projects & Game Jams',
+                imgSrc: 'assets/item-historial.png',
+                dialogue: "Here is my full inventory of Game Jams, prototypes, and collaborative experiments.",
+                buyText: "EXPLORE ON ITCH.IO",
+                buyLink: "https://itch.io",
+                description: `
+                  <p class="font-bold text-purple-400">A collection of rapid prototypes and game mechanics research.</p>
+                  <p class="mt-2">Over 8 completed projects across international jams including Global Game Jam and Ludum Dare.</p>
+                `
+            }
+        };
+
+        let typewriterTimer = null;
+
+        function applyPanelWidths() {
+            const pLeft = document.getElementById('detailsPanelLeft');
+            const pRight = document.getElementById('detailsPanelRight');
+
+            if (window.innerWidth >= 768) {
+                pLeft.style.width = `${PANEL_WIDTH_PERCENT}%`;
+                pRight.style.width = `${PANEL_WIDTH_PERCENT}%`;
+            } else {
+                pLeft.style.width = '100%';
+                pRight.style.width = '100%';
+            }
         }
-        let carouselInterval = setInterval(rotateCarousel, 4000);
-        carousel.addEventListener('mouseenter', () => clearInterval(carouselInterval));
-        carousel.addEventListener('mouseleave', () => carouselInterval = setInterval(rotateCarousel, 4000));
+
+        function typeDialogue(text) {
+            const el = document.getElementById('dialogueText');
+            el.textContent = '';
+            let i = 0;
+            if (typewriterTimer) clearInterval(typewriterTimer);
+            typewriterTimer = setInterval(() => {
+                if (i < text.length) {
+                    el.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typewriterTimer);
+                }
+            }, 18);
+        }
+
+        function handleShopkeeperClick(event) {
+            event.stopPropagation();
+            if (isPanelOpen) {
+                closePanel();
+            }
+        }
+
+        function handleBackgroundClick(event) {
+            if (isPanelOpen) {
+                closePanel();
+            }
+        }
+
+        function selectItem(itemId, shelfSide, event) {
+            if (event) event.stopPropagation();
+
+            if (isPanelOpen) {
+                closePanel();
+                return;
+            }
+
+            const item = shopItems[itemId];
+            if (!item) return;
+
+            const shelvesContainer = document.getElementById('shelvesContainer');
+            const characterGroup = document.getElementById('characterGroup');
+            const dialogueWrapper = document.getElementById('dialogueWrapper');
+            const panelLeft = document.getElementById('detailsPanelLeft');
+            const panelRight = document.getElementById('detailsPanelRight');
+
+            // Reset
+            panelLeft.classList.add('-translate-x-full');
+            panelRight.classList.add('translate-x-full');
+
+            shelvesContainer.classList.add('opacity-30', 'blur-[2px]');
+
+            const shiftPercent = window.innerWidth >= 768 ? (PANEL_WIDTH_PERCENT / 2) : 0;
+            const remainingWidthPercent = window.innerWidth >= 768 ? (100 - PANEL_WIDTH_PERCENT - 4) : 90;
+
+            dialogueWrapper.style.maxWidth = `${remainingWidthPercent}vw`;
+
+            if (shelfSide === 'left') {
+                characterGroup.style.transform = `translateX(${shiftPercent}vw)`;
+
+                document.getElementById('panelCategoryLeft').textContent = item.category;
+                document.getElementById('panelTitleLeft').textContent = item.title;
+                document.getElementById('panelIconLeft').innerHTML = `<img src="${item.imgSrc}" class="w-full h-full object-contain">`;
+                document.getElementById('panelBodyLeft').innerHTML = item.description;
+
+                const buyBtn = document.getElementById('buyButtonLeft');
+                document.getElementById('buyButtonTextLeft').textContent = item.buyText;
+                buyBtn.href = item.buyLink;
+
+                panelLeft.classList.remove('-translate-x-full');
+            } else {
+                characterGroup.style.transform = `translateX(-${shiftPercent}vw)`;
+
+                document.getElementById('panelCategoryRight').textContent = item.category;
+                document.getElementById('panelTitleRight').textContent = item.title;
+                document.getElementById('panelIconRight').innerHTML = `<img src="${item.imgSrc}" class="w-full h-full object-contain">`;
+                document.getElementById('panelBodyRight').innerHTML = item.description;
+
+                const buyBtn = document.getElementById('buyButtonRight');
+                document.getElementById('buyButtonTextRight').textContent = item.buyText;
+                buyBtn.href = item.buyLink;
+
+                panelRight.classList.remove('translate-x-full');
+            }
+
+            isPanelOpen = true;
+            typeDialogue(item.dialogue);
+        }
+
+        function closePanel() {
+            const shelvesContainer = document.getElementById('shelvesContainer');
+            const characterGroup = document.getElementById('characterGroup');
+            const dialogueWrapper = document.getElementById('dialogueWrapper');
+            const panelLeft = document.getElementById('detailsPanelLeft');
+            const panelRight = document.getElementById('detailsPanelRight');
+
+            characterGroup.style.transform = 'translateX(0)';
+            dialogueWrapper.style.maxWidth = '56rem'; // eq to max-w-4xl
+
+            shelvesContainer.classList.remove('opacity-30', 'blur-[2px]');
+
+            panelLeft.classList.add('-translate-x-full');
+            panelRight.classList.add('translate-x-full');
+
+            isPanelOpen = false;
+            typeDialogue("What else would you like to inspect? Click on any object on the shelves.");
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            applyPanelWidths();
+            typeDialogue("Welcome to my shop! I am Juan A. Calero. Click on any item on the shelves to explore my work and experience.");
+        });
+
+        window.addEventListener('resize', applyPanelWidths);
     </script>
 </body>
 </html>
