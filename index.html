@@ -5,30 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calero - Portfolio</title>
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts: Outfit & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0b0d11;
-            color: #e2e8f0;
-            overflow-x: hidden;
+            background-color: #000000;
+            color: #ffffff;
+            overflow: hidden;
         }
 
         .font-ui {
             font-family: 'Outfit', sans-serif;
         }
 
-        /*background*/
+        .cel-block-shadow {
+            box-shadow: 6px 6px 0px #000000;
+        }
+
+        .cel-block-shadow-sm {
+            box-shadow: 4px 4px 0px #000000;
+        }
+
         .shop-background {
             background-image: url('assets/shop-background.png');
             background-size: cover;
@@ -36,43 +40,51 @@
             background-repeat: no-repeat;
         }
 
-        /*dialoguebox*/
         .dialogue-box-container {
             background-image: url('assets/dialogue-box.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
-            filter: drop-shadow(0px 10px 25px rgba(0,0,0,0.85));
         }
 
-        /*nametag*/
         .nametag-container {
             background-image: url('assets/name-tag.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
-            filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.6));
         }
 
-        /* Estilo transparente/dorado para los ítems sobre la balda */
         .rpg-shelf-item {
-            background: rgba(15, 12, 10, 0.75);
-            backdrop-filter: blur(4px);
-            border: 2px solid #d97706;
-            box-shadow: 0 0 15px rgba(217, 119, 6, 0.4), inset 0 0 10px rgba(0,0,0,0.8);
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-color: #141259;
+            border: 3px solid #000000;
+            box-shadow: 6px 6px 0px #000000;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
         }
 
             .rpg-shelf-item:hover {
-                transform: scale(1.1) translateY(-4px);
-                background: rgba(25, 20, 15, 0.9);
-                border-color: #fbbf24;
-                box-shadow: 0 0 25px rgba(245, 158, 11, 0.8);
+                transform: translate(-3px, -5px) scale(1.08) !important;
+                background-color: #1c1a75;
+                box-shadow: 10px 10px 0px #000000;
+                border-color: #F2CD5C;
+            }
+
+        /* Variante estilo newsletter/fila para artículos */
+        .rpg-article-item {
+            background-color: #141259;
+            border: 3px solid #000000;
+            box-shadow: 5px 5px 0px #000000;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+
+            .rpg-article-item:hover {
+                transform: translate(-2px, -3px) scale(1.02) !important;
+                background-color: #1c1a75;
+                box-shadow: 8px 8px 0px #000000;
+                border-color: #F2CD5C;
             }
 
         .smooth-transition {
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.6s ease, max-width 0.6s ease;
         }
 
-        /*vendor anim*/
         @keyframes float {
             0%, 100% {
                 transform: translateY(0px);
@@ -86,117 +98,524 @@
         .shopkeeper-idle {
             animation: float 4s ease-in-out infinite;
         }
+
+        /* LEVITACIÓN SUAVE DE LOS SPRITES DE ITEMS (SINCRO GLOBAL) */
+        @keyframes itemFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .item-sprite-idle {
+            animation: itemFloat 3s ease-in-out infinite;
+        }
+
+        /* ONDAS CON CAPA Z-INDEX 20 */
+        .wave-container-top {
+            position: fixed;
+            top: 63px;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 20;
+            background: transparent;
+        }
+
+        .wave-container-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 20;
+            background: transparent;
+        }
+
+        .wave-track {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            will-change: transform;
+        }
+
+            .wave-track svg {
+                width: 50%;
+                height: 100%;
+                flex-shrink: 0;
+                display: block;
+            }
+
+        @keyframes waveLoop {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
+
+        @keyframes waveLoopReverse {
+            0% {
+                transform: translate3d(-50%, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .animate-wave-white-top {
+            animation: waveLoop 38s linear infinite;
+        }
+
+        .animate-wave-blue1-top {
+            animation: waveLoop 26s linear infinite;
+        }
+
+        .animate-wave-blue2-top {
+            animation: waveLoop 20s linear infinite;
+        }
+
+        .animate-wave-black-top {
+            animation: waveLoop 14s linear infinite;
+        }
+
+        .animate-wave-white-bot {
+            animation: waveLoopReverse 38s linear infinite;
+        }
+
+        .animate-wave-blue1-bot {
+            animation: waveLoopReverse 26s linear infinite;
+        }
+
+        .animate-wave-blue2-bot {
+            animation: waveLoopReverse 26s linear infinite;
+        }
+
+        .animate-wave-black-bot {
+            animation: waveLoopReverse 14s linear infinite;
+        }
+
+        @keyframes personaOutlinePulse {
+            0% {
+                filter: drop-shadow(3px 0px 0px #000) drop-shadow(-3px 0px 0px #000) drop-shadow(0px 3px 0px #000) drop-shadow(0px -3px 0px #000) drop-shadow(3px 3px 0px #000);
+            }
+
+            33% {
+                filter: drop-shadow(3px 1px 0px #000) drop-shadow(-3px -1px 0px #000) drop-shadow(1px 3px 0px #000) drop-shadow(-1px -3px 0px #000) drop-shadow(4px 4px 0px #000);
+            }
+
+            66% {
+                filter: drop-shadow(2px 3px 0px #000) drop-shadow(-3px 1px 0px #000) drop-shadow(-1px 3px 0px #000) drop-shadow(2px -3px 0px #000) drop-shadow(3px 4px 0px #000);
+            }
+
+            100% {
+                filter: drop-shadow(3px -2px 0px #000) drop-shadow(-3px 2px 0px #000) drop-shadow(2px 3px 0px #000) drop-shadow(-2px -3px 0px #000) drop-shadow(4px 3px 0px #000);
+            }
+        }
+
+        @keyframes personaNametagPulse {
+            0% {
+                filter: drop-shadow(2px 0px 0px #000) drop-shadow(-2px 0px 0px #000) drop-shadow(0px 2px 0px #000) drop-shadow(0px -2px 0px #000) drop-shadow(2px 2px 0px #000);
+            }
+
+            50% {
+                filter: drop-shadow(2px 1px 0px #000) drop-shadow(-2px -1px 0px #000) drop-shadow(1px 2px 0px #000) drop-shadow(-1px -2px 0px #000) drop-shadow(3px 2px 0px #000);
+            }
+
+            100% {
+                filter: drop-shadow(2px -1px 0px #000) drop-shadow(-2px 1px 0px #000) drop-shadow(1px 2px 0px #000) drop-shadow(-1px -2px 0px #000) drop-shadow(2px 3px 0px #000);
+            }
+        }
+
+        .persona-outline-thick {
+            animation: personaOutlinePulse 3.5s ease-in-out infinite alternate;
+        }
+
+        .persona-outline-nametag {
+            animation: personaNametagPulse 3.5s ease-in-out infinite alternate;
+        }
+
+        .particle-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cotl-blob {
+            position: absolute;
+            border-radius: 50%;
+            background: #F2CD5C;
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+            animation: floatUp 6s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(0.6);
+            }
+
+            30%, 70% {
+                opacity: 0.9;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(1.1);
+            }
+        }
+
+        .item-particle-aura {
+            position: absolute;
+            inset: -12px;
+            pointer-events: none;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .item-blob {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: #F2CD5C;
+            border: 1px solid #000000;
+            border-radius: 50%;
+            animation: orbitPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes orbitPulse {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.8) translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.3) translateY(-8px);
+            }
+        }
+
+        .anim-nav-entry {
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+        }
+
+            .anim-nav-entry.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+        .anim-bg-entry {
+            opacity: 0;
+            transform: scale(1.03);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+            .anim-bg-entry.active {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        .anim-vendor-entry {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+        }
+
+            .anim-vendor-entry.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        .shelf-item-hidden {
+            opacity: 0;
+            transform: scale(0) rotate(-10deg);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+        }
+
+        .shelf-item-visible {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .drawer-panel {
+            z-index: 90 !important;
+            position: fixed !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            height: 100vh !important;
+            padding-top: 63px !important;
+        }
+
+        .panel-scroll-content::-webkit-scrollbar {
+            width: 100px;
+        }
+
+        .panel-scroll-content::-webkit-scrollbar-track {
+            background: #000000;
+            border-left: 2px solid #141259;
+        }
+
+        .panel-scroll-content::-webkit-scrollbar-thumb {
+            background: #F2CD5C;
+            border: 2px solid #000000;
+        }
+
+            .panel-scroll-content::-webkit-scrollbar-thumb:hover {
+                background: #F2A766;
+            }
+
+        .panel-scroll-content {
+            scrollbar-width: thin;
+            scrollbar-color: #F2CD5C #000000;
+        }
     </style>
 </head>
-<body class="h-screen flex flex-col select-none overflow-hidden">
+<body class="h-screen flex flex-col select-none overflow-hidden bg-black">
 
-    <!--NAVBAR -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-6 py-3 flex flex-wrap justify-between items-center gap-4">
+    <div id="loadingOverlay" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-500">
+        <div class="relative flex items-center justify-center">
+            <div class="w-20 h-20 border-8 border-black border-t-[#F2CD5C] rounded-full animate-spin bg-black"></div>
+            <i class="fa-solid fa-dice-d20 text-2xl absolute animate-pulse text-[#F2CD5C]"></i>
+        </div>
+        <span class="mt-6 font-ui text-xs font-black tracking-widest uppercase animate-pulse text-[#F2CD5C] bg-black px-4 py-1 border-2 border-black">Loading Portfolio...</span>
+    </div>
+
+    <header id="navHeader" class="anim-nav-entry fixed top-0 left-0 w-full h-[63px] z-[100] bg-black border-b-4 border-black px-6 py-3 flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center text-slate-950 font-extrabold font-ui text-base shadow-lg tracking-wider">
-                JC
+            <div class="w-10 h-10 rounded-none bg-[#F2CD5C] border-2 border-black cel-block-shadow-sm flex items-center justify-center text-black font-black font-ui text-base tracking-wider">
+                C4
             </div>
             <div>
-                <h1 class="font-bold text-slate-100 text-base tracking-wide font-ui">Juan A. Calero</h1>
-                <p class="text-xs text-amber-400 font-medium">Game Producer & Developer</p>
+                <h1 class="font-black text-white text-base tracking-wide font-ui uppercase">Juan A. Calero</h1>
+                <p class="text-xs font-bold text-[#F2A766]">Game Developer</p>
             </div>
         </div>
 
-        <!-- Contact Info / CV -->
         <div class="flex items-center gap-6 text-xs md:text-sm">
-            <a href="tel:+34 633 614 852" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition">
-                <i class="fa-solid fa-phone text-amber-500"></i>
+            <a href="tel:+34633614852" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-solid fa-phone text-[#F2CD5C]"></i>
                 <span class="hidden sm:inline">+34 633 614 852</span>
             </a>
-            <a href="mailto:jacalerodev@gmail.com" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition">
-                <i class="fa-solid fa-envelope text-amber-500"></i>
+            <a href="mailto:jacalerodev@gmail.com" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-solid fa-envelope text-[#F2CD5C]"></i>
                 <span class="hidden sm:inline">jacalerodev@gmail.com</span>
             </a>
-            <a href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-lg transition flex items-center gap-2 shadow-md hover:shadow-amber-500/20 font-ui text-xs tracking-wider uppercase">
+            <a href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf" class="bg-[#F2CD5C] text-black font-black px-4 py-2 border-2 border-black cel-block-shadow-sm transition flex items-center justify-center gap-2 font-ui text-xs tracking-wider uppercase hover:translate-x-0.5 hover:translate-y-0.5">
                 <i class="fa-solid fa-download"></i>
                 <span>Download CV</span>
             </a>
         </div>
     </header>
 
+    <!-- ONDAS SUPERIORES -->
+    <div class="wave-container-top">
+        <div class="wave-track animate-wave-white-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path>
+            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path>
+            </svg>
+        </div>
+        <div class="wave-track animate-wave-blue1-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path>
+            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path>
+            </svg>
+        </div>
+        <div class="wave-track animate-wave-blue2-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path>
+            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path>
+            </svg>
+        </div>
+        <div class="wave-track animate-wave-black-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path>
+            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path>
+            </svg>
+        </div>
+    </div>
 
-    <!-- Shop Scene-->
-    <main id="mainScene" onclick="handleBackgroundClick(event)" class="shop-background relative flex-1 w-full pt-16 overflow-hidden flex items-center justify-center cursor-pointer">
+    <!-- ONDAS INFERIORES -->
+    <div class="wave-container-bottom">
+        <div class="wave-track animate-wave-white-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path>
+            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path>
+            </svg>
+        </div>
+        <div class="wave-track animate-wave-blue1-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path>
+            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path>
+            </svg>
+        </div>
+        <div class="wave-track animate-wave-blue2-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path>
+            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path>
+            </svg>
+        </div>
+        <div class="wave-track animate-wave-black-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path>
+            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path>
+            </svg>
+        </div>
+    </div>
 
-        <!-- Viñeta de oscurecimiento suave -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none"></div>
+    <!-- PANEL IZQUIERDO -->
+    <aside id="detailsPanelLeft" onclick="event.stopPropagation()" class="drawer-panel left-0 w-full md:w-[45%] bg-black border-r-4 border-black shadow-[10px_0px_0px_#000] transform -translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
+        <div class="p-6 border-b-4 border-black bg-[#141259] flex items-center gap-4 flex-shrink-0">
+            <div id="panelIconLeft" class="w-14 h-14 rounded-none bg-black border-2 border-black flex items-center justify-center text-2xl overflow-hidden p-1 text-[#F2CD5C]"></div>
+            <div>
+                <span id="panelCategoryLeft" class="text-xs font-ui font-black uppercase tracking-widest text-[#D94179]">Category</span>
+                <h2 id="panelTitleLeft" class="text-xl md:text-2xl font-black text-white font-ui uppercase">Title</h2>
+            </div>
+        </div>
 
-        <!-- CONTENEDOR ESCALADO 16:9 (Alinea los ítems exactamente sobre la imagen de fondo) -->
-        <div id="shelvesContainer" class="smooth-transition relative w-full max-w-6xl aspect-[16/9] max-h-[85vh] pointer-events-auto">
+        <div id="panelBodyLeft" class="panel-scroll-content p-6 flex-1 overflow-y-auto space-y-4 text-slate-200 text-sm md:text-base leading-relaxed bg-[#0a0a0c]"></div>
 
-            <!-- BALDA IZQUIERDA - SUPERIOR (Game Producer) -->
-            <button onclick="selectItem('game-producer', 'left', event)"
-                    class="rpg-shelf-item absolute left-[5%] md:left-[8%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+        <div class="p-5 border-t-4 border-black bg-black flex flex-col gap-3 flex-shrink-0 z-10">
+            <a id="buyButtonLeft" href="#" target="_blank" class="w-full bg-[#F2CD5C] text-black border-2 border-black cel-block-shadow-sm font-ui font-black text-sm py-3.5 px-4 rounded-none text-center transition flex items-center justify-center gap-2 hover:bg-[#f5d77f] uppercase tracking-wider">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="buyButtonTextLeft">BUY / VIEW MORE</span>
+            </a>
+            <button onclick="closePanel()" class="w-full bg-black text-white border-2 border-white cel-block-shadow-sm font-ui font-bold text-xs py-3 px-4 rounded-none transition flex items-center justify-center gap-2 uppercase hover:bg-neutral-800 tracking-wider">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>BACK TO SHOP</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- PANEL DERECHO -->
+    <aside id="detailsPanelRight" onclick="event.stopPropagation()" class="drawer-panel right-0 w-full md:w-[45%] bg-black border-l-4 border-black shadow-[-10px_0px_0px_#000] transform translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
+        <div class="p-6 border-b-4 border-black bg-[#141259] flex items-center gap-4 flex-shrink-0">
+            <div id="panelIconRight" class="w-14 h-14 rounded-none bg-black border-2 border-black flex items-center justify-center text-2xl overflow-hidden p-1 text-[#F2CD5C]"></div>
+            <div>
+                <span id="panelCategoryRight" class="text-xs font-ui font-black uppercase tracking-widest text-[#D94179]">Category</span>
+                <h2 id="panelTitleRight" class="text-xl md:text-2xl font-black text-white font-ui uppercase">Title</h2>
+            </div>
+        </div>
+
+        <div id="panelBodyRight" class="panel-scroll-content p-6 flex-1 overflow-y-auto space-y-4 text-slate-200 text-sm md:text-base leading-relaxed bg-[#0a0a0c]"></div>
+
+        <div class="p-5 border-t-4 border-black bg-black flex flex-col gap-3 flex-shrink-0 z-10">
+            <a id="buyButtonRight" href="#" target="_blank" class="w-full bg-[#F2CD5C] text-black border-2 border-black cel-block-shadow-sm font-ui font-black text-sm py-3.5 px-4 rounded-none text-center transition flex items-center justify-center gap-2 hover:bg-[#f5d77f] uppercase tracking-wider">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="buyButtonTextRight">BUY / VIEW MORE</span>
+            </a>
+            <button onclick="closePanel()" class="w-full bg-black text-white border-2 border-white cel-block-shadow-sm font-ui font-bold text-xs py-3 px-4 rounded-none transition flex items-center justify-center gap-2 uppercase hover:bg-neutral-800 tracking-wider">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>BACK TO SHOP</span>
+            </button>
+        </div>
+    </aside>
+
+    <main id="mainScene" onclick="handleBackgroundClick(event)" class="shop-background anim-bg-entry relative flex-1 w-full pt-[63px] overflow-hidden flex items-center justify-center cursor-pointer">
+
+        <div class="absolute inset-0 bg-black/40 pointer-events-none z-0"></div>
+
+        <div id="ambientParticles" class="particle-container z-10"></div>
+
+        <div id="shelvesContainer" class="smooth-transition relative w-full max-w-7xl aspect-[16/9] max-h-[85vh] pointer-events-auto z-20">
+
+            <!-- 1. ARRIBA IZQUIERDA: Developer Profile (¿Quién soy yo?) -->
+            <button onclick="selectItem('developer-profile', 'left', event)"
+                    class="rpg-shelf-item shelf-item-hidden absolute left-[2%] md:left-[3%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                <div class="item-particle-aura" id="aura-producer"></div>
                 <div class="w-full h-20 md:h-28 flex items-center justify-center">
-                    <img src="assets/item-producer.png" alt="Game Producer" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    <img src="assets/item-profile.png" alt="Developer Profile" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
                 </div>
-                <span class="font-ui font-extrabold text-[10px] md:text-xs text-amber-200 text-center uppercase tracking-wider leading-tight">Game Producer</span>
+                <span class="font-ui font-black text-[10px] md:text-xs text-center uppercase tracking-wider leading-tight text-[#F2CD5C]">Profile Information</span>
             </button>
 
-            <!-- BALDA IZQUIERDA - INFERIOR (Featured Game) -->
-            <button onclick="selectItem('featured-game', 'left', event)"
-                    class="rpg-shelf-item absolute left-[5%] md:left-[8%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+            <!-- 2. ARRIBA DERECHA: Featured Project (Proyecto Destacado) -->
+            <button onclick="selectItem('featured-game', 'right', event)"
+                    class="rpg-shelf-item shelf-item-hidden absolute right-[2%] md:right-[3%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                <div class="item-particle-aura" id="aura-projects"></div>
                 <div class="w-full h-20 md:h-28 flex items-center justify-center">
-                    <img src="assets/item-projects.png" alt="Featured Projects" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    <img src="assets/item-featuredproject.png" alt="Featured Project" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
                 </div>
-                <span class="font-ui font-extrabold text-[10px] md:text-xs text-cyan-200 text-center uppercase tracking-wider leading-tight">Featured Projects</span>
+                <span class="font-ui font-black text-[10px] md:text-xs text-center uppercase tracking-wider leading-tight text-[#D94179]">Featured Project</span>
             </button>
 
-            <!-- BALDA DERECHA - SUPERIOR (Articles) -->
+            <!-- 3. ABAJO IZQUIERDA: Project Vault (Todos los proyectos) -->
+            <button onclick="selectItem('projects-log', 'left', event)"
+                    class="rpg-shelf-item shelf-item-hidden absolute left-[2%] md:left-[3%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                <div class="item-particle-aura" id="aura-designer"></div>
+                <div class="w-full h-20 md:h-28 flex items-center justify-center">
+                    <img src="assets/item-projectvault.png" alt="Project Vault" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                </div>
+                <span class="font-ui font-black text-[10px] md:text-xs text-center uppercase tracking-wider leading-tight text-[#F2A766]">Project Vault</span>
+            </button>
+
+            <!-- 4. ABAJO DERECHA: Articles & Writing -->
             <button onclick="selectItem('articles', 'right', event)"
-                    class="rpg-shelf-item absolute right-[5%] md:right-[8%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
-                <div class="w-full h-20 md:h-28 flex items-center justify-center">
-                    <img src="assets/item-designer.png" alt="Game Designer" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                </div>
-                <span class="font-ui font-extrabold text-[10px] md:text-xs text-emerald-200 text-center uppercase tracking-wider leading-tight">Game Designer</span>
-            </button>
-
-            <!-- BALDA DERECHA - INFERIOR (Projects Log) -->
-            <button onclick="selectItem('projects-log', 'right', event)"
-                    class="rpg-shelf-item absolute right-[5%] md:right-[8%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-2xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                    class="rpg-shelf-item shelf-item-hidden absolute right-[2%] md:right-[3%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
+                <div class="item-particle-aura" id="aura-articles"></div>
                 <div class="w-full h-28 flex items-center justify-center">
-                    <img src="assets/item-articles.png" alt="Articles" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    <img src="assets/item-articles.png" alt="Articles" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
                 </div>
-                <span class="font-ui font-extrabold text-[10px] md:text-xs text-purple-200 text-center uppercase tracking-wider leading-tight">Articles</span>
+                <span class="font-ui font-black text-[10px] md:text-xs text-center uppercase tracking-wider leading-tight text-[#F2CD5C]">Articles & Writings</span>
             </button>
 
         </div>
 
+        <!-- PERSONAJE Y DIÁLOGO -->
+        <div id="characterGroup" class="anim-vendor-entry smooth-transition absolute inset-x-0 bottom-20 md:bottom-28 top-[63px] flex flex-col items-center justify-end z-30 pointer-events-none">
 
-        <!-- 3. SHOPKEEPER + DIALOGUE GROUP -->
-        <div id="characterGroup" class="smooth-transition absolute inset-x-0 bottom-0 top-16 flex flex-col items-center justify-end pb-3 z-20 pointer-events-none">
+            <div onclick="handleShopkeeperClick(event)" class="relative flex flex-col items-center justify-end pointer-events-auto cursor-pointer z-10 mb-1">
+                <div class="shopkeeper-idle relative h-[32vh] sm:h-[38vh] lg:h-[44vh] w-auto aspect-square flex items-center justify-center">
+                    <div class="absolute w-[75%] h-[75%] rounded-full bg-[#F2CD5C] blur-2xl opacity-40"></div>
+                    <div id="vendorParticles" class="absolute inset-0 pointer-events-none"></div>
 
-            <!-- THE SHOPKEEPER (Escalado de tamaño porcentual relativo al viewport) -->
-            <div onclick="handleShopkeeperClick(event)" class="relative flex flex-col items-center justify-end pointer-events-auto cursor-pointer -mb20 md:-mb20 z-10 -translate-y-12">
-                <div class="shopkeeper-idle relative h-[38vh] sm:h-[45vh] lg:h-[52vh] w-auto aspect-square flex items-center justify-center">
-                    <div class="absolute w-[80%] h-[80%] bg-amber-500/20 rounded-full blur-3xl"></div>
-                    <img src="assets/vendedor.png" alt="Shopkeeper" class="w-full h-full object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.95)]">
+                    <img src="assets/vendedor.png" alt="Shopkeeper" class="persona-outline-thick w-full h-full object-contain relative z-10">
                 </div>
             </div>
 
-            <!-- DIALOGUE BOX -->
-            <div id="dialogueWrapper" onclick="handleShopkeeperClick(event)" class="pointer-events-auto relative w-full max-w-4xl px-4 pt-3 smooth-transition cursor-pointer">
-                <div class="dialogue-box-container relative px-6 md:px-8 py-5 md:py-6 min-h-[110px] flex items-center">
+            <div id="dialogueWrapper" onclick="handleShopkeeperClick(event)" class="pointer-events-auto relative w-full max-w-3xl px-4 smooth-transition cursor-pointer z-40">
 
-                    <!-- Name Tag Box -->
-                    <div class="nametag-container absolute -top-8 left-6 md:left-8 w-48 md:w-56 h-14 md:h-16 flex items-end justify-center pb-2.5 pt-4 px-3">
-                        <span class="font-ui font-extrabold text-xs md:text-[13px] text-amber-100 tracking-wider uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-center leading-none">
-                            Shopkeeper
-                        </span>
-                    </div>
+                <div class="nametag-container persona-outline-nametag absolute -top-8 left-8 md:left-12 w-auto min-w-[140px] h-11 md:h-13 px-6 flex items-center justify-center z-50">
+                    <span class="font-ui font-black text-xs md:text-sm text-white tracking-wider uppercase drop-shadow-[0_2px_0px_#000] text-center leading-none whitespace-nowrap">
+                        The Shopkeeper
+                    </span>
+                </div>
 
-                    <!-- Dialogue Text -->
-                    <p id="dialogueText" class="font-ui font-semibold text-slate-800 text-xs md:text-sm lg:text-base leading-relaxed pl-2 pr-6">
-                        <!-- Dynamic typewriter text -->
+                <div class="dialogue-box-container persona-outline-thick relative px-6 md:px-8 py-5 md:py-6 min-h-[100px] flex items-center z-10">
+                    <p id="dialogueText" class="font-ui font-bold text-black text-xs md:text-sm lg:text-base leading-relaxed pl-2 pr-6">
                     </p>
 
-                    <!-- Pulsing Arrow Indicator -->
-                    <div class="absolute bottom-3 right-6 text-slate-700 animate-bounce text-xs md:text-sm">
+                    <div class="absolute bottom-3 right-6 animate-bounce text-xs md:text-sm text-[#141259]">
                         <i class="fa-solid fa-caret-down"></i>
                     </div>
                 </div>
@@ -204,127 +623,260 @@
 
         </div>
 
-
-        <!-- 4. SLIDING DETAILS PANEL -->
-        <!-- Left Drawer -->
-        <aside id="detailsPanelLeft" onclick="event.stopPropagation()" class="fixed top-16 left-0 bottom-0 bg-slate-950/95 border-r-4 border-amber-500 shadow-2xl z-50 transform -translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
-            <div class="p-6 border-b border-slate-800 flex items-center gap-4 bg-slate-900/50">
-                <div id="panelIconLeft" class="w-14 h-14 rounded-xl bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center text-amber-400 text-2xl overflow-hidden p-1"></div>
-                <div>
-                    <span id="panelCategoryLeft" class="text-xs font-ui font-bold text-amber-400 uppercase tracking-widest">Category</span>
-                    <h2 id="panelTitleLeft" class="text-xl md:text-2xl font-extrabold text-slate-100 font-ui">Title</h2>
-                </div>
-            </div>
-
-            <div id="panelBodyLeft" class="p-6 flex-1 overflow-y-auto space-y-4 text-slate-300 text-sm md:text-base leading-relaxed"></div>
-
-            <div class="p-5 border-t border-slate-800 bg-slate-900/80 flex flex-col gap-3">
-                <a id="buyButtonLeft" href="#" target="_blank" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-ui font-bold text-sm py-3.5 px-4 rounded-lg text-center transition flex items-center justify-center gap-2 shadow-lg hover:shadow-amber-500/20 uppercase tracking-wider">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="buyButtonTextLeft">BUY / VIEW MORE</span>
-                </a>
-                <button onclick="closePanel()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-ui font-semibold text-xs py-2.5 px-4 rounded-lg transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span>RETURN TO SHOP</span>
-                </button>
-            </div>
-        </aside>
-
-        <!-- Right Drawer -->
-        <aside id="detailsPanelRight" onclick="event.stopPropagation()" class="fixed top-16 right-0 bottom-0 bg-slate-950/95 border-l-4 border-amber-500 shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
-            <div class="p-6 border-b border-slate-800 flex items-center gap-4 bg-slate-900/50">
-                <div id="panelIconRight" class="w-14 h-14 rounded-xl bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center text-amber-400 text-2xl overflow-hidden p-1"></div>
-                <div>
-                    <span id="panelCategoryRight" class="text-xs font-ui font-bold text-amber-400 uppercase tracking-widest">Category</span>
-                    <h2 id="panelTitleRight" class="text-xl md:text-2xl font-extrabold text-slate-100 font-ui">Title</h2>
-                </div>
-            </div>
-
-            <div id="panelBodyRight" class="p-6 flex-1 overflow-y-auto space-y-4 text-slate-300 text-sm md:text-base leading-relaxed"></div>
-
-            <div class="p-5 border-t border-slate-800 bg-slate-900/80 flex flex-col gap-3">
-                <a id="buyButtonRight" href="#" target="_blank" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-ui font-bold text-sm py-3.5 px-4 rounded-lg text-center transition flex items-center justify-center gap-2 shadow-lg hover:shadow-amber-500/20 uppercase tracking-wider">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="buyButtonTextRight">BUY / VIEW MORE</span>
-                </a>
-                <button onclick="closePanel()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-ui font-semibold text-xs py-2.5 px-4 rounded-lg transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>RETURN TO SHOP</span>
-                </button>
-            </div>
-        </aside>
-
     </main>
 
-
-    <!-- 5. JAVASCRIPT LOGIC -->
     <script>
         const PANEL_WIDTH_PERCENT = 45;
         let isPanelOpen = false;
+        let currentItemId = null;
 
         const shopItems = {
-            'game-producer': {
-                category: 'Career & Experience',
-                title: 'Game Producer Resume',
-                imgSrc: 'assets/item-producer.png',
-                dialogue: "Ah, interested in my work as a Game Producer? Here is my experience managing milestones, budgets, and leading cross-functional teams.",
-                buyText: "DOWNLOAD FULL CV",
-                buyLink: "#download-cv",
+            'developer-profile': {
+                category: 'Profile Information',
+                title: 'Game Designer | Game Producer',
+                side: 'left',
+                imgSrc: 'assets/item-profile.png',
+                dialogue: "So, you need someone to design your game... Or maybe to help organize your team? Or project? In that case, you're lucky, I know a guy...",
+                hideBuyButton: true,
                 description: `
-                  <p class="font-bold text-amber-400">Specialized in technical production and video game project management.</p>
-                  <ul class="list-disc pl-5 space-y-2 mt-2">
-                    <li><strong>Team Leadership:</strong> Coordinating art, programming, and narrative design under Agile frameworks (Scrum/Kanban).</li>
-                    <li><strong>Development Pipeline:</strong> Roadmap definition, scope control, and risk mitigation.</li>
-                    <li><strong>Toolstack:</strong> Jira, Notion, Trello, Git, Unity & Unreal Engine.</li>
-                  </ul>
-                `
+                <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Description:</p>
+                            <p class="text-sm">Hi, I'm Calero. I have taken roles in projects as both Game Designer, creating full core loops and game loops from game concept ideas,
+                            as well as a Game Producer, coordinating teams and adjusting pipelines, schedules and roadmaps to ensure feasibility of the projects I take
+                            part in!</p>
+
+                            <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Select one of the items below to check my full profile for each role!</p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                                <!-- Botón RPG Designer -->
+                                <a href="role-designer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                    <div class="item-particle-aura"></div>
+                                    <div class="w-full h-24 flex items-center justify-center my-1">
+                                            <img src="assets/item-designer.png" alt="Game Designer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2A766] mt-2">Game Designer</span>
+                                    <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Systems, Balancing & Flow</span>
+                                </a>
+                                <!-- Botón RPG Producer -->
+                                <a href="role-producer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                    <div class="item-particle-aura"></div>
+                                    <div class="w-full h-24 flex items-center justify-center my-1">
+                                        <img src="assets/item-producer.png" alt="Game Producer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2CD5C] mt-2">Game Producer</span>
+                                    <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Agile, Roadmaps & Delivery</span>
+                                </a>
+
+                                
+                            </div>
+                        `
             },
             'featured-game': {
                 category: 'Featured Project',
-                title: 'Indie RPG: Project Quest',
-                imgSrc: 'assets/item-juego.png',
-                dialogue: "Excellent choice! This item represents my latest developed title. You can check out its Steam page and play the demo.",
+                title: 'Dorothy´s Job',
+                side: 'right',
+                imgSrc: 'assets/item-featuredproject.png',
+                dialogue: "This is a real published project that showcases what my guy can do! Check his work on Steam!",
                 buyText: "CHECK ON STEAM",
-                buyLink: "https://store.steampowered.com",
+                buyLink: "https://store.steampowered.com/app/3926730/Dorothys_Job/",
                 description: `
-                  <p class="font-bold text-cyan-400">A retro Action-RPG built with attention to detail.</p>
-                  <p class="mt-2">Role: <strong>Lead Producer & Game Designer</strong>.</p>
-                  <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 mt-3 space-y-2 text-xs md:text-sm">
-                    <p>🎮 <strong>Platforms:</strong> PC / Steam</p>
-                    <p>⭐ <strong>Milestone:</strong> Over 10,000 demo downloads during Steam Next Fest.</p>
-                  </div>
-                `
+                            <p class="font-black text-[#D94179]">An isometric twin stick shooter mixing cleaning and combat!</p>
+                            <p class="mt-2"><strong>Roles: </strong> Mechanics Designer & Game Producer.</p>
+                            <p class="mt-2">Dorothy's Job is a 3D game that uses fast-paced combat, procedural level generation
+                            and the distinc cleaning mechanic to create a unique gameplay loop.<br>
+                            <br>
+                            <!-- REPRODUCTOR DE YOUTUBE CORREGIDO -->
+                            <div class="my-4 border-2 border-black cel-block-shadow-sm overflow-hidden bg-black rounded-lg aspect-video">
+                                <iframe
+                                    class="w-full h-full"
+                                    src="https://www.youtube.com/watch?v=LgurwsG-pxo"
+                                    title="Dorothy's Job Trailer"
+                                    frameborder="0"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                            🎮 As Mechanics Designer, I designed and iterated on the game's core gameplay, balance and combat-cleaning loop
+                            collaborating closely with programmers and artists to integrate systems consistently with the design vision and
+                            create a great experience!<br>
+                            <br>
+                            🎮 As Game Producer, I coordinated the project workflow for a 20 person core team, which grew to
+                            40 on peak development. I created the game's roadmap, led weekly meetings, managed milestones and
+                            scope, supervised documentation and maintained clear communication, ensuring team coordination.</p>
+                            <br>
+                            I also managed the Steamworks page, configuration and game publishment process.<br>
+
+                            <div class="p-4 border-2 border-black bg-black mt-3 space-y-2 text-xs md:text-sm">
+                                <p>⭐ <strong>Development:</strong> 10-month development cycle.</p>
+                                <p>⭐ <strong>Steam launch:</strong> 34.600+ total units/licenses distributed and over 550 wishlists
+                                managed on a 4-week pre-launch campaign.</p>
+                                <p>⭐ <strong>Game acceptance:</strong> 84% positive reviews on Steam.</p>
+                            </div>
+                        `
+            },
+            'projects-log': {
+                category: 'Portfolio Vault',
+                title: 'All Projects & Jams',
+                side: 'left',
+                imgSrc: 'assets/item-designer.png',
+                dialogue: "Here you can explore my game jam entries, prototypes, and secondary developments. Select a project!",
+                hideBuyButton: true,
+                description: `
+                            <p class="font-black text-[#F2A766] text-xs uppercase tracking-wider mb-3">Select a project to inspect details:</p>
+
+                            <div class="grid grid-cols-2 gap-3 mt-2">
+                                <!-- Proyecto 1 -->
+                               <a href="project-detail.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                    <div class="item-particle-aura"></div>
+                                    <div class="w-full h-20 flex items-center justify-center my-1">
+                                        <img src="assets/item-projects.png" alt="Game Jam Title 1" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <span class="font-ui font-black text-[11px] uppercase tracking-wider text-[#F2CD5C] mt-1">Game Jam Title 1</span>
+                                    <span class="text-[9px] text-slate-300 mt-0.5 leading-tight">Ludum Dare Entry</span>
+                                </a>
+
+                                <!-- Proyecto 2 -->
+                                <a href="https://itch.io" target="_blank" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                    <div class="item-particle-aura"></div>
+                                    <div class="w-full h-20 flex items-center justify-center my-1">
+                                        <img src="assets/item-designer.png" alt="Prototype X" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <span class="font-ui font-black text-[11px] uppercase tracking-wider text-[#F2A766] mt-1">Prototype X</span>
+                                    <span class="text-[9px] text-slate-300 mt-0.5 leading-tight">Mechanics Exploration</span>
+                                </a>
+
+                                <!-- Proyecto 3 -->
+                                <a href="https://itch.io" target="_blank" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                    <div class="item-particle-aura"></div>
+                                    <div class="w-full h-20 flex items-center justify-center my-1">
+                                        <img src="assets/item-producer.png" alt="Action Platformer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <span class="font-ui font-black text-[11px] uppercase tracking-wider text-[#D94179] mt-1">Action Platformer</span>
+                                    <span class="text-[9px] text-slate-300 mt-0.5 leading-tight">2D Movement Study</span>
+                                </a>
+
+                                <!-- Proyecto 4 -->
+                                <a href="https://itch.io" target="_blank" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                    <div class="item-particle-aura"></div>
+                                    <div class="w-full h-20 flex items-center justify-center my-1">
+                                        <img src="assets/item-articles.png" alt="Puzzle Experiment" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <span class="font-ui font-black text-[11px] uppercase tracking-wider text-[#F2CD5C] mt-1">Puzzle Experiment</span>
+                                    <span class="text-[9px] text-slate-300 mt-0.5 leading-tight">Global Game Jam</span>
+                                </a>
+                            </div>
+                        `
             },
             'articles': {
                 category: 'Publications',
                 title: 'Articles & Postmortems',
-                imgSrc: 'assets/item-articulos.png',
-                dialogue: "I love sharing knowledge about production and design. Take a look at my published postmortems and articles.",
-                buyText: "READ ON MEDIUM",
-                buyLink: "https://medium.com",
+                side: 'right',
+                imgSrc: 'assets/item-articles.png',
+                dialogue: "Here is my newsletter archive and technical writings! Click any entry to read the full article.",
+                hideBuyButton: true,
                 description: `
-                  <p class="font-bold text-emerald-400">Deep dives into game production, level design, and game economics.</p>
-                  <ul class="list-disc pl-5 space-y-2 mt-2">
-                    <li><em>"Surviving Pre-Production Without Scope Creep"</em></li>
-                    <li><em>"Designing Incentive Systems in Classic RPGs"</em></li>
-                  </ul>
-                `
-            },
-            'projects-log': {
-                category: 'Portfolio',
-                title: 'Projects & Game Jams',
-                imgSrc: 'assets/item-historial.png',
-                dialogue: "Here is my full inventory of Game Jams, prototypes, and collaborative experiments.",
-                buyText: "EXPLORE ON ITCH.IO",
-                buyLink: "https://itch.io",
-                description: `
-                  <p class="font-bold text-purple-400">A collection of rapid prototypes and game mechanics research.</p>
-                  <p class="mt-2">Over 8 completed projects across international jams including Global Game Jam and Ludum Dare.</p>
-                `
+                            <p class="font-black text-[#F2CD5C] text-xs uppercase tracking-wider mb-3">Latest Writings & Postmortems:</p>
+
+                            <div class="flex flex-col gap-3 mt-2">
+
+                                <!-- Artículo 1 Style Newsletter -->
+                               <a href="article.html" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
+                                    <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
+                                        <img src="assets/item-articles.png" alt="Production Pipelines" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center justify-between gap-2 mb-1">
+                                            <span class="font-ui font-black text-xs sm:text-sm text-[#F2CD5C] uppercase tracking-wider truncate">Optimizing Game Pipelines</span>
+                                            <span class="text-[9px] font-bold text-[#D94179] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">5 min read</span>
+                                        </div>
+                                        <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                                            A deep dive into agile production workflows for indie studios. How to prevent scope creep while maintaining creative momentum and team communication.
+                                        </p>
+                                    </div>
+                                </a>
+
+                                <!-- Artículo 2 Style Newsletter -->
+                                <a href="https://medium.com" target="_blank" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
+                                    <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
+                                        <img src="assets/item-designer.png" alt="Designing Systems" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center justify-between gap-2 mb-1">
+                                            <span class="font-ui font-black text-xs sm:text-sm text-[#F2A766] uppercase tracking-wider truncate">Systemic Game Design</span>
+                                            <span class="text-[9px] font-bold text-[#F2CD5C] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">8 min read</span>
+                                        </div>
+                                        <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                                            Exploring player progression loops and economy balance in RPG systems. Key takeaways from crafting engaging player feedback and reward mechanics.
+                                        </p>
+                                    </div>
+                                </a>
+
+                                <!-- Artículo 3 Style Newsletter -->
+                                <a href="https://medium.com" target="_blank" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
+                                    <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
+                                        <img src="assets/item-producer.png" alt="Postmortem Project" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center justify-between gap-2 mb-1">
+                                            <span class="font-ui font-black text-xs sm:text-sm text-[#D94179] uppercase tracking-wider truncate">Jam Postmortem: Lessons</span>
+                                            <span class="text-[9px] font-bold text-[#F2A766] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">4 min read</span>
+                                        </div>
+                                        <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                                            What went right and what went wrong during our 48-hour game jam project. Critical reflections on rapid prototyping and scope trimming under time pressure.
+                                        </p>
+                                    </div>
+                                </a>
+
+                            </div>
+                        `
             }
         };
 
         let typewriterTimer = null;
+
+        function createAmbientParticles() {
+            const container = document.getElementById('ambientParticles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'cotl-blob';
+
+                const size = Math.random() * 8 + 6;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const duration = Math.random() * 4 + 4;
+                const delay = Math.random() * 5;
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.top = `${top}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+
+                container.appendChild(particle);
+            }
+        }
+
+        function createAuraParticles() {
+            const auras = ['aura-producer', 'aura-projects', 'aura-designer', 'aura-articles', 'vendorParticles'];
+            auras.forEach(auraId => {
+                const el = document.getElementById(auraId);
+                if (!el) return;
+
+                const count = auraId === 'vendorParticles' ? 10 : 5;
+                for (let i = 0; i < count; i++) {
+                    const blob = document.createElement('div');
+                    blob.className = 'item-blob';
+                    blob.style.left = `${Math.random() * 80 + 10}%`;
+                    blob.style.top = `${Math.random() * 80 + 10}%`;
+                    blob.style.animationDelay = `${Math.random() * 3}s`;
+                    blob.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                    el.appendChild(blob);
+                }
+            });
+        }
 
         function applyPanelWidths() {
             const pLeft = document.getElementById('detailsPanelLeft');
@@ -370,13 +922,10 @@
         function selectItem(itemId, shelfSide, event) {
             if (event) event.stopPropagation();
 
-            if (isPanelOpen) {
-                closePanel();
-                return;
-            }
-
             const item = shopItems[itemId];
             if (!item) return;
+
+            currentItemId = itemId;
 
             const shelvesContainer = document.getElementById('shelvesContainer');
             const characterGroup = document.getElementById('characterGroup');
@@ -384,7 +933,6 @@
             const panelLeft = document.getElementById('detailsPanelLeft');
             const panelRight = document.getElementById('detailsPanelRight');
 
-            // Reset
             panelLeft.classList.add('-translate-x-full');
             panelRight.classList.add('translate-x-full');
 
@@ -395,34 +943,43 @@
 
             dialogueWrapper.style.maxWidth = `${remainingWidthPercent}vw`;
 
-            if (shelfSide === 'left') {
-                characterGroup.style.transform = `translateX(${shiftPercent}vw)`;
+            const targetBody = shelfSide === 'left' ? document.getElementById('panelBodyLeft') : document.getElementById('panelBodyRight');
+            const buyButton = shelfSide === 'left' ? document.getElementById('buyButtonLeft') : document.getElementById('buyButtonRight');
 
+            if (shelfSide === 'left') {
                 document.getElementById('panelCategoryLeft').textContent = item.category;
                 document.getElementById('panelTitleLeft').textContent = item.title;
-                document.getElementById('panelIconLeft').innerHTML = `<img src="${item.imgSrc}" class="w-full h-full object-contain">`;
-                document.getElementById('panelBodyLeft').innerHTML = item.description;
+                document.getElementById('panelIconLeft').innerHTML = `<img src="${item.imgSrc}" class="item-sprite-idle w-full h-full object-contain">`;
 
-                const buyBtn = document.getElementById('buyButtonLeft');
-                document.getElementById('buyButtonTextLeft').textContent = item.buyText;
-                buyBtn.href = item.buyLink;
+                if (item.hideBuyButton) {
+                    buyButton.classList.add('hidden');
+                } else {
+                    buyButton.classList.remove('hidden');
+                    document.getElementById('buyButtonTextLeft').textContent = item.buyText;
+                    document.getElementById('buyButtonLeft').href = item.buyLink;
+                }
 
+                characterGroup.style.transform = `translateX(${shiftPercent}vw)`;
                 panelLeft.classList.remove('-translate-x-full');
             } else {
-                characterGroup.style.transform = `translateX(-${shiftPercent}vw)`;
-
                 document.getElementById('panelCategoryRight').textContent = item.category;
                 document.getElementById('panelTitleRight').textContent = item.title;
-                document.getElementById('panelIconRight').innerHTML = `<img src="${item.imgSrc}" class="w-full h-full object-contain">`;
-                document.getElementById('panelBodyRight').innerHTML = item.description;
+                document.getElementById('panelIconRight').innerHTML = `<img src="${item.imgSrc}" class="item-sprite-idle w-full h-full object-contain">`;
 
-                const buyBtn = document.getElementById('buyButtonRight');
-                document.getElementById('buyButtonTextRight').textContent = item.buyText;
-                buyBtn.href = item.buyLink;
+                if (item.hideBuyButton) {
+                    buyButton.classList.add('hidden');
+                } else {
+                    buyButton.classList.remove('hidden');
+                    document.getElementById('buyButtonTextRight').textContent = item.buyText;
+                    document.getElementById('buyButtonRight').href = item.buyLink;
+                }
 
+                characterGroup.style.transform = `translateX(-${shiftPercent}vw)`;
                 panelRight.classList.remove('translate-x-full');
             }
 
+            targetBody.innerHTML = item.description;
+            targetBody.scrollTop = 0;
             isPanelOpen = true;
             typeDialogue(item.dialogue);
         }
@@ -435,7 +992,7 @@
             const panelRight = document.getElementById('detailsPanelRight');
 
             characterGroup.style.transform = 'translateX(0)';
-            dialogueWrapper.style.maxWidth = '56rem'; // eq to max-w-4xl
+            dialogueWrapper.style.maxWidth = '48rem';
 
             shelvesContainer.classList.remove('opacity-30', 'blur-[2px]');
 
@@ -443,12 +1000,57 @@
             panelRight.classList.add('translate-x-full');
 
             isPanelOpen = false;
+            currentItemId = null;
             typeDialogue("What else would you like to inspect? Click on any object on the shelves.");
+        }
+
+        function runIntroSequence() {
+            const overlay = document.getElementById('loadingOverlay');
+            const navHeader = document.getElementById('navHeader');
+            const mainScene = document.getElementById('mainScene');
+            const characterGroup = document.getElementById('characterGroup');
+            const shelfItems = document.querySelectorAll('.rpg-shelf-item, .rpg-article-item');
+
+            const hasVisited = sessionStorage.getItem('visitedShop');
+
+            if (hasVisited) {
+                if (overlay) overlay.remove();
+                navHeader.classList.add('active');
+                mainScene.classList.add('active');
+                characterGroup.classList.add('active');
+                shelfItems.forEach(item => {
+                    item.classList.remove('shelf-item-hidden');
+                    item.classList.add('shelf-item-visible');
+                });
+                typeDialogue("¡De vuelta a la tienda! Haz clic en cualquier estantería para inspeccionar.");
+            } else {
+                sessionStorage.setItem('visitedShop', 'true');
+                setTimeout(() => {
+                    overlay.classList.add('opacity-0', 'pointer-events-none');
+                    setTimeout(() => { overlay.remove(); }, 500);
+                    setTimeout(() => { navHeader.classList.add('active'); }, 100);
+                    setTimeout(() => { mainScene.classList.add('active'); }, 400);
+                    setTimeout(() => { characterGroup.classList.add('active'); }, 700);
+
+                    shelfItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.remove('shelf-item-hidden');
+                            item.classList.add('shelf-item-visible');
+                        }, 1100 + (index * 150));
+                    });
+
+                    setTimeout(() => {
+                        typeDialogue("Welcome to my shop! I am Juan A. Calero. Click on any item on the shelves to explore my work and experience.");
+                    }, 1800);
+                }, 1000);
+            }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             applyPanelWidths();
-            typeDialogue("Welcome to my shop! I am Juan A. Calero. Click on any item on the shelves to explore my work and experience.");
+            createAmbientParticles();
+            createAuraParticles();
+            runIntroSequence();
         });
 
         window.addEventListener('resize', applyPanelWidths);

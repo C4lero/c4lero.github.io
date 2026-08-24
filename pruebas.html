@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Estilo Persona 5 Royal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes estilo Persona 5 / Manga -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Rubik+Glitch&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #0d0d0d;
+            font-family: 'Bebas Neue', cursive, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fondo animado estilo trama/halftone P5R */
+        .p5-bg {
+            background: linear-gradient(135deg, rgba(255, 0, 51, 0.25) 0%, rgba(0, 0, 0, 0.9) 100%), radial-gradient(#ff0033 15%, transparent 16%), radial-gradient(#000 15%, transparent 16%);
+            background-size: 100% 100%, 20px 20px, 20px 20px;
+            background-position: 0 0, 0 0, 10px 10px;
+        }
+
+        /* Sombras duras de cómic */
+        .p5-shadow-red {
+            box-shadow: 6px 6px 0px 0px #ff0033, 8px 8px 0px 0px #000;
+        }
+
+        .p5-shadow-white {
+            box-shadow: 6px 6px 0px 0px #ffffff, 8px 8px 0px 0px #000;
+        }
+
+        /* Efecto de inclinación / Skew */
+        .skew-p5 {
+            transform: skewX(-12deg);
+        }
+
+        .unskew-p5 {
+            transform: skewX(12deg);
+        }
+
+        /* Animaciones */
+        @keyframes p5-shake {
+            0% {
+                transform: skewX(-12deg) translate(0, 0);
+            }
+
+            25% {
+                transform: skewX(-12deg) translate(-2px, 2px);
+            }
+
+            50% {
+                transform: skewX(-12deg) translate(2px, -2px);
+            }
+
+            75% {
+                transform: skewX(-12deg) translate(-1px, -1px);
+            }
+
+            100% {
+                transform: skewX(-12deg) translate(0, 0);
+            }
+        }
+
+        .hover-shake:hover {
+            animation: p5-shake 0.15s infinite linear;
+        }
+
+        /* Transición de corte diagonal al cambiar de sección */
+        #transition-overlay {
+            position: fixed;
+            top: 0;
+            left: -120%;
+            width: 150%;
+            height: 100vh;
+            background: #ff0033;
+            transform: skewX(-20deg);
+            z-index: 100;
+            pointer-events: none;
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+            #transition-overlay.active {
+                transform: skewX(-20deg) translateX(180%);
+            }
+
+        /* Fuente personalizada para el bocadillo */
+        .font-marker {
+            font-family: 'Permanent Marker', cursive;
+        }
+    </style>
+</head>
+<body class="p5-bg text-white min-h-screen flex flex-col justify-between selection:bg-[#ff0033] selection:text-black">
+
+    <!-- Cortina de Transición Persona 5 -->
+    <div id="transition-overlay"></div>
+
+    <!-- ================= NAVBAR SUPERIOR (Mantenido en estructura) ================= -->
+    <header class="relative z-20 bg-black/90 border-b-4 border-[#ff0033] px-6 py-4 shadow-xl">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+
+            <!-- Logo de la Tienda -->
+            <a href="#" class="skew-p5 bg-[#ff0033] text-black px-4 py-1 text-3xl font-extrabold tracking-widest inline-block hover:bg-[#ffee00] transition-colors p5-shadow-white">
+                <span class="unskew-p5 inline-block">VELVET SHOP</span>
+            </a>
+
+            <!-- Menú del Navbar -->
+            <nav class="hidden md:flex space-x-4">
+                <button onclick="triggerTransition('Armas', '¡Mira estas bellezas! Potencia pura para tus misiones.')"
+                        onmouseenter="setShopkeeperTalk('¿Buscando equipamiento de combate?')"
+                        class="skew-p5 bg-black text-white hover:text-[#ffee00] hover:bg-[#ff0033] border-2 border-white px-5 py-2 text-xl tracking-wider transition-all hover-shake">
+                    <span class="unskew-p5 inline-block">ARMAS</span>
+                </button>
+
+                <button onclick="triggerTransition('Protecciones', 'La defensa lo es todo si quieres sobrevivir ahí fuera.')"
+                        onmouseenter="setShopkeeperTalk('Te protegerán de los golpes más duros.')"
+                        class="skew-p5 bg-black text-white hover:text-[#ffee00] hover:bg-[#ff0033] border-2 border-white px-5 py-2 text-xl tracking-wider transition-all hover-shake">
+                    <span class="unskew-p5 inline-block">PROTECCIONES</span>
+                </button>
+
+                <button onclick="triggerTransition('Objetos', 'Curativos, potenciadores y todo tipo de suministros.')"
+                        onmouseenter="setShopkeeperTalk('Nunca salgas sin pociones y medicinas.')"
+                        class="skew-p5 bg-black text-white hover:text-[#ffee00] hover:bg-[#ff0033] border-2 border-white px-5 py-2 text-xl tracking-wider transition-all hover-shake">
+                    <span class="unskew-p5 inline-block">OBJETOS</span>
+                </button>
+
+                <button onclick="triggerTransition('Accesorios', 'Efectos especiales que marcarán la diferencia.')"
+                        onmouseenter="setShopkeeperTalk('Pequeños amuletos con gran poder.')"
+                        class="skew-p5 bg-black text-white hover:text-[#ffee00] hover:bg-[#ff0033] border-2 border-white px-5 py-2 text-xl tracking-wider transition-all hover-shake">
+                    <span class="unskew-p5 inline-block">ACCESORIOS</span>
+                </button>
+            </nav>
+
+            <!-- Contador de Dinero (Yenes/P5 style) y Carrito -->
+            <div class="flex items-center space-x-4">
+                <div class="skew-p5 bg-[#ffee00] text-black px-4 py-1 text-2xl font-black border-2 border-black p5-shadow-red">
+                    <span class="unskew-p5 inline-block">¥ <span id="money-counter">500,000</span></span>
+                </div>
+
+                <div class="skew-p5 bg-white text-black p-2 border-2 border-black cursor-pointer hover:bg-[#ff0033] hover:text-white transition-colors">
+                    <span class="unskew-p5 block font-bold text-lg">🛒 (<span id="cart-count">0</span>)</span>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ================= CONTENIDO PRINCIPAL ================= -->
+    <main class="relative z-10 max-w-7xl mx-auto px-6 py-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+        <!-- ÁREA DEL VENDEDOR (Columna Izquierda / 5 cols) -->
+        <div class="lg:col-span-5 flex flex-col items-center relative">
+
+            <!-- Bocadillo de Diálogo Dinámico Persona 5 -->
+            <div class="relative mb-6 w-full max-w-sm">
+                <div class="skew-p5 bg-white text-black p-5 border-4 border-black p5-shadow-red relative z-10">
+                    <div class="unskew-p5 font-marker text-lg leading-tight" id="shopkeeper-speech">
+                        "Bienvenido a la tienda. Echa un vistazo, ¡tengo las mejores mercancías de la ciudad!"
+                    </div>
+                </div>
+                <!-- Pico del bocadillo estilo manga -->
+                <div class="absolute -bottom-3 left-12 w-6 h-6 bg-white border-r-4 border-b-4 border-black transform rotate-45 z-20"></div>
+            </div>
+
+            <!-- Ilustración / Avatar del Vendedor con filtro de alto contraste -->
+            <div class="relative group">
+                <!-- Resplandor/Fondo rojo estilo Pop-Art -->
+                <div class="absolute inset-0 bg-[#ff0033] transform -skew-x-12 translate-x-3 translate-y-3 p5-shadow-white rounded-none"></div>
+
+                <!-- Marco de la imagen -->
+                <div class="relative bg-black border-4 border-white transform -skew-x-12 overflow-hidden w-72 h-96 flex items-center justify-center">
+                    <!-- Silueta/Imagen Vendedor (Iwai Style placeholder) -->
+                    <img id="shopkeeper-img"
+                         src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+                         alt="Vendedor"
+                         class="w-full h-full object-cover filter contrast-125 grayscale hover:grayscale-0 transition-all duration-300">
+
+                    <div class="absolute bottom-0 w-full bg-black/80 py-1 text-center border-t-2 border-[#ff0033]">
+                        <span class="text-[#ffee00] text-xl font-bold tracking-widest uppercase">MUNTZ - Vendedor</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- LISTA DE PRODUCTOS Y MENÚ (Columna Derecha / 7 cols) -->
+        <div class="lg:col-span-7 flex flex-col space-y-4">
+
+            <!-- Título de la Sección Activa -->
+            <div class="skew-p5 bg-black border-l-8 border-[#ff0033] p-3 mb-2 inline-block max-w-md">
+                <h2 id="section-title" class="unskew-p5 text-4xl font-extrabold tracking-widest text-[#ffee00]">
+                    CATÁLOGO: SELECCIÓN ESPECIAL
+                </h2>
+            </div>
+
+            <!-- Contenedor de Ítems / Tarjetas -->
+            <div id="products-container" class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+
+                <!-- Ítem 1 -->
+                <div class="relative group cursor-pointer" onmouseenter="setShopkeeperTalk('Cuchillo táctico de alto impacto. ¡Corta como mantequilla!')">
+                    <div class="absolute -inset-1 bg-[#ff0033] transform -skew-x-12 translate-x-2 translate-y-2 group-hover:translate-x-3 group-hover:translate-y-3 transition-all duration-150 border-2 border-black"></div>
+
+                    <div class="relative bg-black text-white p-4 transform -skew-x-12 border-2 border-white flex justify-between items-center group-hover:bg-[#111] transition-colors">
+                        <div class="unskew-p5 flex items-center space-x-4">
+                            <div class="bg-[#ff0033] text-black font-black text-2xl w-10 h-10 flex items-center justify-center border border-black">
+                                01
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold tracking-wide group-hover:text-[#ffee00] transition-colors">DAGA DE REBELDE</h3>
+                                <p class="text-xs text-gray-400 font-sans uppercase">Ataque +45 | Prob. Crítico +10%</p>
+                            </div>
+                        </div>
+
+                        <div class="unskew-p5 flex items-center space-x-4">
+                            <span class="bg-white text-black px-3 py-1 font-black text-xl border border-black">¥ 24,000</span>
+                            <button onclick="buyItem(24000, 'Daga de Rebelde')" class="bg-[#ff0033] hover:bg-[#ffee00] hover:text-black text-white px-4 py-1 font-extrabold uppercase border border-black hover-shake transition-all">
+                                COMPRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ítem 2 -->
+                <div class="relative group cursor-pointer" onmouseenter="setShopkeeperTalk('Protege contra ataques de fuego. Muy útil en los Palacios.')">
+                    <div class="absolute -inset-1 bg-[#ff0033] transform -skew-x-12 translate-x-2 translate-y-2 group-hover:translate-x-3 group-hover:translate-y-3 transition-all duration-150 border-2 border-black"></div>
+
+                    <div class="relative bg-black text-white p-4 transform -skew-x-12 border-2 border-white flex justify-between items-center group-hover:bg-[#111] transition-colors">
+                        <div class="unskew-p5 flex items-center space-x-4">
+                            <div class="bg-[#ff0033] text-black font-black text-2xl w-10 h-10 flex items-center justify-center border border-black">
+                                02
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold tracking-wide group-hover:text-[#ffee00] transition-colors">CHALECO CUERO NEGRO</h3>
+                                <p class="text-xs text-gray-400 font-sans uppercase">Defensa +60 | Resistencia Fuego</p>
+                            </div>
+                        </div>
+
+                        <div class="unskew-p5 flex items-center space-x-4">
+                            <span class="bg-white text-black px-3 py-1 font-black text-xl border border-black">¥ 18,500</span>
+                            <button onclick="buyItem(18500, 'Chaleco Cuero')" class="bg-[#ff0033] hover:bg-[#ffee00] hover:text-black text-white px-4 py-1 font-extrabold uppercase border border-black hover-shake transition-all">
+                                COMPRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ítem 3 -->
+                <div class="relative group cursor-pointer" onmouseenter="setShopkeeperTalk('Restaura 100 HP a todo el grupo de golpe.')">
+                    <div class="absolute -inset-1 bg-[#ff0033] transform -skew-x-12 translate-x-2 translate-y-2 group-hover:translate-x-3 group-hover:translate-y-3 transition-all duration-150 border-2 border-black"></div>
+
+                    <div class="relative bg-black text-white p-4 transform -skew-x-12 border-2 border-white flex justify-between items-center group-hover:bg-[#111] transition-colors">
+                        <div class="unskew-p5 flex items-center space-x-4">
+                            <div class="bg-[#ff0033] text-black font-black text-2xl w-10 h-10 flex items-center justify-center border border-black">
+                                03
+                            </div>
+                            <div>
+                                <h3 class="text-[#ffee00] text-2xl font-bold tracking-wide">CAFE DE LEBLANC (x3)</h3>
+                                <p class="text-xs text-gray-400 font-sans uppercase">Recupera 50 SP de un aliado</p>
+                            </div>
+                        </div>
+
+                        <div class="unskew-p5 flex items-center space-x-4">
+                            <span class="bg-white text-black px-3 py-1 font-black text-xl border border-black">¥ 5,000</span>
+                            <button onclick="buyItem(5000, 'Café de Leblanc')" class="bg-[#ff0033] hover:bg-[#ffee00] hover:text-black text-white px-4 py-1 font-extrabold uppercase border border-black hover-shake transition-all">
+                                COMPRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ================= FOOTER / ESTADO DE MENÚ ================= -->
+    <footer class="relative z-20 bg-black border-t-2 border-white py-3 px-6 text-center">
+        <div class="max-w-7xl mx-auto flex justify-between items-center text-sm tracking-wider">
+            <span class="text-[#ff0033] font-bold">[SELECT] NAVEGAR</span>
+            <span class="text-white">PERSONA 5 ROYAL SHOP SYSTEM</span>
+            <span class="text-[#ffee00] font-bold">[X] COMPRAR</span>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT LÓGICO Y DINÁMICO ================= -->
+    <script>
+        let money = 500000;
+        let cartCount = 0;
+
+        // Cambiar la frase del vendedor
+        function setShopkeeperTalk(text) {
+            const speech = document.getElementById('shopkeeper-speech');
+            speech.innerText = `"${text}"`;
+        }
+
+        // Efecto de Transición estilo Persona 5 al cambiar de pestaña
+        function triggerTransition(sectionName, shopkeeperText) {
+            const overlay = document.getElementById('transition-overlay');
+
+            // Activar animación de cortina roja
+            overlay.classList.remove('active');
+            void overlay.offsetWidth; // Trigger reflow
+            overlay.classList.add('active');
+
+            // Actualizar datos a mitad de la transición
+            setTimeout(() => {
+                document.getElementById('section-title').innerText = `CATÁLOGO: ${sectionName.toUpperCase()}`;
+                setShopkeeperTalk(shopkeeperText);
+            }, 200);
+        }
+
+        // Comprar ítem
+        function buyItem(price, itemName) {
+            if (money >= price) {
+                money -= price;
+                cartCount++;
+                document.getElementById('money-counter').innerText = money.toLocaleString();
+                document.getElementById('cart-count').innerText = cartCount;
+                setShopkeeperTalk(`¡Gracias por comprar el/la ${itemName}! ¿Algo más?`);
+            } else {
+                setShopkeeperTalk('Parece que no tienes suficiente dinero para eso, chaval.');
+            }
+        }
+    </script>
+</body>
+</html>
