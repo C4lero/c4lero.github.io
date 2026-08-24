@@ -382,6 +382,13 @@
             scrollbar-width: thin;
             scrollbar-color: #F2CD5C #000000;
         }
+
+        .logo-img {
+            height: 40px; /* Ajusta la altura deseada */
+            width: auto; /* Mantiene la proporción automática */
+            object-fit: contain;
+            display: block;
+        }
     </style>
 </head>
 <body class="h-screen flex flex-col select-none overflow-hidden bg-black">
@@ -647,36 +654,36 @@
                 dialogue: "So, you need someone to design your game... Or maybe to help organize your team? Or project? In that case, you're lucky, I know a guy...",
                 hideBuyButton: true,
                 description: `
-                        <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Description:</p>
-                                    <p class="text-sm">Hi, I'm Calero. I have taken roles in projects as both Game Designer, creating full core loops and game loops from game concept ideas,
-                                    as well as a Game Producer, coordinating teams and adjusting pipelines, schedules and roadmaps to ensure feasibility of the projects I take
-                                    part in!</p>
+                            <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Description:</p>
+                                        <p class="text-sm">Hi, I'm Calero. I have taken roles in projects as both Game Designer, creating full core loops and game loops from game concept ideas,
+                                        as well as a Game Producer, coordinating teams and adjusting pipelines, schedules and roadmaps to ensure feasibility of the projects I take
+                                        part in!</p>
 
-                                    <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Select one of the items below to check my full profile for each role!</p>
+                                        <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Select one of the items below to check my full profile for each role!</p>
 
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-                                        <!-- Botón RPG Designer -->
-                                        <a href="role-designer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
-                                            <div class="item-particle-aura"></div>
-                                            <div class="w-full h-24 flex items-center justify-center my-1">
-                                                    <img src="assets/item-designer.png" alt="Game Designer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                            </div>
-                                            <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2A766] mt-2">Game Designer</span>
-                                            <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Systems, Balancing & Flow</span>
-                                        </a>
-                                        <!-- Botón RPG Producer -->
-                                        <a href="role-producer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
-                                            <div class="item-particle-aura"></div>
-                                            <div class="w-full h-24 flex items-center justify-center my-1">
-                                                <img src="assets/item-producer.png" alt="Game Producer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                            </div>
-                                            <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2CD5C] mt-2">Game Producer</span>
-                                            <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Agile, Roadmaps & Delivery</span>
-                                        </a>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                                            <!-- Botón RPG Designer -->
+                                            <a href="role-designer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                                <div class="item-particle-aura"></div>
+                                                <div class="w-full h-24 flex items-center justify-center my-1">
+                                                        <img src="assets/item-designer.png" alt="Game Designer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                                </div>
+                                                <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2A766] mt-2">Game Designer</span>
+                                                <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Systems, Balancing & Flow</span>
+                                            </a>
+                                            <!-- Botón RPG Producer -->
+                                            <a href="role-producer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                                <div class="item-particle-aura"></div>
+                                                <div class="w-full h-24 flex items-center justify-center my-1">
+                                                    <img src="assets/item-producer.png" alt="Game Producer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                                </div>
+                                                <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2CD5C] mt-2">Game Producer</span>
+                                                <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Agile, Roadmaps & Delivery</span>
+                                            </a>
 
 
-                                    </div>
-                                `
+                                        </div>
+                                    `
             },
             'featured-game': {
                 category: 'An isometric twin-stick shooter mixing cleaning and combat!',
@@ -689,33 +696,33 @@
                 projectText: "PROJECT PAGE",
                 projectLink: "project-detail-dorothy.html",
                 description: `
-                                    <p class="mt-2"><strong>Dorothy's Job</strong> is a 3D game that uses fast-paced combat, procedural level generation
-                                    and the distinc cleaning mechanic to create a unique gameplay loop.<br>
+                                        <p class="mt-2"><strong>Dorothy's Job</strong> is a 3D game that uses fast-paced combat, procedural level generation
+                                        and the distinc cleaning mechanic to create a unique gameplay loop.<br>
 
-                                    <div style="margin: 30px 0;">
-                                        <video controls autoplay loop muted width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                                            <source src="assets/DorothyTrailer.mp4" type="video/mp4">
-                                        </video>
-                                        <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">Dorothy's Job Trailer</p>
-                                    </div>
-                                    <p class="font-black text-[#D94179]"><strong>Roles: </strong> Mechanics Designer & Game Producer</p>
-                                    <br>
-                                    🎮 As a <strong>Mechanics Designer</strong>, I designed and iterated on the game's core gameplay, balance and combat-cleaning loop
-                                    collaborating closely with programmers and artists to integrate systems consistently with the design vision and
-                                    create a great experience!<br>
-                                    <br>
-                                    🎮 As a <strong>Game Producer</strong>, I coordinated the project workflow for a 20 person core team, which grew to
-                                    40 on peak development. I created the game's roadmap, led weekly meetings, managed milestones and
-                                    scope, supervised documentation and maintained clear communication, ensuring team coordination.</p>
-                                    I also managed the Steamworks page, configuration and game publishment process.<br>
-                                    Check out more information about the game clicking the project page or check out the Steam page!
-                                    <div class="p-4 border-2 border-black bg-black mt-3 space-y-2 text-xs md:text-sm">
-                                        <p>⭐ <strong>Development:</strong> 10-month development cycle.</p>
-                                        <p>⭐ <strong>Steam launch:</strong> 34.600+ total units/licenses distributed and over 550 wishlists
-                                        managed on a 4-week pre-launch campaign.</p>
-                                        <p>⭐ <strong>Game acceptance:</strong> 84% positive reviews on Steam.</p>
-                                    </div>
-                                `
+                                        <div style="margin: 30px 0;">
+                                            <video controls autoplay loop muted width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                                                <source src="assets/DorothyTrailer.mp4" type="video/mp4">
+                                            </video>
+                                            <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">Dorothy's Job Trailer</p>
+                                        </div>
+                                        <p class="font-black text-[#D94179]"><strong>Roles: </strong> Mechanics Designer & Game Producer</p>
+                                        <br>
+                                        🎮 As a <strong>Mechanics Designer</strong>, I designed and iterated on the game's core gameplay, balance and combat-cleaning loop
+                                        collaborating closely with programmers and artists to integrate systems consistently with the design vision and
+                                        create a great experience!<br>
+                                        <br>
+                                        🎮 As a <strong>Game Producer</strong>, I coordinated the project workflow for a 20 person core team, which grew to
+                                        40 on peak development. I created the game's roadmap, led weekly meetings, managed milestones and
+                                        scope, supervised documentation and maintained clear communication, ensuring team coordination.</p>
+                                        I also managed the Steamworks page, configuration and game publishment process.<br>
+                                        Check out more information about the game clicking the project page or check out the Steam page!
+                                        <div class="p-4 border-2 border-black bg-black mt-3 space-y-2 text-xs md:text-sm">
+                                            <p>⭐ <strong>Development:</strong> 10-month development cycle.</p>
+                                            <p>⭐ <strong>Steam launch:</strong> 34.600+ total units/licenses distributed and over 550 wishlists
+                                            managed on a 4-week pre-launch campaign.</p>
+                                            <p>⭐ <strong>Game acceptance:</strong> 84% positive reviews on Steam.</p>
+                                        </div>
+                                    `
             },
             'projects-log': {
                 category: 'All my projects and games together',
@@ -725,89 +732,89 @@
                 dialogue: "These are all the projects Calero worked in, some are pretty neat and have all their information in their own page, click on one and see by yourself!",
                 hideBuyButton: true,
                 description: `
-                        <p class="mt-2 text-xs text-slate-300">Here's a collection of all the projects I worked in. These projects include Game Jam games, personal projects and documentation revolved around video games.</p>
-                        <p class="font-black text-[#F2A766] text-xs uppercase tracking-wider my-3">Click on a project to go to their page!</p>
+                            <p class="mt-2 text-xs text-slate-300">Here's a collection of all the projects I worked in. These projects include Game Jam games, personal projects and documentation revolved around video games.</p>
+                            <p class="font-black text-[#F2A766] text-xs uppercase tracking-wider my-3">Click on a project to go to its own page!</p>
 
-                        <div class="flex flex-col gap-3 mt-2">
+                            <div class="flex flex-col gap-3 mt-2">
 
-                            <!-- Banner Proyecto 1 -->
-                            <a href="project-detail.html" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                <img src="assets/banner-project1.png" alt="Game Jam Title 1" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=Game+Jam+Title+1'">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                                <!-- Banner Proyecto 1 -->
+                                <a href="project-detail.html" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
+                                    <img src="assets/banner-project1.png" alt="Game Jam Title 1" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=Game+Jam+Title+1'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
 
-                                <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                    <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                        Game Jam Title 1
-                                    </h3>
-                                    <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                        <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Ludum Dare Entry</span>
-                                        <span class="text-slate-300">• 2024 • Unity 2D</span>
+                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
+                                        <!-- Logo en sustitución del título "Diescend" -->
+                                        <img src="assets/banner-project1-logo.png" alt="Diescend Logo" class="h-20 md:h-20 w-auto object-contain self-start mb-1 group-hover:scale-105 transition-transform">
+
+                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
+                                            <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">GMTK 26 Game Jam Submission</span>
+                                            <span class="text-slate-300">• 2026 • Made in Godot</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
+                                            Un juego de plataformas donde controlas la gravedad para escapar de una estación espacial colapsando.
+                                        </p>
                                     </div>
-                                    <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                        Un juego de plataformas donde controlas la gravedad para escapar de una estación espacial colapsando.
-                                    </p>
-                                </div>
-                            </a>
+                                </a>
 
-                            <!-- Banner Proyecto 2 -->
-                            <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                <img src="assets/banner-project2.png" alt="Prototype X" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=Prototype+X'">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                                <!-- Banner Proyecto 2 -->
+                                <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
+                                    <img src="assets/banner-project2.png" alt="Prototype X" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=Prototype+X'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
 
-                                <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                    <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                        Prototype X
-                                    </h3>
-                                    <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                        <span class="bg-[#F2A766] text-black px-2 py-0.5 rounded border border-black uppercase tracking-wider">Mechanics Exploration</span>
-                                        <span class="text-slate-300">• GDD Specs</span>
+                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
+                                        <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
+                                            Prototype X
+                                        </h3>
+                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
+                                            <span class="bg-[#F2A766] text-black px-2 py-0.5 rounded border border-black uppercase tracking-wider">Mechanics Exploration</span>
+                                            <span class="text-slate-300">• GDD Specs</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
+                                            Documentación técnica de diseño enfocado en la progresión de combate y balance del árbol de habilidades.
+                                        </p>
                                     </div>
-                                    <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                        Documentación técnica de diseño enfocado en la progresión de combate y balance del árbol de habilidades.
-                                    </p>
-                                </div>
-                            </a>
+                                </a>
 
-                            <!-- Banner Proyecto 3 -->
-                            <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                <img src="assets/banner-project3.png" alt="Action Platformer" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/111/fff?text=Action+Platformer'">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                                <!-- Banner Proyecto 3 -->
+                                <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
+                                    <img src="assets/banner-project3.png" alt="Action Platformer" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/111/fff?text=Action+Platformer'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
 
-                                <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                    <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                        Action Platformer
-                                    </h3>
-                                    <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                        <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">2D Movement Study</span>
-                                        <span class="text-slate-300">• Unreal Engine 5</span>
+                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
+                                        <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
+                                            Action Platformer
+                                        </h3>
+                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
+                                            <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">2D Movement Study</span>
+                                            <span class="text-slate-300">• Unreal Engine 5</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
+                                            Prototipo jugable centrado en mecánicas fluidas de movimiento, dash y combate Hack & Slash en 2.5D.
+                                        </p>
                                     </div>
-                                    <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                        Prototipo jugable centrado en mecánicas fluidas de movimiento, dash y combate Hack & Slash en 2.5D.
-                                    </p>
-                                </div>
-                            </a>
+                                </a>
 
-                            <!-- Banner Proyecto 4 -->
-                            <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                <img src="assets/banner-project4.jpg" alt="Puzzle Experiment" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=Puzzle+Experiment'">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                                <!-- Banner Proyecto 4 -->
+                                <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
+                                    <img src="assets/banner-project4.jpg" alt="Puzzle Experiment" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=Puzzle+Experiment'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
 
-                                <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                    <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                        Puzzle Experiment
-                                    </h3>
-                                    <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                        <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Global Game Jam</span>
-                                        <span class="text-slate-300">• 2023 • Godot</span>
+                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
+                                        <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
+                                            Puzzle Experiment
+                                        </h3>
+                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
+                                            <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Global Game Jam</span>
+                                            <span class="text-slate-300">• 2023 • Godot</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
+                                            Un experimento enfocado en mecánicas de rompecabezas basados en físicas e interacción con elementos del entorno.
+                                        </p>
                                     </div>
-                                    <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                        Un experimento enfocado en mecánicas de rompecabezas basados en físicas e interacción con elementos del entorno.
-                                    </p>
-                                </div>
-                            </a>
+                                </a>
 
-                        </div>
-                    `
+                            </div>
+                        `
             },
             'articles': {
                 category: 'Publications',
@@ -817,60 +824,60 @@
                 dialogue: "Here is my newsletter archive and technical writings! Click any entry to read the full article.",
                 hideBuyButton: true,
                 description: `
-                                    <p class="font-black text-[#F2CD5C] text-xs uppercase tracking-wider mb-3">Latest Writings & Postmortems:</p>
+                                        <p class="font-black text-[#F2CD5C] text-xs uppercase tracking-wider mb-3">Latest Writings & Postmortems:</p>
 
-                                    <div class="flex flex-col gap-3 mt-2">
+                                        <div class="flex flex-col gap-3 mt-2">
 
-                                        <!-- Artículo 1 Style Newsletter -->
-                                       <a href="article.html" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
-                                            <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
-                                                <img src="assets/item-articles.png" alt="Production Pipelines" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                            </div>
-                                            <div class="flex-1 min-w-0">
-                                                <div class="flex items-center justify-between gap-2 mb-1">
-                                                    <span class="font-ui font-black text-xs sm:text-sm text-[#F2CD5C] uppercase tracking-wider truncate">Optimizing Game Pipelines</span>
-                                                    <span class="text-[9px] font-bold text-[#D94179] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">5 min read</span>
+                                            <!-- Artículo 1 Style Newsletter -->
+                                           <a href="article.html" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
+                                                <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
+                                                    <img src="assets/item-articles.png" alt="Production Pipelines" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
                                                 </div>
-                                                <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
-                                                    A deep dive into agile production workflows for indie studios. How to prevent scope creep while maintaining creative momentum and team communication.
-                                                </p>
-                                            </div>
-                                        </a>
-
-                                        <!-- Artículo 2 Style Newsletter -->
-                                        <a href="https://medium.com" target="_blank" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
-                                            <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
-                                                <img src="assets/item-designer.png" alt="Designing Systems" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                            </div>
-                                            <div class="flex-1 min-w-0">
-                                                <div class="flex items-center justify-between gap-2 mb-1">
-                                                    <span class="font-ui font-black text-xs sm:text-sm text-[#F2A766] uppercase tracking-wider truncate">Systemic Game Design</span>
-                                                    <span class="text-[9px] font-bold text-[#F2CD5C] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">8 min read</span>
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="flex items-center justify-between gap-2 mb-1">
+                                                        <span class="font-ui font-black text-xs sm:text-sm text-[#F2CD5C] uppercase tracking-wider truncate">Optimizing Game Pipelines</span>
+                                                        <span class="text-[9px] font-bold text-[#D94179] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">5 min read</span>
+                                                    </div>
+                                                    <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                                                        A deep dive into agile production workflows for indie studios. How to prevent scope creep while maintaining creative momentum and team communication.
+                                                    </p>
                                                 </div>
-                                                <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
-                                                    Exploring player progression loops and economy balance in RPG systems. Key takeaways from crafting engaging player feedback and reward mechanics.
-                                                </p>
-                                            </div>
-                                        </a>
+                                            </a>
 
-                                        <!-- Artículo 3 Style Newsletter -->
-                                        <a href="https://medium.com" target="_blank" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
-                                            <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
-                                                <img src="assets/item-producer.png" alt="Postmortem Project" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                            </div>
-                                            <div class="flex-1 min-w-0">
-                                                <div class="flex items-center justify-between gap-2 mb-1">
-                                                    <span class="font-ui font-black text-xs sm:text-sm text-[#D94179] uppercase tracking-wider truncate">Jam Postmortem: Lessons</span>
-                                                    <span class="text-[9px] font-bold text-[#F2A766] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">4 min read</span>
+                                            <!-- Artículo 2 Style Newsletter -->
+                                            <a href="https://medium.com" target="_blank" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
+                                                <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
+                                                    <img src="assets/item-designer.png" alt="Designing Systems" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
                                                 </div>
-                                                <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
-                                                    What went right and what went wrong during our 48-hour game jam project. Critical reflections on rapid prototyping and scope trimming under time pressure.
-                                                </p>
-                                            </div>
-                                        </a>
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="flex items-center justify-between gap-2 mb-1">
+                                                        <span class="font-ui font-black text-xs sm:text-sm text-[#F2A766] uppercase tracking-wider truncate">Systemic Game Design</span>
+                                                        <span class="text-[9px] font-bold text-[#F2CD5C] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">8 min read</span>
+                                                    </div>
+                                                    <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                                                        Exploring player progression loops and economy balance in RPG systems. Key takeaways from crafting engaging player feedback and reward mechanics.
+                                                    </p>
+                                                </div>
+                                            </a>
 
-                                    </div>
-                                `
+                                            <!-- Artículo 3 Style Newsletter -->
+                                            <a href="https://medium.com" target="_blank" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
+                                                <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
+                                                    <img src="assets/item-producer.png" alt="Postmortem Project" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="flex items-center justify-between gap-2 mb-1">
+                                                        <span class="font-ui font-black text-xs sm:text-sm text-[#D94179] uppercase tracking-wider truncate">Jam Postmortem: Lessons</span>
+                                                        <span class="text-[9px] font-bold text-[#F2A766] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">4 min read</span>
+                                                    </div>
+                                                    <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                                                        What went right and what went wrong during our 48-hour game jam project. Critical reflections on rapid prototyping and scope trimming under time pressure.
+                                                    </p>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    `
             }
         };
 
