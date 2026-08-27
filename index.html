@@ -25,10 +25,6 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        .cel-block-shadow {
-            box-shadow: 6px 6px 0px #000000;
-        }
-
         .cel-block-shadow-sm {
             box-shadow: 4px 4px 0px #000000;
         }
@@ -52,6 +48,48 @@
             background-repeat: no-repeat;
         }
 
+        /* --- MARCO CONTENEDOR GENERAL --- */
+        .p5-main-board {
+            position: relative;
+            background-color: #0b0b10;
+            border: 4px solid #ffffff;
+            box-shadow: 10px 10px 0px #000000;
+            clip-path: polygon(0% 2%, 98% 0%, 100% 98%, 2% 100%);
+            z-index: 1;
+        }
+
+            .p5-main-board::before {
+                content: '';
+                position: absolute;
+                inset: -8px -10px -10px -8px;
+                background-color: #000000;
+                border: 3px solid #141259;
+                clip-path: polygon(2% 0%, 100% 2%, 97% 100%, 0% 97%);
+                transform: rotate(-1.2deg);
+                z-index: -1;
+            }
+
+        /* --- TARJETAS INDIVIDUALES --- */
+        .p5-shelf-banner {
+            position: relative;
+            background-color: #141259;
+            border: 3px solid #000000;
+            clip-path: polygon(0 0, 100% 0, 97% 100%, 0% 100%);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, filter 0.2s;
+            filter: drop-shadow(4px 4px 0px #000000);
+            z-index: 2;
+        }
+
+            .p5-shelf-banner:hover {
+                transform: scale(1.02) rotate(-0.5deg) translate(-2px, -2px) !important;
+                background-color: #1c1a75;
+                filter: drop-shadow(6px 6px 0px #F2CD5C);
+            }
+
+        .p5-icon-box {
+            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0% 100%);
+        }
+
         .rpg-shelf-item {
             background-color: #141259;
             border: 3px solid #000000;
@@ -66,7 +104,6 @@
                 border-color: #F2CD5C;
             }
 
-        /* Variante estilo newsletter/fila para artículos */
         .rpg-article-item {
             background-color: #141259;
             border: 3px solid #000000;
@@ -82,7 +119,7 @@
             }
 
         .smooth-transition {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.6s ease, max-width 0.6s ease;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.6s ease, max-width 0.6s ease, padding 0.6s ease;
         }
 
         @keyframes float {
@@ -99,7 +136,6 @@
             animation: float 4s ease-in-out infinite;
         }
 
-        /* LEVITACIÓN SUAVE DE LOS SPRITES DE ITEMS (SINCRO GLOBAL) */
         @keyframes itemFloat {
             0%, 100% {
                 transform: translateY(0px);
@@ -114,7 +150,6 @@
             animation: itemFloat 3s ease-in-out infinite;
         }
 
-        /* ONDAS CON CAPA Z-INDEX 20 */
         .wave-container-top {
             position: fixed;
             top: 63px;
@@ -332,7 +367,7 @@
         .anim-vendor-entry {
             opacity: 0;
             transform: translateY(80px);
-            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease, max-width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
             .anim-vendor-entry.active {
@@ -342,13 +377,13 @@
 
         .shelf-item-hidden {
             opacity: 0;
-            transform: scale(0) rotate(-10deg);
+            transform: translateX(50px);
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
         }
 
         .shelf-item-visible {
             opacity: 1;
-            transform: scale(1) rotate(0deg);
+            transform: translateX(0);
         }
 
         .drawer-panel {
@@ -361,7 +396,7 @@
         }
 
         .panel-scroll-content::-webkit-scrollbar {
-            width: 100px;
+            width: 8px;
         }
 
         .panel-scroll-content::-webkit-scrollbar-track {
@@ -381,13 +416,6 @@
         .panel-scroll-content {
             scrollbar-width: thin;
             scrollbar-color: #F2CD5C #000000;
-        }
-
-        .logo-img {
-            height: 40px; /* Ajusta la altura deseada */
-            width: auto; /* Mantiene la proporción automática */
-            object-fit: contain;
-            display: block;
         }
     </style>
 </head>
@@ -431,104 +459,44 @@
     <!-- ONDAS SUPERIORES -->
     <div class="wave-container-top">
         <div class="wave-track animate-wave-white-top absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path>
-            </svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path>
-            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path></svg>
         </div>
         <div class="wave-track animate-wave-blue1-top absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path>
-            </svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path>
-            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path></svg>
         </div>
         <div class="wave-track animate-wave-blue2-top absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path>
-            </svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path>
-            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path></svg>
         </div>
         <div class="wave-track animate-wave-black-top absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path>
-            </svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path>
-            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path></svg>
         </div>
     </div>
 
     <!-- ONDAS INFERIORES -->
     <div class="wave-container-bottom">
         <div class="wave-track animate-wave-white-bot absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path>
-            </svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path>
-            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path></svg>
         </div>
         <div class="wave-track animate-wave-blue1-bot absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path>
-            </svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path>
-            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path></svg>
         </div>
         <div class="wave-track animate-wave-blue2-bot absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path>
-            </svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path>
-            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path></svg>
         </div>
         <div class="wave-track animate-wave-black-bot absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path>
-            </svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path>
-            </svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path></svg>
         </div>
     </div>
 
-    <!-- PANEL IZQUIERDO -->
-    <aside id="detailsPanelLeft" onclick="event.stopPropagation()" class="drawer-panel left-0 w-full md:w-[45%] bg-black border-r-4 border-black shadow-[10px_0px_0px_#000] transform -translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
-        <div class="p-6 border-b-4 border-black bg-[#141259] flex items-center gap-4 flex-shrink-0">
-            <div id="panelIconLeft" class="w-14 h-14 rounded-none bg-black border-2 border-black flex items-center justify-center text-2xl overflow-hidden p-1 text-[#F2CD5C]"></div>
-            <div>
-                <span id="panelCategoryLeft" class="text-xs font-ui font-black uppercase tracking-widest text-[#D94179]">Category</span>
-                <h2 id="panelTitleLeft" class="text-xl md:text-2xl font-black text-white font-ui uppercase">Title</h2>
-            </div>
-        </div>
-
-        <div id="panelBodyLeft" class="panel-scroll-content p-6 flex-1 overflow-y-auto space-y-4 text-slate-200 text-sm md:text-base leading-relaxed bg-[#0a0a0c]"></div>
-
-        <div class="p-5 border-t-4 border-black bg-black flex flex-col gap-3 flex-shrink-0 z-10">
-            <a id="buyButtonLeft" href="#" target="_blank" class="w-full bg-[#F2CD5C] text-black border-2 border-black cel-block-shadow-sm font-ui font-black text-sm py-3 px-4 rounded-none text-center transition flex items-center justify-center gap-2 hover:bg-[#f5d77f] uppercase tracking-wider">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="buyButtonTextLeft">BUY / VIEW MORE</span>
-            </a>
-            <a id="projectButtonLeft" href="#" class="hidden w-full bg-[#1c1a75] text-white border-2 border-black cel-block-shadow-sm font-ui font-black text-sm py-3 px-4 rounded-none text-center transition flex items-center justify-center gap-2 hover:bg-[#252299] uppercase tracking-wider">
-                <i class="fa-solid fa-circle-info"></i>
-                <span id="projectButtonTextLeft">MORE INFO</span>
-            </a>
-            <button onclick="closePanel()" class="w-full bg-black text-white border-2 border-white cel-block-shadow-sm font-ui font-bold text-xs py-2.5 px-4 rounded-none transition flex items-center justify-center gap-2 uppercase hover:bg-neutral-800 tracking-wider">
-                <i class="fa-solid fa-rotate-left"></i>
-                <span>BACK TO SHOP</span>
-            </button>
-        </div>
-    </aside>
-
-    <!-- PANEL DERECHO -->
+    <!-- PANEL DERECHO ÚNICO -->
     <aside id="detailsPanelRight" onclick="event.stopPropagation()" class="drawer-panel right-0 w-full md:w-[45%] bg-black border-l-4 border-black shadow-[-10px_0px_0px_#000] transform translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
         <div class="p-6 border-b-4 border-black bg-[#141259] flex items-center gap-4 flex-shrink-0">
             <div id="panelIconRight" class="w-14 h-14 rounded-none bg-black border-2 border-black flex items-center justify-center text-2xl overflow-hidden p-1 text-[#F2CD5C]"></div>
@@ -556,78 +524,37 @@
         </div>
     </aside>
 
-    <main id="mainScene" onclick="handleBackgroundClick(event)" class="shop-background anim-bg-entry relative flex-1 w-full pt-[63px] overflow-hidden flex items-center justify-center cursor-pointer">
+    <!-- ESCENA PRINCIPAL -->
+    <main id="mainScene" onclick="handleBackgroundClick(event)" class="shop-background anim-bg-entry smooth-transition relative flex-1 w-full pt-[120px] pb-[90px] overflow-hidden flex items-center px-6 md:px-12 cursor-pointer">
 
         <div class="absolute inset-0 bg-black/40 pointer-events-none z-0"></div>
 
         <div id="ambientParticles" class="particle-container z-10"></div>
 
-        <div id="shelvesContainer" class="smooth-transition relative w-full max-w-7xl aspect-[16/9] max-h-[85vh] pointer-events-auto z-20">
+        <!-- COLUMNA IZQUIERDA: PERSONAJE Y DIÁLOGO -->
+        <div id="characterGroup" class="anim-vendor-entry smooth-transition relative w-full md:w-1/2 h-full flex flex-col justify-end items-center z-30 pointer-events-none pb-2 pr-0 md:pr-4">
 
-            <!-- 1. ARRIBA IZQUIERDA: Developer Profile (¿Quién soy yo?) -->
-            <button onclick="selectItem('developer-profile', 'left', event)"
-                    class="rpg-shelf-item shelf-item-hidden absolute left-[2%] md:left-[3%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
-                <div class="item-particle-aura" id="aura-producer"></div>
-                <div class="w-full h-20 md:h-28 flex items-center justify-center">
-                    <img src="assets/item-profile.png" alt="Developer Profile" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                </div>
-                <span class="font-ui font-black text-[10px] md:text-xs text-center uppercase tracking-wider leading-tight text-[#F2CD5C]">Profile Information</span>
-            </button>
-
-            <!-- 2. ARRIBA DERECHA: Featured Project (Proyecto Destacado) -->
-            <button onclick="selectItem('featured-game', 'right', event)"
-                    class="rpg-shelf-item shelf-item-hidden absolute right-[2%] md:right-[3%] top-[12%] md:top-[16%] w-32 h-32 md:w-44 md:h-44 rounded-xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
-                <div class="item-particle-aura" id="aura-projects"></div>
-                <div class="w-full h-20 md:h-28 flex items-center justify-center">
-                    <img src="assets/item-featuredproject.png" alt="Featured Project" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                </div>
-                <span class="font-ui font-black text-[10px] md:text-xs text-center uppercase tracking-wider leading-tight text-[#D94179]">Featured Project</span>
-            </button>
-
-            <!-- 3. ABAJO IZQUIERDA: Project Vault (Todos los proyectos) -->
-            <button onclick="selectItem('projects-log', 'left', event)"
-                    class="rpg-shelf-item shelf-item-hidden absolute left-[2%] md:left-[3%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
-                <div class="item-particle-aura" id="aura-designer"></div>
-                <div class="w-full h-20 md:h-28 flex items-center justify-center">
-                    <img src="assets/item-projectvault.png" alt="Project Vault" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                </div>
-                <span class="font-ui font-black text-[10px] md:text-xs text-center uppercase tracking-wider leading-tight text-[#F2A766]">Project Vault</span>
-            </button>
-
-            <!-- 4. ABAJO DERECHA: Articles & Writing -->
-            <button onclick="selectItem('articles', 'right', event)"
-                    class="rpg-shelf-item shelf-item-hidden absolute right-[2%] md:right-[3%] top-[48%] md:top-[48%] w-32 h-32 md:w-44 md:h-44 rounded-xl p-2.5 flex flex-col items-center justify-between group cursor-pointer z-10">
-                <div class="item-particle-aura" id="aura-articles"></div>
-                <div class="w-full h-28 flex items-center justify-center">
-                    <img src="assets/item-articles.png" alt="Articles" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                </div>
-                <span class="font-ui font-black text-[10px] md:text-xs text-center uppercase tracking-wider leading-tight text-[#F2CD5C]">Articles & Writings</span>
-            </button>
-
-        </div>
-
-        <!-- PERSONAJE Y DIÁLOGO -->
-        <div id="characterGroup" class="anim-vendor-entry smooth-transition absolute inset-x-0 bottom-20 md:bottom-28 top-[63px] flex flex-col items-center justify-end z-30 pointer-events-none">
-
-            <div onclick="handleShopkeeperClick(event)" class="relative flex flex-col items-center justify-end pointer-events-auto cursor-pointer z-10 mb-1">
-                <div class="shopkeeper-idle relative h-[32vh] sm:h-[38vh] lg:h-[44vh] w-auto aspect-square flex items-center justify-center">
-                    <div class="absolute w-[75%] h-[75%] rounded-full bg-[#F2CD5C] blur-2xl opacity-40"></div>
+            <!-- 1. VENDEDOR -->
+            <div onclick="handleShopkeeperClick(event)" class="relative flex items-center justify-center pointer-events-auto cursor-pointer z-10 mb-2">
+                <div id="vendorWrapper" class="shopkeeper-idle relative h-[36vh] sm:h-[42vh] lg:h-[48vh] w-auto aspect-square flex items-center justify-center">
+                    <div class="absolute w-[80%] h-[80%] rounded-full bg-[#F2CD5C] blur-3xl opacity-40"></div>
                     <div id="vendorParticles" class="absolute inset-0 pointer-events-none"></div>
 
-                    <img src="assets/vendedor.png" alt="Shopkeeper" class="persona-outline-thick w-full h-full object-contain relative z-10">
+                    <img id="vendorImage" src="assets/vendedor.png" alt="Shopkeeper" class="persona-outline-thick w-full h-full object-contain relative z-10 transition-transform duration-700 ease-out origin-bottom">
                 </div>
             </div>
 
-            <div id="dialogueWrapper" onclick="handleShopkeeperClick(event)" class="pointer-events-auto relative w-full max-w-3xl px-4 smooth-transition cursor-pointer z-40">
+            <!-- 2. CUADRO DE DIÁLOGO -->
+            <div id="dialogueWrapper" onclick="handleShopkeeperClick(event)" class="pointer-events-auto relative w-full smooth-transition cursor-pointer z-40">
 
-                <div class="nametag-container persona-outline-nametag absolute -top-8 left-8 md:left-12 w-auto min-w-[140px] h-11 md:h-13 px-6 flex items-center justify-center z-50">
+                <div class="nametag-container persona-outline-nametag absolute -top-7 left-6 w-auto min-w-[140px] h-10 px-5 flex items-center justify-center z-50">
                     <span class="font-ui font-black text-xs md:text-sm text-white tracking-wider uppercase drop-shadow-[0_2px_0px_#000] text-center leading-none whitespace-nowrap">
                         The Shopkeeper
                     </span>
                 </div>
 
-                <div class="dialogue-box-container persona-outline-thick relative px-6 md:px-8 py-5 md:py-6 min-h-[100px] flex items-center z-10">
-                    <p id="dialogueText" class="font-ui font-bold text-black text-xs md:text-sm lg:text-base leading-relaxed pl-2 pr-6">
+                <div class="dialogue-box-container persona-outline-thick relative w-full px-6 md:px-8 py-5 md:py-6 min-h-[110px] flex items-center z-10">
+                    <p id="dialogueText" class="font-ui font-bold text-black text-xs md:text-sm leading-relaxed pl-2 pr-6 w-full">
                     </p>
 
                     <div class="absolute bottom-3 right-6 animate-bounce text-xs md:text-sm text-[#141259]">
@@ -638,10 +565,75 @@
 
         </div>
 
+        <!-- COLUMNA DERECHA: MARCO ASIMÉTRICO GENERAL -->
+        <div id="shelvesContainer" class="smooth-transition relative w-full md:w-1/2 h-[calc(100%-30px)] my-auto pointer-events-auto z-20 flex flex-col justify-center pl-0 md:pl-4">
+
+            <div class="p5-main-board w-full h-full p-4 md:p-5 flex flex-col justify-between gap-3">
+
+                <!-- 1. Developer Profile -->
+                <button onclick="selectItem('developer-profile', event)"
+                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
+                    <div class="item-particle-aura" id="aura-producer"></div>
+                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
+                        <img src="assets/item-profile.png" alt="Developer Profile" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Profile Information</h3>
+                        <p class="text-[10px] md:text-[11px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">Learn more about my background, roles & experience</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#F2CD5C] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <!-- 2. Featured Project -->
+                <button onclick="selectItem('featured-game', event)"
+                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
+                    <div class="item-particle-aura" id="aura-projects"></div>
+                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
+                        <img src="assets/item-featuredproject.png" alt="Featured Project" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#D94179] truncate -skew-x-6">Featured Project: Dorothy's Job</h3>
+                        <p class="text-[10px] md:text-[11px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">3D Twin-stick shooter released on Steam</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#D94179] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <!-- 3. Project Vault -->
+                <button onclick="selectItem('projects-log', event)"
+                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
+                    <div class="item-particle-aura" id="aura-designer"></div>
+                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
+                        <img src="assets/item-projectvault.png" alt="Project Vault" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2A766] truncate -skew-x-6">Project Vault</h3>
+                        <p class="text-[10px] md:text-[11px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">Game jams, prototypes & design documents</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#F2A766] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <!-- 4. Articles & Writing -->
+                <button onclick="selectItem('articles', event)"
+                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
+                    <div class="item-particle-aura" id="aura-articles"></div>
+                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
+                        <img src="assets/item-articles.png" alt="Articles" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Articles & Writings</h3>
+                        <p class="text-[10px] md:text-[11px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">Postmortems, pipelines & technical analysis</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#F2CD5C] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+            </div>
+
+        </div>
+
     </main>
 
     <script>
-        const PANEL_WIDTH_PERCENT = 55;
+        const PANEL_WIDTH_PERCENT = 47.5; // Coincide exactamente con el width del panel (md:w-[45%])
         let isPanelOpen = false;
         let currentItemId = null;
 
@@ -649,46 +641,36 @@
             'developer-profile': {
                 category: 'Profile Information',
                 title: 'Game Designer | Game Producer',
-                side: 'left',
                 imgSrc: 'assets/item-profile.png',
                 dialogue: "So, you need someone to design your game... Or maybe to help organize your team? Or project? In that case, you're lucky, I know a guy...",
                 hideBuyButton: true,
                 description: `
-                            <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Description:</p>
-                                        <p class="text-sm">Hi, I'm Calero. I have taken roles in projects as both Game Designer, creating full core loops and game loops from game concept ideas,
-                                        as well as a Game Producer, coordinating teams and adjusting pipelines, schedules and roadmaps to ensure feasibility of the projects I take
-                                        part in!</p>
-
-                                        <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Select one of the items below to check my full profile for each role!</p>
-
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-                                            <!-- Botón RPG Designer -->
-                                            <a href="role-designer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
-                                                <div class="item-particle-aura"></div>
-                                                <div class="w-full h-24 flex items-center justify-center my-1">
-                                                        <img src="assets/item-designer.png" alt="Game Designer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                                </div>
-                                                <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2A766] mt-2">Game Designer</span>
-                                                <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Systems, Balancing & Flow</span>
-                                            </a>
-                                            <!-- Botón RPG Producer -->
-                                            <a href="role-producer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
-                                                <div class="item-particle-aura"></div>
-                                                <div class="w-full h-24 flex items-center justify-center my-1">
-                                                    <img src="assets/item-producer.png" alt="Game Producer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                                </div>
-                                                <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2CD5C] mt-2">Game Producer</span>
-                                                <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Agile, Roadmaps & Delivery</span>
-                                            </a>
-
-
-                                        </div>
-                                    `
+                        <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Description:</p>
+                        <p class="text-sm">Hi, I'm Calero. I have taken roles in projects as both Game Designer, creating full core loops and game loops from game concept ideas, as well as a Game Producer, coordinating teams and adjusting pipelines, schedules and roadmaps to ensure feasibility of the projects I take part in!</p>
+                        <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Select one of the items below to check my full profile for each role!</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                            <a href="role-designer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                <div class="item-particle-aura"></div>
+                                <div class="w-full h-24 flex items-center justify-center my-1">
+                                    <img src="assets/item-designer.png" alt="Game Designer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                </div>
+                                <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2A766] mt-2">Game Designer</span>
+                                <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Systems, Balancing & Flow</span>
+                            </a>
+                            <a href="role-producer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
+                                <div class="item-particle-aura"></div>
+                                <div class="w-full h-24 flex items-center justify-center my-1">
+                                    <img src="assets/item-producer.png" alt="Game Producer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                </div>
+                                <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2CD5C] mt-2">Game Producer</span>
+                                <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Agile, Roadmaps & Delivery</span>
+                            </a>
+                        </div>
+                    `
             },
             'featured-game': {
                 category: 'An isometric twin-stick shooter mixing cleaning and combat!',
                 title: 'Dorothy´s Job',
-                side: 'right',
                 imgSrc: 'assets/item-featuredproject.png',
                 dialogue: "This is a real published project that showcases what my guy can do! Check it out here and on Steam!",
                 buyText: "CHECK ON STEAM",
@@ -696,187 +678,95 @@
                 projectText: "PROJECT PAGE",
                 projectLink: "project-detail-dorothy.html",
                 description: `
-                                        <p class="mt-2"><strong>Dorothy's Job</strong> is a 3D game that uses fast-paced combat, procedural level generation
-                                        and the distinct cleaning mechanic to create a unique gameplay loop.<br>
-
-                                        <div style="margin: 30px 0;">
-                                            <video controls autoplay loop muted width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                                                <source src="assets/DorothyTrailer.mp4" type="video/mp4">
-                                            </video>
-                                            <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">Dorothy's Job Trailer</p>
-                                        </div>
-                                        <p class="font-black text-[#D94179]"><strong>Roles: </strong> Mechanics Designer & Game Producer</p>
-                                        <br>
-                                        🎮 As a <strong>Mechanics Designer</strong>, I designed and iterated on the game's core gameplay, balance and combat-cleaning loop
-                                        collaborating closely with programmers and artists to integrate systems consistently with the design vision and
-                                        create a great experience!<br>
-                                        <br>
-                                        🎮 As a <strong>Game Producer</strong>, I coordinated the project workflow for a 20 person core team, which grew to
-                                        40 on peak development. I created the game's roadmap, led weekly meetings, managed milestones and
-                                        scope, supervised documentation and maintained clear communication, ensuring team coordination.</p>
-                                        I also managed the Steamworks page, configuration and game publishment process.<br>
-                                        Check out more information about the game clicking the project page or check out the Steam page!
-                                        <div class="p-4 border-2 border-black bg-black mt-3 space-y-2 text-xs md:text-sm">
-                                            <p>⭐ <strong>Development:</strong> 10-month development cycle.</p>
-                                            <p>⭐ <strong>Steam launch:</strong> 34.600+ total units/licenses distributed and over 550 wishlists
-                                            managed on a 4-week pre-launch campaign.</p>
-                                            <p>⭐ <strong>Game acceptance:</strong> 84% positive reviews on Steam.</p>
-                                        </div>
-                                    `
+                        <p class="mt-2"><strong>Dorothy's Job</strong> is a 3D game that uses fast-paced combat, procedural level generation and the distinct cleaning mechanic to create a unique gameplay loop.<br>
+                        <div style="margin: 30px 0;">
+                            <video controls autoplay loop muted width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                                <source src="assets/DorothyTrailer.mp4" type="video/mp4">
+                            </video>
+                            <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">Dorothy's Job Trailer</p>
+                        </div>
+                        <p class="font-black text-[#D94179]"><strong>Roles: </strong> Mechanics Designer & Game Producer</p>
+                        <br>
+                        🎮 As a <strong>Mechanics Designer</strong>, I designed and iterated on the game's core gameplay, balance and combat-cleaning loop collaborating closely with programmers and artists to integrate systems consistently with the design vision and create a great experience!<br>
+                        <br>
+                        🎮 As a <strong>Game Producer</strong>, I coordinated the project workflow for a 20 person core team, which grew to 40 on peak development. I created the game's roadmap, led weekly meetings, managed milestones and scope, supervised documentation and maintained clear communication, ensuring team coordination.</p>
+                        I also managed the Steamworks page, configuration and game publishment process.<br>
+                        Check out more information about the game clicking the project page or check out the Steam page!
+                        <div class="p-4 border-2 border-black bg-black mt-3 space-y-2 text-xs md:text-sm">
+                            <p>⭐ <strong>Development:</strong> 10-month development cycle.</p>
+                            <p>⭐ <strong>Steam launch:</strong> 34.600+ total units/licenses distributed and over 550 wishlists managed on a 4-week pre-launch campaign.</p>
+                            <p>⭐ <strong>Game acceptance:</strong> 84% positive reviews on Steam.</p>
+                        </div>
+                    `
             },
             'projects-log': {
                 category: 'All my projects and games together',
                 title: 'Project Vault',
-                side: 'left',
                 imgSrc: 'assets/item-projectvault.png',
                 dialogue: "These are all the projects Calero worked in, some are pretty neat and have all their information in their own page, click on one and see by yourself!",
                 hideBuyButton: true,
                 description: `
-                            <p class="mt-2 text-xs text-slate-300">Here's a collection of all the projects I worked in. These projects include Game Jam games, personal projects and documentation revolved around video games.</p>
-                            <p class="font-black text-[#F2A766] text-xs uppercase tracking-wider my-3">Click on a project to go to its own page!</p>
-
-                            <div class="flex flex-col gap-3 mt-2">
-
-                                <!-- Banner Proyecto 1 -->
-                                <a href="project-detail.html" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                    <img src="assets/banner-project1.png" alt="Project1" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=Game+Jam+Title+1'">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-
-                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                        <img src="assets/banner-project1-logo.png" alt="Diescend Logo" class="h-30 md:h-20 w-auto object-contain self-start mb-1 group-hover:scale-105 transition-transform">
-
-                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                            <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">GMTK 26 Game Jam Submission</span>
-                                            <span class="text-slate-300">• 2026 • Made in Godot</span>
-                                        </div>
-                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                            <strong>Descend the tower by betting on dice battles while defeating members of your old mafia gang.</strong>
-                                        </p>
+                        <p class="mt-2 text-xs text-slate-300">Here's a collection of all the projects I worked in. These projects include Game Jam games, personal projects and documentation revolved around video games.</p>
+                        <p class="font-black text-[#F2A766] text-xs uppercase tracking-wider my-3">Click on a project to go to its own page!</p>
+                        <div class="flex flex-col gap-3 mt-2">
+                            <a href="project-detail.html" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
+                                <img src="assets/banner-project1.png" alt="Project1" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=Game+Jam+Title+1'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                                <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
+                                    <img src="assets/banner-project1-logo.png" alt="Diescend Logo" class="h-30 md:h-20 w-auto object-contain self-start mb-1 group-hover:scale-105 transition-transform">
+                                    <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
+                                        <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">GMTK 26 Game Jam Submission</span>
+                                        <span class="text-slate-300">• 2026 • Made in Godot</span>
                                     </div>
-                                </a>
-
-                                <!-- Banner Proyecto 2 -->
-                                <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                    <img src="assets/banner-project2.png" alt="Project2" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=Prototype+X'">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-
-                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                        <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                            Indie Tower Defense Game 
-                                        </h3>
-                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                            <span class="bg-[#F2A766] text-black px-2 py-0.5 rounded border border-black uppercase tracking-wider">In Development</span>
-                                            <span class="text-slate-300">Coming Soon• Unity</span>
-                                        </div>
-                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                            <strong>Documentación técnica de diseño enfocado en la progresión de combate y balance del árbol de habilidades.</strong>
-                                        </p>
+                                    <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
+                                        <strong>Descend the tower by betting on dice battles while defeating members of your old mafia gang.</strong>
+                                    </p>
+                                </div>
+                            </a>
+                            <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
+                                <img src="assets/banner-project2.png" alt="Project2" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=Prototype+X'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                                <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
+                                    <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
+                                        Indie Tower Defense Game
+                                    </h3>
+                                    <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
+                                        <span class="bg-[#F2A766] text-black px-2 py-0.5 rounded border border-black uppercase tracking-wider">In Development</span>
+                                        <span class="text-slate-300">Coming Soon• Unity</span>
                                     </div>
-                                </a>
-
-                                <!-- Banner Proyecto 3 -->
-                                <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                    <img src="assets/banner-project3.png" alt="Action Platformer" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/111/fff?text=Action+Platformer'">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-
-                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                        <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                            Action Platformer
-                                        </h3>
-                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                            <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">2D Movement Study</span>
-                                            <span class="text-slate-300">• Unreal Engine 5</span>
-                                        </div>
-                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                            Prototipo jugable centrado en mecánicas fluidas de movimiento, dash y combate Hack & Slash en 2.5D.
-                                        </p>
-                                    </div>
-                                </a>
-
-                                <!-- Banner Proyecto 4 -->
-                                <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                    <img src="assets/banner-project4.jpg" alt="Puzzle Experiment" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=Puzzle+Experiment'">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
-
-                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                        <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                            Puzzle Experiment
-                                        </h3>
-                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                            <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Global Game Jam</span>
-                                            <span class="text-slate-300">• 2023 • Godot</span>
-                                        </div>
-                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                            Un experimento enfocado en mecánicas de rompecabezas basados en físicas e interacción con elementos del entorno.
-                                        </p>
-                                    </div>
-                                </a>
-
-                            </div>
-                        `
+                                    <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
+                                        <strong>Documentación técnica de diseño enfocado en la progresión de combate y balance del árbol de habilidades.</strong>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    `
             },
             'articles': {
                 category: 'Publications',
                 title: 'Articles & Postmortems',
-                side: 'right',
                 imgSrc: 'assets/item-articles.png',
                 dialogue: "Here is my newsletter archive and technical writings! Click any entry to read the full article.",
                 hideBuyButton: true,
                 description: `
-                                        <p class="font-black text-[#F2CD5C] text-xs uppercase tracking-wider mb-3">Latest Writings & Postmortems:</p>
-
-                                        <div class="flex flex-col gap-3 mt-2">
-
-                                            <!-- Artículo 1 Style Newsletter -->
-                                           <a href="article.html" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
-                                                <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
-                                                    <img src="assets/item-articles.png" alt="Production Pipelines" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <div class="flex items-center justify-between gap-2 mb-1">
-                                                        <span class="font-ui font-black text-xs sm:text-sm text-[#F2CD5C] uppercase tracking-wider truncate">Optimizing Game Pipelines</span>
-                                                        <span class="text-[9px] font-bold text-[#D94179] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">5 min read</span>
-                                                    </div>
-                                                    <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
-                                                        A deep dive into agile production workflows for indie studios. How to prevent scope creep while maintaining creative momentum and team communication.
-                                                    </p>
-                                                </div>
-                                            </a>
-
-                                            <!-- Artículo 2 Style Newsletter -->
-                                            <a href="https://medium.com" target="_blank" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
-                                                <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
-                                                    <img src="assets/item-designer.png" alt="Designing Systems" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <div class="flex items-center justify-between gap-2 mb-1">
-                                                        <span class="font-ui font-black text-xs sm:text-sm text-[#F2A766] uppercase tracking-wider truncate">Systemic Game Design</span>
-                                                        <span class="text-[9px] font-bold text-[#F2CD5C] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">8 min read</span>
-                                                    </div>
-                                                    <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
-                                                        Exploring player progression loops and economy balance in RPG systems. Key takeaways from crafting engaging player feedback and reward mechanics.
-                                                    </p>
-                                                </div>
-                                            </a>
-
-                                            <!-- Artículo 3 Style Newsletter -->
-                                            <a href="https://medium.com" target="_blank" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
-                                                <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
-                                                    <img src="assets/item-producer.png" alt="Postmortem Project" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <div class="flex items-center justify-between gap-2 mb-1">
-                                                        <span class="font-ui font-black text-xs sm:text-sm text-[#D94179] uppercase tracking-wider truncate">Jam Postmortem: Lessons</span>
-                                                        <span class="text-[9px] font-bold text-[#F2A766] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">4 min read</span>
-                                                    </div>
-                                                    <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
-                                                        What went right and what went wrong during our 48-hour game jam project. Critical reflections on rapid prototyping and scope trimming under time pressure.
-                                                    </p>
-                                                </div>
-                                            </a>
-
-                                        </div>
-                                    `
+                        <p class="font-black text-[#F2CD5C] text-xs uppercase tracking-wider mb-3">Latest Writings & Postmortems:</p>
+                        <div class="flex flex-col gap-3 mt-2">
+                           <a href="article.html" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
+                                <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
+                                    <img src="assets/item-articles.png" alt="Production Pipelines" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between gap-2 mb-1">
+                                        <span class="font-ui font-black text-xs sm:text-sm text-[#F2CD5C] uppercase tracking-wider truncate">Optimizing Game Pipelines</span>
+                                        <span class="text-[9px] font-bold text-[#D94179] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">5 min read</span>
+                                    </div>
+                                    <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                                        A deep dive into agile production workflows for indie studios. How to prevent scope creep while maintaining creative momentum and team communication.
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    `
             }
         };
 
@@ -913,7 +803,7 @@
                 const el = document.getElementById(auraId);
                 if (!el) return;
 
-                const count = auraId === 'vendorParticles' ? 10 : 5;
+                const count = auraId === 'vendorParticles' ? 10 : 4;
                 for (let i = 0; i < count; i++) {
                     const blob = document.createElement('div');
                     blob.className = 'item-blob';
@@ -927,14 +817,10 @@
         }
 
         function applyPanelWidths() {
-            const pLeft = document.getElementById('detailsPanelLeft');
             const pRight = document.getElementById('detailsPanelRight');
-
             if (window.innerWidth >= 768) {
-                pLeft.style.width = `${PANEL_WIDTH_PERCENT}%`;
                 pRight.style.width = `${PANEL_WIDTH_PERCENT}%`;
             } else {
-                pLeft.style.width = '100%';
                 pRight.style.width = '100%';
             }
         }
@@ -967,7 +853,7 @@
             }
         }
 
-        function selectItem(itemId, shelfSide, event) {
+        function selectItem(itemId, event) {
             if (event) event.stopPropagation();
 
             const item = shopItems[itemId];
@@ -975,60 +861,52 @@
 
             currentItemId = itemId;
 
+            const mainScene = document.getElementById('mainScene');
             const shelvesContainer = document.getElementById('shelvesContainer');
-            const characterGroup = document.getElementById('characterGroup');
-            const dialogueWrapper = document.getElementById('dialogueWrapper');
-            const panelLeft = document.getElementById('detailsPanelLeft');
+            const vendorImage = document.getElementById('vendorImage');
             const panelRight = document.getElementById('detailsPanelRight');
-
-            panelLeft.classList.add('-translate-x-full');
-            panelRight.classList.add('translate-x-full');
+            const characterGroup = document.getElementById('characterGroup');
 
             shelvesContainer.classList.add('opacity-30', 'blur-[2px]');
 
-            const shiftPercent = window.innerWidth >= 768 ? (PANEL_WIDTH_PERCENT / 2) : 0;
-            const remainingWidthPercent = window.innerWidth >= 768 ? (100 - PANEL_WIDTH_PERCENT - 4) : 90;
+            const targetBody = document.getElementById('panelBodyRight');
+            const buyButton = document.getElementById('buyButtonRight');
+            const projectButton = document.getElementById('projectButtonRight');
 
-            dialogueWrapper.style.maxWidth = `${remainingWidthPercent}vw`;
-
-            const targetBody = shelfSide === 'left' ? document.getElementById('panelBodyLeft') : document.getElementById('panelBodyRight');
-            const buyButton = shelfSide === 'left' ? document.getElementById('buyButtonLeft') : document.getElementById('buyButtonRight');
-            const projectButton = shelfSide === 'left' ? document.getElementById('projectButtonLeft') : document.getElementById('projectButtonRight');
-
-            // Lógica Botón de Compra / Steam
             if (item.hideBuyButton) {
                 buyButton.classList.add('hidden');
             } else {
                 buyButton.classList.remove('hidden');
-                const buyTextEl = shelfSide === 'left' ? document.getElementById('buyButtonTextLeft') : document.getElementById('buyButtonTextRight');
-                buyTextEl.textContent = item.buyText;
+                document.getElementById('buyButtonTextRight').textContent = item.buyText;
                 buyButton.href = item.buyLink;
             }
 
-            // Lógica Botón More Info / Project Page
             if (item.projectLink) {
                 projectButton.classList.remove('hidden');
-                const projTextEl = shelfSide === 'left' ? document.getElementById('projectButtonTextLeft') : document.getElementById('projectButtonTextRight');
-                projTextEl.textContent = item.projectText || "MORE INFO";
+                document.getElementById('projectButtonTextRight').textContent = item.projectText || "MORE INFO";
                 projectButton.href = item.projectLink;
             } else {
                 projectButton.classList.add('hidden');
             }
 
-            if (shelfSide === 'left') {
-                document.getElementById('panelCategoryLeft').textContent = item.category;
-                document.getElementById('panelTitleLeft').textContent = item.title;
-                document.getElementById('panelIconLeft').innerHTML = `<img src="${item.imgSrc}" class="item-sprite-idle w-full h-full object-contain">`;
+            document.getElementById('panelCategoryRight').textContent = item.category;
+            document.getElementById('panelTitleRight').textContent = item.title;
+            document.getElementById('panelIconRight').innerHTML = `<img src="${item.imgSrc}" class="item-sprite-idle w-full h-full object-contain">`;
 
-                characterGroup.style.transform = `translateX(${shiftPercent}vw)`;
-                panelLeft.classList.remove('-translate-x-full');
-            } else {
-                document.getElementById('panelCategoryRight').textContent = item.category;
-                document.getElementById('panelTitleRight').textContent = item.title;
-                document.getElementById('panelIconRight').innerHTML = `<img src="${item.imgSrc}" class="item-sprite-idle w-full h-full object-contain">`;
+            if (vendorImage) {
+                vendorImage.style.transform = 'scale(1.22)';
+            }
 
-                characterGroup.style.transform = `translateX(-${shiftPercent}vw)`;
-                panelRight.classList.remove('translate-x-full');
+            // Despliega el panel lateral
+            panelRight.classList.remove('translate-x-full');
+
+            // Quita padding horizontal de la escena para eliminar huecos
+            mainScene.classList.remove('px-6', 'md:px-12');
+            mainScene.classList.add('pl-4', 'md:pl-8', 'pr-0');
+
+            // Ajusta la columna del personaje exactamente al espacio libre (100% - 45% = 55%)
+            if (window.innerWidth >= 768) {
+                characterGroup.style.maxWidth = `${100 - PANEL_WIDTH_PERCENT}%`;
             }
 
             targetBody.innerHTML = item.description;
@@ -1038,19 +916,27 @@
         }
 
         function closePanel() {
+            const mainScene = document.getElementById('mainScene');
             const shelvesContainer = document.getElementById('shelvesContainer');
-            const characterGroup = document.getElementById('characterGroup');
-            const dialogueWrapper = document.getElementById('dialogueWrapper');
-            const panelLeft = document.getElementById('detailsPanelLeft');
+            const vendorImage = document.getElementById('vendorImage');
             const panelRight = document.getElementById('detailsPanelRight');
+            const characterGroup = document.getElementById('characterGroup');
 
-            characterGroup.style.transform = 'translateX(0)';
-            dialogueWrapper.style.maxWidth = '48rem';
+            if (vendorImage) {
+                vendorImage.style.transform = 'scale(1)';
+            }
 
             shelvesContainer.classList.remove('opacity-30', 'blur-[2px]');
 
-            panelLeft.classList.add('-translate-x-full');
+            // Oculta el panel
             panelRight.classList.add('translate-x-full');
+
+            // Restaura paddings iniciales
+            mainScene.classList.remove('pl-4', 'md:pl-8', 'pr-0');
+            mainScene.classList.add('px-6', 'md:px-12');
+
+            // Restaura el ancho original
+            characterGroup.style.maxWidth = '';
 
             isPanelOpen = false;
             currentItemId = null;
@@ -1062,7 +948,7 @@
             const navHeader = document.getElementById('navHeader');
             const mainScene = document.getElementById('mainScene');
             const characterGroup = document.getElementById('characterGroup');
-            const shelfItems = document.querySelectorAll('.rpg-shelf-item, .rpg-article-item');
+            const shelfItems = document.querySelectorAll('.p5-shelf-banner');
 
             const hasVisited = sessionStorage.getItem('visitedShop');
 
@@ -1089,7 +975,7 @@
                         setTimeout(() => {
                             item.classList.remove('shelf-item-hidden');
                             item.classList.add('shelf-item-visible');
-                        }, 1100 + (index * 150));
+                        }, 1100 + (index * 120));
                     });
 
                     setTimeout(() => {
