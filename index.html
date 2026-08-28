@@ -649,7 +649,7 @@
     </main>
 
     <script>
-        const PANEL_WIDTH_PERCENT = 45;
+        const PANEL_WIDTH_PERCENT = 55;
         let isPanelOpen = false;
         let currentItemId = null;
 
@@ -662,7 +662,7 @@
                 hideBuyButton: true,
                 description: `
                             <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Description:</p>
-                            <p class="text-sm">Hi, I'm Calero. I have taken roles in projects as both Game Designer, creating full core loops and game loops from game concept ideas, as well as a Game Producer, coordinating teams and adjusting pipelines, schedules and roadmaps to ensure feasibility of the projects I take part in!</p>
+                            <p class="text-sm">Hi, I'm Juan A. <strong>Calero</strong>. I have taken roles in projects as both Game Designer, creating full core loops and game loops from game concept ideas, as well as a Game Producer, coordinating teams and adjusting pipelines, schedules and roadmaps to ensure feasibility of the projects I take part in!</p>
                             <p class="font-black text-[#F2CD5C] mt-4 mb-3 uppercase text-xs tracking-wider">Select one of the items below to check my full profile for each role!</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
                                 <a href="role-designer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
@@ -731,27 +731,44 @@
                                     <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
                                         <img src="assets/banner-project1-logo.png" alt="Diescend Logo" class="h-30 md:h-20 w-auto object-contain self-start mb-1 group-hover:scale-105 transition-transform">
                                         <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                            <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">GMTK 26 Game Jam Submission</span>
-                                            <span class="text-slate-300">• 2026 • Made in Godot</span>
+                                            <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">GMTK 26 Jam Submission</span>
+                                            <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Strategy with Rogue-like Mechanics</span>
+                                            <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Godot</span>
                                         </div>
                                         <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                            <strong>Descend the tower by betting on dice battles while defeating members of your old mafia gang.</strong>
+                                            <strong>Descend the tower betting on dice battles and beating members of your old mafia gang.</strong>
                                         </p>
                                     </div>
                                 </a>
-                                <a href="https://itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
+                                <a href="project-detail-mochuelo.html" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
                                     <img src="assets/banner-project2.png" alt="Project2" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=Prototype+X'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                                     <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
                                         <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                            Indie Tower Defense Game
+                                            Guard My Hive
                                         </h3>
                                         <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                            <span class="bg-[#F2A766] text-black px-2 py-0.5 rounded border border-black uppercase tracking-wider">In Development</span>
-                                            <span class="text-slate-300">Coming Soon• Unity</span>
+                                            <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Unreleased</span>
+                                            <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Tower Defense with Auto-chess mechanics</span>
+                                            <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Unity</span>
                                         </div>
                                         <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
-                                            <strong>Documentación técnica de diseño enfocado en la progresión de combate y balance del árbol de habilidades.</strong>
+                                            <strong>A game about defending a bee colony. Coming soon! Bzz!!</strong>
+                                        </p>
+                                    </div>
+                                </a>
+                                <a href="project-detail-steadycam.html" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
+                                    <img src="assets/banner-project3.png" alt="Project3" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=Prototype+X'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                                    <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
+                                        <img src="assets/banner-project3-logo.png" alt="Diescend Logo" class="h-30 md:h-20 w-auto object-contain self-start mb-1 group-hover:scale-105 transition-transform">
+                                        <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
+                                            <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">HackJam 11 MiG 2nd best game award</span>
+                                            <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Local Coop Experience</span>
+                                            <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Godot</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-200 line-clamp-2 leading-tight drop-shadow">
+                                            <strong>Local coop mini game experience about sightseeing and taking photos!</strong>
                                         </p>
                                     </div>
                                 </a>
