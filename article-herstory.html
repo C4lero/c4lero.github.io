@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calero - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .custom-bg {
+            background-image: url('assets/bg-shop.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .font-ui {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .cel-block-shadow-sm {
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        .p5-article-board {
+            position: relative;
+            background-color: rgba(11, 11, 16, 0.95);
+            border: 4px solid #ffffff;
+            box-shadow: 0px 10px 0px #000000;
+            clip-path: polygon(0% 0.5%, 100% 0%, 99.5% 100%, 0% 99.5%);
+        }
+
+        .wave-container-top, .wave-container-bottom {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .wave-container-top {
+            top: 63px;
+        }
+
+        .wave-container-bottom {
+            bottom: 0;
+        }
+
+        .wave-track {
+            display: flex;
+            width: 200%;
+            height: 100%;
+        }
+
+            .wave-track svg {
+                width: 50%;
+                height: 100%;
+                flex-shrink: 0;
+            }
+
+        @keyframes waveLoop {
+            0% {
+                transform: translate3d(0,0,0);
+            }
+
+            100% {
+                transform: translate3d(-50%,0,0);
+            }
+        }
+
+        @keyframes waveLoopReverse {
+            0% {
+                transform: translate3d(-50%,0,0);
+            }
+
+            100% {
+                transform: translate3d(0,0,0);
+            }
+        }
+
+        .animate-wave-white-top {
+            animation: waveLoop 38s linear infinite;
+        }
+
+        .animate-wave-blue1-top {
+            animation: waveLoop 26s linear infinite;
+        }
+
+        .animate-wave-blue2-top {
+            animation: waveLoop 20s linear infinite;
+        }
+
+        .animate-wave-black-top {
+            animation: waveLoop 14s linear infinite;
+        }
+
+        .animate-wave-white-bot {
+            animation: waveLoopReverse 38s linear infinite;
+        }
+
+        .animate-wave-blue1-bot {
+            animation: waveLoopReverse 26s linear infinite;
+        }
+
+        .animate-wave-blue2-bot {
+            animation: waveLoopReverse 26s linear infinite;
+        }
+
+        .animate-wave-black-bot {
+            animation: waveLoopReverse 14s linear infinite;
+        }
+    </style>
+</head>
+<body class="custom-bg min-h-screen flex flex-col pt-[100px] pb-[90px]">
+
+    <!-- NAVBAR -->
+    <header id="navHeader" class="anim-nav-entry fixed top-0 left-0 w-full h-[63px] z-[100] bg-black border-b-4 border-black px-6 py-3 flex flex-wrap justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-none bg-[#F2CD5C] border-2 border-black cel-block-shadow-sm flex items-center justify-center text-black font-black font-ui text-base tracking-wider">
+                C4
+            </div>
+            <div>
+                <h1 class="font-black text-white text-base tracking-wide font-ui uppercase">Juan A. Calero</h1>
+                <p class="text-xs font-bold text-[#F2A766]">Game Developer</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-6 text-xs md:text-sm">
+            <a href="https://www.linkedin.com/in/juanantoniocalero/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-brands fa-linkedin text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">LinkedIn</span>
+            </a>
+            <a href="tel:+34633614852" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-solid fa-phone text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">+34 633 614 852</span>
+            </a>
+            <a href="mailto:jacalerodev@gmail.com" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-solid fa-envelope text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">jacalerodev@gmail.com</span>
+            </a>
+            <a href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf" class="bg-[#F2CD5C] text-black font-black px-4 py-2 border-2 border-black cel-block-shadow-sm transition flex items-center justify-center gap-2 font-ui text-xs tracking-wider uppercase hover:translate-x-0.5 hover:translate-y-0.5">
+                <i class="fa-solid fa-download"></i>
+                <span>Download CV</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ONDAS SUPERIORES -->
+    <div class="wave-container-top">
+        <div class="wave-track animate-wave-white-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-blue1-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-blue2-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-black-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path></svg>
+        </div>
+    </div>
+
+    <!-- ONDAS INFERIORES -->
+    <div class="wave-container-bottom">
+        <div class="wave-track animate-wave-white-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-blue1-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-blue2-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-black-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path></svg>
+        </div>
+    </div>
+
+    <!-- BOTÓN VOLVER -->
+    <div class="fixed left-6 bottom-24 z-30 hidden xl:block">
+        <a href="index.html" class="bg-[#F2CD5C] text-black font-black font-ui text-base px-5 py-3.5 border-4 border-black cel-block-shadow-sm flex items-center gap-3 hover:bg-[#D94179] hover:text-white transition-all uppercase transform -rotate-2 hover:rotate-0">
+            <i class="fa-solid fa-arrow-left text-xl"></i>
+            <span>Back to shop</span>
+        </a>
+    </div>
+    
+    <!-- BANNERS EDITORIALES LATERALES (PANEL BLOG ALINEADO ARRIBA) -->
+    <aside class="fixed right-6 top-[150px] z-30 hidden xl:flex flex-col gap-4 w-80 2xl:w-96">
+        <div class="flex items-center justify-between bg-black px-3 py-1.5 border-2 border-white cel-block-shadow-sm">
+            <span class="text-xs font-black font-ui uppercase text-[#F2A766] tracking-wider"><i class="fa-solid fa-newspaper mr-1.5"></i>More things to read</span>
+            
+        </div>
+
+        <!-- Artículo Recomendado 1 -->
+        <a href="#" class="group relative rounded-lg border-2 border-white cel-block-shadow-sm bg-[#0b0b10] hover:border-[#F2CD5C] transition-all duration-300 p-3 flex gap-3 items-center">
+            <div class="w-24 h-20 flex-shrink-0 rounded overflow-hidden border border-slate-700 relative">
+                <img src="assets/banner-project1.png" alt="Level Design Rules" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[9px] font-black font-ui uppercase bg-[#1c1a75] text-[#F2CD5C] px-1.5 py-0.5 rounded">Design</span>
+                    <span class="text-[10px] text-slate-400 font-semibold"><i class="fa-regular fa-calendar mr-1"></i>Feb 2026</span>
+                </div>
+                <h4 class="font-ui font-black text-xs text-white uppercase leading-snug group-hover:text-[#F2CD5C] transition-colors line-clamp-1">
+                    Level Design Rules
+                </h4>
+                <p class="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-tight">
+                    Principios fundamentales para guiar al jugador sin tutoriales explícitos.
+                </p>
+            </div>
+        </a>
+
+        <!-- Artículo Recomendado 2 -->
+        <a href="#" class="group relative rounded-lg border-2 border-white cel-block-shadow-sm bg-[#0b0b10] hover:border-[#F2CD5C] transition-all duration-300 p-3 flex gap-3 items-center">
+            <div class="w-24 h-20 flex-shrink-0 rounded overflow-hidden border border-slate-700 relative">
+                <img src="assets/banner-project5.png" alt="Unreal Engine 5 Tips" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[9px] font-black font-ui uppercase bg-[#141259] text-[#F2A766] px-1.5 py-0.5 rounded">Tech</span>
+                    <span class="text-[10px] text-slate-400 font-semibold"><i class="fa-regular fa-calendar mr-1"></i>Ene 2026</span>
+                </div>
+                <h4 class="font-ui font-black text-xs text-white uppercase leading-snug group-hover:text-[#F2CD5C] transition-colors line-clamp-1">
+                    Unreal Engine 5 Tips
+                </h4>
+                <p class="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-tight">
+                    Optimización de Blueprints y flujo de trabajo técnico para devs independientes.
+                </p>
+            </div>
+        </a>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL DE LA ENTRADA -->
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 w-full flex-1 z-10 my-4">
+        <!-- Banner de Encabezado -->
+        <div class="relative w-full h-56 md:h-72 rounded-xl overflow-hidden border-4 border-white cel-block-shadow-sm mb-8">
+            <img src="assets/banner-article-herstory.png" alt="Article Header" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex items-end p-6 md:p-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-2 flex-wrap">
+                        <span class="bg-[#F2A766] text-black px-2 py-0.5 font-ui font-black text-xs uppercase border border-black">Game Analysis</span>
+                        <span class="text-xs text-slate-300 font-bold"><i class="fa-regular fa-calendar mr-1"></i> 14 Nov, 2024</span>
+                        <span class="text-xs text-slate-300 font-bold"><i class="fa-regular fa-clock mr-1"></i> 5 min read</span>
+                    </div>
+                    <h1 class="text-2xl md:text-4xl font-black font-ui uppercase text-white drop-shadow-md">"Her Story" & Nonlinear Narrative</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cuerpo del Artículo -->
+        <article class="p5-article-board p-6 md:p-10 space-y-6 text-slate-200 text-base md:text-lg leading-relaxed">
+            <p class="font-bold text-[#F2CD5C] text-xl">
+                A story told in pieces
+            </p>
+
+            <p>
+                <em>Her Story</em> is a story told in pieces. The game is presented to the player as a police search engine, in which you have access to lots of short videos representing unorganized pieces of some interrogations of a woman about a murder and depending on the search terms you introduce, some videos are shown to you. That’s the key point, the story is given to you in pieces, and it’s your job to put it all together and assemble the story in your head.
+
+            </p>
+
+            <p class="font-bold text-[#F2CD5C] text-xl">
+                Dozens and dozens of videos without an apparent order
+            </p>
+
+            <p>
+                Sincerely, I started playing ‘Her Story’ because I’m such a fan of narrative games and this was sold to me as that. 
+                What I did not expect was to find that the main gameplay was based around watching videos. 
+                Dozens and dozens of videos without an apparent order or sense.<br />
+                The truth is that I started to watch the videos as they appeared, without any particular order. 
+                Names, dates and places that I did not know and did not tell me anything about anything were mentioned. 
+                That’s when the search function came into play. I decided to pick up a sheet of paper and write down all the names that seemed more relevant to me when I heard them in the videos (pure “Do not feed the monkeys” style), the ones which seemed more important to the story or were repeated many times. 
+                In my head, I thought it was logical that if a word was repeated a lot it would be key to the story but. 
+                What if it wasn’t? I wrote down all the unresolved questions near each of the names, making notes and writing words down so I didn’t forget to search them later in the video searcher.
+            </p>
+
+            <blockquote class="border-l-4 border-[#D94179] pl-4 py-2 my-4 bg-[#141259] text-white font-ui font-semibold">
+                "That was the most magical part of ‘Her Story’ to me: when you are the one who makes up the story, so what you think about it is correct for you."
+            </blockquote>
+
+            <p class="font-bold text-[#F2CD5C] text-xl">
+                Nonlinear storytelling based on ambiguity
+            </p>
+
+            <p>
+                That was the most magical part of ‘Her Story’ to me, and what constitutes nonlinear storytelling, based on ambiguity, when nobody confirms or denies if you are on a right path to a conclusion, if what you are thinking is correct or not, or if you have misunderstood a video. 
+                Maybe a quote you thought meant nothing gains new meaning all of a sudden when you later watch a video that opens up a new possibility. 
+                Even after all the conclusions you may think, nobody will tell you if they are correct or not. 
+                Maybe you have already watched all the videos and even then you haven’t still figured out the whole story and the resolution of the murder, because that’s when this type of narrative comes to shine, when you are the one who makes up the story, so what you think about it is correct for you.
+            </p>
+            <img src="assets/article-herstory-image1.png" alt="Image1" class="w-full h-full object-cover">
+
+            <p class="font-bold text-[#F2CD5C] text-xl">
+                I felt like a true detective
+            </p>
+            <p>
+                Little by little, my paper sheet became full with notes until it ended up as seen in the photo below and when I noticed I couldn’t help but think about the experience I felt during the 2 hours that it took me to play it whole. 
+                It was something that had never happened to me before. I felt like a true detective, who set the case as concluded when I could think of a story that, for me, made sense. 
+                After this I searched the web for videos and articles about the game and its ending and I found out that the story did not even have an “oficial” resolution, so that was when I cataloged ‘Her Story’ as one of the best examples of immersion and nonlinear storytelling that I have ever played.
+            </p>
+
+
+        </article>
+
+        <!-- MÓVIL / TABLET: Artículos Relacionados al final del post -->
+        <section class="mt-8 xl:hidden space-y-4">
+            <h3 class="font-ui font-black text-lg text-[#F2A766] uppercase border-b-2 border-[#F2A766] pb-1">Más Artículos</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a href="#" class="p-4 bg-[#0b0b10] border-2 border-white cel-block-shadow-sm flex gap-3 items-center">
+                    <img src="assets/banner-project1.png" alt="Level Design" class="w-16 h-16 object-cover border border-slate-700">
+                    <div>
+                        <span class="text-[9px] font-black font-ui uppercase bg-[#1c1a75] text-[#F2CD5C] px-1.5 py-0.5">Design</span>
+                        <h4 class="font-ui font-bold text-sm text-white uppercase mt-1">Level Design Rules</h4>
+                    </div>
+                </a>
+                <a href="#" class="p-4 bg-[#0b0b10] border-2 border-white cel-block-shadow-sm flex gap-3 items-center">
+                    <img src="assets/banner-project5.png" alt="UE5 Tips" class="w-16 h-16 object-cover border border-slate-700">
+                    <div>
+                        <span class="text-[9px] font-black font-ui uppercase bg-[#141259] text-[#F2A766] px-1.5 py-0.5">Tech</span>
+                        <h4 class="font-ui font-bold text-sm text-white uppercase mt-1">Unreal Engine 5 Tips</h4>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
