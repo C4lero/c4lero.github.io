@@ -17,7 +17,7 @@
         }
 
         .custom-bg {
-            background-image: url('assets/bg-projectdorothy.jpg');
+            background-image: url('assets/dorothy/bg-projectdorothy.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -126,19 +126,34 @@
 <body class="custom-bg min-h-screen flex flex-col pt-[100px] pb-[90px]">
 
     <!-- NAVBAR -->
-    <header class="fixed top-0 left-0 w-full h-[63px] z-[100] bg-black border-b-4 border-black px-6 py-3 flex items-center justify-between">
+    <header id="navHeader" class="anim-nav-entry fixed top-0 left-0 w-full h-[63px] z-[100] bg-black border-b-4 border-black px-6 py-3 flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center gap-3">
-            <a href="index.html" class="w-10 h-10 bg-[#F2CD5C] border-2 border-black cel-block-shadow-sm flex items-center justify-center text-black font-black font-ui text-base">C4</a>
+            <div class="w-10 h-10 rounded-none bg-[#F2CD5C] border-2 border-black cel-block-shadow-sm flex items-center justify-center text-black font-black font-ui text-base tracking-wider">
+                C4
+            </div>
             <div>
-                <h1 class="font-black text-white text-base font-ui uppercase">Juan A. Calero</h1>
+                <h1 class="font-black text-white text-base tracking-wide font-ui uppercase">Juan A. Calero</h1>
                 <p class="text-xs font-bold text-[#F2A766]">Game Developer</p>
             </div>
         </div>
+
         <div class="flex items-center gap-6 text-xs md:text-sm">
-            <a href="https://www.linkedin.com/in/juan-alberto-calero-gomez/" target="_blank" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition"><i class="fa-brands fa-linkedin text-[#F2CD5C]"></i><span class="hidden sm:inline">LinkedIn</span></a>
-            <a href="tel:+34633614852" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition"><i class="fa-solid fa-phone text-[#F2CD5C]"></i><span class="hidden sm:inline">+34 633 614 852</span></a>
-            <a href="mailto:jacalerodev@gmail.com" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition"><i class="fa-solid fa-envelope text-[#F2CD5C]"></i><span class="hidden sm:inline">jacalerodev@gmail.com</span></a>
-            <a href="assets/cv-juan-a-calero.pdf" download class="bg-[#F2CD5C] text-black font-black px-4 py-2 border-2 border-black cel-block-shadow-sm font-ui text-xs uppercase flex items-center gap-2"><i class="fa-solid fa-download"></i><span>CV</span></a>
+            <a href="https://www.linkedin.com/in/juanantoniocalero/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-brands fa-linkedin text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">LinkedIn</span>
+            </a>
+            <a href="tel:+34633614852" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-solid fa-phone text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">+34 633 614 852</span>
+            </a>
+            <a href="mailto:jacalerodev@gmail.com" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-solid fa-envelope text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">jacalerodev@gmail.com</span>
+            </a>
+            <a href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf" class="bg-[#F2CD5C] text-black font-black px-4 py-2 border-2 border-black cel-block-shadow-sm transition flex items-center justify-center gap-2 font-ui text-xs tracking-wider uppercase hover:translate-x-0.5 hover:translate-y-0.5">
+                <i class="fa-solid fa-download"></i>
+                <span>Download CV</span>
+            </a>
         </div>
     </header>
 
@@ -184,9 +199,13 @@
 
     <!-- BOTÓN ESTÁTICO ABAJO A LA IZQUIERDA -->
     <div class="fixed left-6 bottom-24 z-30 hidden xl:block">
+        <a href="https://store.steampowered.com/app/3926730/Dorothys_Job/" target="_blank" class="mt-6 w-full bg-[#F2CD5C] text-black font-ui font-black text-sm py-3 border-2 border-black cel-block-shadow-sm flex items-center justify-center gap-2  hover:bg-[#D94179] uppercasehover:bg-[#D94179] hover:text-white transition-all uppercase transform -rotate-2 hover:rotate-0">
+            <i class="fa-brands fa-steam"></i> Steam Page
+        </a>
+        <br />
         <a href="index.html" class="bg-[#F2CD5C] text-black font-black font-ui text-base px-5 py-3.5 border-4 border-black cel-block-shadow-sm flex items-center gap-3 hover:bg-[#D94179] hover:text-white transition-all uppercase transform -rotate-2 hover:rotate-0">
             <i class="fa-solid fa-arrow-left text-xl"></i>
-            <span>Volver a la tienda</span>
+            <span>Back to shop</span>
         </a>
     </div>
 
@@ -222,10 +241,10 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main class="max-w-5xl mx-auto px-4 sm:px-6 w-full flex-1 z-10 my-4">
         <div class="relative w-full h-64 md:h-80 rounded-xl overflow-hidden border-4 border-white cel-block-shadow-sm mb-8">
-            <img src="assets/banner-projectdetail-dorothy.png" alt="Dorothy's Job Project Banner" class="w-full h-full object-cover">
+            <img src="assets/dorothy/banner-projectdetail-dorothy.png" alt="Dorothy's Job Project Banner" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex items-end p-6">
                 <div>
-                    <img src="assets/dorothysjob-logo.png" alt="DOROTHY'S JOB LOGO" class="h-30 md:h-48 w-auto object-contain drop-shadow-md">
+                    <img src="assets/dorothy/dorothysjob-logo.png" alt="DOROTHY'S JOB LOGO" class="h-30 md:h-48 w-auto object-contain drop-shadow-md">
                     <br />
                     <span class="bg-[#F2A766] text-white px-3 py-1 font-ui font-black text-xs uppercase tracking-wider border border-black">Featured Project</span>
                     <span class="bg-[#D94179] text-white px-3 py-1 font-ui font-black text-xs uppercase tracking-wider border border-black">Twin Stick Shooter</span>
@@ -240,55 +259,89 @@
                     <h2 class="font-ui font-black text-xl text-[#F2CD5C] uppercase mb-3"><i class="fa-solid fa-film mr-2"></i>Trailer</h2>
                     <div class="aspect-video w-full rounded-lg overflow-hidden border-2 border-black">
                         <video controls autoplay loop muted class="w-full h-full object-cover">
-                            <source src="assets/DorothyTrailer.mp4" type="video/mp4">
+                            <source src="assets/dorothy/DorothyTrailer.mp4" type="video/mp4">
                         </video>
                     </div>
                 </div>
 
-                <div class="p5-main-board p-6 space-y-4">
-                    <h2 class="font-ui font-black text-2xl text-[#F2CD5C] uppercase">About the Game</h2>
-                    <p class="text-slate-200 leading-relaxed"><strong>Dorothy's Job</strong> is a fast-paced isometric twin-stick shooter starring Dorothy, a buff maid tasked with maintaining a Dark Lord's mansion. <br />
-                    <br />
-                    Master a high-stakes gameplay loop that forces you to balance heavy-duty cleaning with intense combat, all while racing against time.</p>
-
-                    <h3 class="font-ui font-black text-lg text-[#F2A766] uppercase mt-4">My Contributions</h3>
-                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm">
-                        <li><strong>Mechanics Designer:</strong> Designed the core loop, combat-cleaning synergies, and enemy balance.</li>
-                        <li><strong>Game Producer:</strong> Coordinated workflow for a team scaling up to 40 members, managing roadmaps and milestones.</li>
-                    </ul>
-                </div>
-
-                <div class="p5-main-board p-6">
-                    <h2 class="font-ui font-black text-xl text-[#F2CD5C] uppercase mb-4"><i class="fa-solid fa-images mr-2"></i>Screenshots</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="h-32 bg-neutral-900 border-2 border-black rounded overflow-hidden">
-                            <img src="assets/banner-project5.png" class="w-full h-full object-cover">
-                        </div>
-                        <div class="h-32 bg-neutral-900 border-2 border-black rounded overflow-hidden">
-                            <img src="assets/banner-project1.png" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                </div>
+                <!-- BLOQUE ABOUT THE GAME CON LA NUEVA SECCIÓN DE RECURSOS AL FINAL -->
+                <br />
             </div>
 
             <div class="space-y-6">
                 <div class="p5-main-board p-6 bg-[#141259]">
                     <h3 class="font-ui font-black text-xl text-white uppercase border-b-2 border-white/20 pb-2 mb-4"><i class="fa-solid fa-clipboard-list text-[#F2CD5C] mr-2"></i>Game Details</h3>
                     <div class="space-y-3 text-sm">
-                        <div><span class="text-slate-400 block text-xs uppercase font-bold">Role</span><span class="font-bold text-white">Mechanics Designer | Producer | UI Artist</span></div>
+                        <div><span class="text-slate-400 block text-xs uppercase font-bold">Role(s)</span><span class="font-bold text-white">Mechanics Designer <br /> Producer <br /> UI Artist</span></div>
+                        <br />
                         <div><span class="text-slate-400 block text-xs uppercase font-bold">Platform</span><span class="font-bold text-white">PC (Steam)</span></div>
+                        <br />
                         <div><span class="text-slate-400 block text-xs uppercase font-bold">Development time</span><span class="font-bold text-white">10 Months</span></div>
+                        <br />
                         <div><span class="text-slate-400 block text-xs uppercase font-bold">Team Size</span><span class="font-bold text-white">20 to 40 Members</span></div>
+                        <br />
                     </div>
 
-                    <a href="https://store.steampowered.com/app/3926730/Dorothys_Job/" target="_blank" class="mt-6 w-full bg-[#F2CD5C] text-black font-ui font-black text-sm py-3 border-2 border-black cel-block-shadow-sm flex items-center justify-center gap-2 uppercase">
-                        <i class="fa-brands fa-steam"></i> Steam Page
-                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="p5-main-board p-6 space-y-4">
+            <h2 class="font-ui font-black text-2xl text-[#F2CD5C] uppercase">About the Game</h2>
+            <p class="text-slate-200 leading-relaxed">
+                <strong>Dorothy's Job</strong> is a fast-paced isometric twin-stick shooter starring Dorothy, a buff maid tasked with maintaining a Dark Lord's mansion. <br />
+                <br />
+                Master a high-stakes gameplay loop that forces you to balance heavy-duty cleaning with intense combat, all while racing against time.
+            </p>
+
+            <h3 class="font-ui font-black text-lg text-[#F2A766] uppercase mt-4">My Contributions</h3>
+            <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm">
+                <li><strong>Mechanics Designer:</strong> Designed the core loop, combat-cleaning synergies, and enemy balance.</li>
+                <li><strong>Game Producer:</strong> Coordinated workflow for a team scaling up to 40 members, managing roadmaps and milestones.</li>
+            </ul>
+
+            <!-- SECCIÓN DE DOCUMENTACIÓN / DESCARGAS INTEGRADA -->
+            <div class="pt-4 mt-6 border-t-2 border-white/10">
+                <h3 class="font-ui font-black text-sm text-[#F2CD5C] uppercase mb-3 tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-folder-open text-[#F2A766]"></i> Project Documentation
+                </h3>
+
+                <!-- BOTÓN DESCARGA DE PDF -->
+                <a href="assets/dorothy/DorothysJob_GDD.pdf" target="_blank" download class="group relative flex items-center justify-between p-3.5 bg-black/80 border-2 border-white/30 hover:border-[#F2CD5C] rounded transition-all duration-200 hover:bg-[#141259]">
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <!-- ICONO PRINCIPAL (Modificable fácilmente cambiando la clase de FontAwesome) -->
+                        <div class="w-10 h-10 bg-black border border-white/20 group-hover:border-[#F2CD5C] flex items-center justify-center flex-shrink-0 text-[#F2CD5C] group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-file-pdf text-xl"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h4 class="font-ui font-bold text-sm text-white group-hover:text-[#F2CD5C] transition-colors truncate">
+                                Game Design Document (GDD)
+                            </h4>
+                            <p class="text-xs text-slate-400 group-hover:text-slate-300 truncate">
+                                Especificaciones técnicas, desgloses de diseño y mecánicas (PDF)
+                            </p>
+                        </div>
+                    </div>
+                    <!-- BOTÓN/ICONO DE ACCIÓN -->
+                    <div class="flex items-center gap-1.5 text-xs font-bold font-ui uppercase text-black bg-[#F2CD5C] px-3 py-1.5 border border-black group-hover:bg-[#D94179] group-hover:text-white transition-all ml-3 flex-shrink-0">
+                        <span>PDF</span>
+                        <i class="fa-solid fa-download"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="p5-main-board p-6">
+                <h2 class="font-ui font-black text-xl text-[#F2CD5C] uppercase mb-4"><i class="fa-solid fa-images mr-2"></i>Screenshots</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="h-32 bg-neutral-900 border-2 border-black rounded overflow-hidden rounded-lg overflow-hidden     cel-block-shadow-sm bg-black hover:scale-105 transition-all duration-300">
+                        <img src="assets/dorothy/screenshot-dorothy-1.png" class="w-full h-full object-cover">
+                    </div>
+                    <div class="h-32 bg-neutral-900 border-2 border-black rounded overflow-hidden rounded-lg overflow-hidden cel-block-shadow-sm bg-black hover:scale-105 transition-all duration-300">
+                        <img src="assets/dorothy/screenshot-dorothy-1" class="w-full h-full object-cover">
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-
 
 </body>
 </html>
