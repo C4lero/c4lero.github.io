@@ -293,17 +293,230 @@
                 <br />
                 Master a high-stakes gameplay loop that forces you to balance heavy-duty cleaning with intense combat, all while racing against time.
             </p>
-            <h2 class="font-ui font-black text-2xl text-[#F2CD5C] uppercase">My Contributions</h2>
-            <h3 class="font-ui font-black text-lg text-[#F2A766] uppercase mt-4">Mechanics Designer</h3>
-            <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm">
-                <li><strong>Mechanics Designer:</strong> Designed the core loop, combat-cleaning synergies, and enemy balance.</li>
-                <li><strong>Game Producer:</strong> Coordinated workflow for a team scaling up to 40 members, managing roadmaps and milestones.</li>
-            </ul>
-            <h3 class="font-ui font-black text-lg text-[#F2A766] uppercase mt-4">Game Producer</h3>
-            <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm">
-                <li><strong>Mechanics Designer:</strong> Designed the core loop, combat-cleaning synergies, and enemy balance.</li>
-                <li><strong>Game Producer:</strong> Coordinated workflow for a team scaling up to 40 members, managing roadmaps and milestones.</li>
-            </ul>
+            <div class="border-t border-white/10 pt-4">
+                <h2 class="font-ui font-black text-2xl text-[#F2CD5C] uppercase mb-4">My Contributions</h2>
+                <p class="text-slate-200 leading-relaxed">
+                    Click the dropdown of each role to read about the work I did and some documentation about it!
+                </p>
+
+                <div class="space-y-3">
+                    <!-- MECHANICS DESIGNER -->
+                    <details class="group bg-black/50 border-2 border-white/20 rounded-lg overflow-hidden transition-all duration-200 open:border-[#F2A766]" open>
+                        <summary class="flex items-center justify-between p-4 cursor-pointer select-none bg-black/40 hover:bg-[#141259] transition-colors">
+                            <span class="font-ui font-black text-base md:text-lg text-[#F2A766] uppercase flex items-center gap-2">
+                                <i class="fa-solid fa-gamepad"></i> Mechanics Designer
+                            </span>
+                            <div class="w-7 h-7 bg-black border border-white/20 rounded flex items-center justify-center text-[#F2CD5C] group-open:rotate-180 transition-transform duration-300">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </summary>
+
+                        <div class="p-4 pt-2 border-t border-white/10 space-y-4">
+                            <ul class="list-disc list-inside text-slate-300 space-y-1.5 text-sm">
+                                <li>Designed and iterated the core gameplay loop combining active combat with cleaning mechanics.</li>
+                                <li>Collaborated with art and programming teams to implement systems aligned with design intent.</li>
+                                <li>Maintained clear design documentation (GDD) to ensure cross-departmental alignment.</li>
+                            </ul>
+
+                            <div class="bg-black/40 p-3 border-l-4 border-[#F2A766] rounded-r space-y-2 text-xs md:text-sm text-slate-200">
+                                <p>
+                                    As part of a 6-person design core, my primary focus was creating mechanics wich blended cleaning and combat.
+                                </p>
+                                <p class="text-slate-400 text-xs italic">
+                                    Key Constraint: Standard twin-stick tropes (like breaking props into debris) were discarded—Dorothy is meant to clean the mansion, not destroy it.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs font-black uppercase tracking-wider text-[#F2CD5C] mb-2">Key Challenges Addressed</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-black/60 p-3 border border-white/10 rounded">
+                                        <span class="font-bold text-[#F2A766] block mb-1"><i class="fa-solid fa-cubes mr-1"></i> Procedural Generation</span>
+                                        <span class="text-slate-300">Since the programming key feature was the procedural generated levels, we worked closely to keep them balacnced and have backup plans in case so mething failed.</span>
+                                    </div>
+                                    <div class="bg-black/60 p-3 border border-white/10 rounded">
+                                        <span class="font-bold text-[#F2A766] block mb-1"><i class="fa-solid fa-eye mr-1"></i> Visual Clarity</span>
+                                        <span class="text-slate-300">Adjusted the two floor dirt types, bullets, status effects and UI to remain visible throughout gameplay..</span>
+                                    </div>
+                                    <div class="bg-black/60 p-3 border border-white/10 rounded">
+                                        <span class="font-bold text-[#F2A766] block mb-1"><i class="fa-solid fa-eye mr-1"></i> Game built around a character</span>
+                                        <span class="text-slate-300">Created the mechanics, game and visuals around the character Dorothy, which affected gameplay decisions.</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="pt-4 mt-6 border-t-2 border-white/10">
+                                <h3 class="font-ui font-black text-sm text-[#F2CD5C] uppercase mb-3 tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-folder-open text-[#F2A766]"></i> Design project Documentation
+                                </h3>
+
+                                <!-- BOTÓN DESCARGA DE PDF -->
+                                <a href="assets/dorothy/DorothysJob_GDD.pdf" target="_blank" download class="group relative flex items-center justify-between p-3.5 bg-black/80 border-2 border-white/30 hover:border-[#F2CD5C] rounded transition-all duration-200 hover:bg-[#141259]">
+                                    <div class="flex items-center gap-3.5 min-w-0">
+                                        <!-- ICONO PRINCIPAL (Modificable fácilmente cambiando la clase de FontAwesome) -->
+                                        <div class="w-10 h-10 bg-black border border-white/20 group-hover:border-[#F2CD5C] flex items-center justify-center flex-shrink-0 text-[#F2CD5C] group-hover:text-white transition-colors">
+                                            <i class="fa-solid fa-file-pdf text-xl"></i>
+                                        </div>
+                                        <div class="min-w-0">
+                                            <h4 class="font-ui font-bold text-sm text-white group-hover:text-[#F2CD5C] transition-colors truncate">
+                                                Game Design Document (GDD)
+                                            </h4>
+                                            <p class="text-xs text-slate-400 group-hover:text-slate-300 truncate">
+                                                Especificaciones técnicas, desgloses de diseño y mecánicas (PDF)
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- BOTÓN/ICONO DE ACCIÓN -->
+                                    <div class="flex items-center gap-1.5 text-xs font-bold font-ui uppercase text-black bg-[#F2CD5C] px-3 py-1.5 border border-black group-hover:bg-[#D94179] group-hover:text-white transition-all ml-3 flex-shrink-0">
+                                        <span>PDF</span>
+                                        <i class="fa-solid fa-download"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- ROLE 2: GAME PRODUCER -->
+                    <details class="group bg-black/50 border-2 border-white/20 rounded-lg overflow-hidden transition-all duration-200 open:border-[#F2A766]">
+                        <summary class="flex items-center justify-between p-4 cursor-pointer select-none bg-black/40 hover:bg-[#141259] transition-colors">
+                            <span class="font-ui font-black text-base md:text-lg text-[#F2A766] uppercase flex items-center gap-2">
+                                <i class="fa-solid fa-list-check"></i> Game Producer
+                            </span>
+                            <div class="w-7 h-7 bg-black border border-white/20 rounded flex items-center justify-center text-[#F2CD5C] group-open:rotate-180 transition-transform duration-300">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </summary>
+
+                        <div class="p-4 pt-2 border-t border-white/10 space-y-4">
+                            <ul class="list-disc list-inside text-slate-300 space-y-1.5 text-sm">
+                                <li>Coordinated cross-departmental workflows for a team scaling up to 40 members.</li>
+                                <li>Managed production roadmaps, sprint planning, and milestone deliveries.</li>
+                                <li>Facilitated inter-departmental communication to resolve technical bottlenecks.</li>
+                            </ul>
+
+                            <div class="bg-black/40 p-3 border-l-4 border-[#F2A766] rounded-r text-xs md:text-sm text-slate-200">
+                                <p>
+                                    <strong>Production Approach:</strong> Served as a bridge between design expectations and technical execution, maintaining team alignment while mitigating production risks.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs font-black uppercase tracking-wider text-[#F2CD5C] mb-2">Key Production Highlights</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-black/60 p-3 border border-white/10 rounded">
+                                        <span class="font-bold text-[#F2A766] block mb-1"><i class="fa-solid fa-users mr-1"></i> Team Scaling</span>
+                                        <span class="text-slate-300">Structured communication pipelines as the team expanded from 20 to 40 members.</span>
+                                    </div>
+                                    <div class="bg-black/60 p-3 border border-white/10 rounded">
+                                        <span class="font-bold text-[#F2A766] block mb-1"><i class="fa-solid fa-shield-halved mr-1"></i> Risk Mitigation</span>
+                                        <span class="text-slate-300">Established backup plans for critical technical features to guarantee deadlines.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 mt-6 border-t-2 border-white/10">
+                                <h3 class="font-ui font-black text-sm text-[#F2CD5C] uppercase mb-3 tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-folder-open text-[#F2A766]"></i> Project Documentation
+                                </h3>
+
+                                <!-- BOTÓN DESCARGA DE PDF -->
+                                <a href="assets/dorothy/DorothysJob_GDD.pdf" target="_blank" download class="group relative flex items-center justify-between p-3.5 bg-black/80 border-2 border-white/30 hover:border-[#F2CD5C] rounded transition-all duration-200 hover:bg-[#141259]">
+                                    <div class="flex items-center gap-3.5 min-w-0">
+                                        <!-- ICONO PRINCIPAL (Modificable fácilmente cambiando la clase de FontAwesome) -->
+                                        <div class="w-10 h-10 bg-black border border-white/20 group-hover:border-[#F2CD5C] flex items-center justify-center flex-shrink-0 text-[#F2CD5C] group-hover:text-white transition-colors">
+                                            <i class="fa-solid fa-file-pdf text-xl"></i>
+                                        </div>
+                                        <div class="min-w-0">
+                                            <h4 class="font-ui font-bold text-sm text-white group-hover:text-[#F2CD5C] transition-colors truncate">
+                                                Game Design Document (GDD)
+                                            </h4>
+                                            <p class="text-xs text-slate-400 group-hover:text-slate-300 truncate">
+                                                Especificaciones técnicas, desgloses de diseño y mecánicas (PDF)
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- BOTÓN/ICONO DE ACCIÓN -->
+                                    <div class="flex items-center gap-1.5 text-xs font-bold font-ui uppercase text-black bg-[#F2CD5C] px-3 py-1.5 border border-black group-hover:bg-[#D94179] group-hover:text-white transition-all ml-3 flex-shrink-0">
+                                        <span>PDF</span>
+                                        <i class="fa-solid fa-download"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- ROLE 3: UI ARTIST -->
+                    <details class="group bg-black/50 border-2 border-white/20 rounded-lg overflow-hidden transition-all duration-200 open:border-[#F2A766]">
+                        <summary class="flex items-center justify-between p-4 cursor-pointer select-none bg-black/40 hover:bg-[#141259] transition-colors">
+                            <span class="font-ui font-black text-base md:text-lg text-[#F2A766] uppercase flex items-center gap-2">
+                                <i class="fa-solid fa-palette"></i> UI Artist
+                            </span>
+                            <div class="w-7 h-7 bg-black border border-white/20 rounded flex items-center justify-center text-[#F2CD5C] group-open:rotate-180 transition-transform duration-300">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </summary>
+
+                        <div class="p-4 pt-2 border-t border-white/10 space-y-4">
+                            <ul class="list-disc list-inside text-slate-300 space-y-1.5 text-sm">
+                                <li>Designed intuitive HUD elements, menus, and visual feedback for an arcade style.</li>
+                                <li>Created high-contrast graphic assets and iconography tailored for fast gameplay.</li>
+                                <li>Iterated on UI layouts based on playtest feedback to maximize user clarity.</li>
+                            </ul>
+
+                            <div class="bg-black/40 p-3 border-l-4 border-[#F2A766] rounded-r text-xs md:text-sm text-slate-200">
+                                <p>
+                                    <strong>UI Vision:</strong> Built a stylized, high-contrast user interface that complemented the visual theme without cluttering the screen during chaotic combat.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs font-black uppercase tracking-wider text-[#F2CD5C] mb-2">Key Design Challenges</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-black/60 p-3 border border-white/10 rounded">
+                                        <span class="font-bold text-[#F2A766] block mb-1"><i class="fa-solid fa-gauge-high mr-1"></i> HUD Readability</span>
+                                        <span class="text-slate-300">Balanced cleaning meters and health UI to remain clear in high-speed gameplay.</span>
+                                    </div>
+                                    <div class="bg-black/60 p-3 border border-white/10 rounded">
+                                        <span class="font-bold text-[#F2A766] block mb-1"><i class="fa-solid fa-brush mr-1"></i> Style Cohesion</span>
+                                        <span class="text-slate-300">Created custom pop-art UI components matching the game's comic book aesthetic.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 mt-6 border-t-2 border-white/10">
+                                <h3 class="font-ui font-black text-sm text-[#F2CD5C] uppercase mb-3 tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-folder-open text-[#F2A766]"></i> Project Documentation
+                                </h3>
+
+                                <!-- BOTÓN DESCARGA DE PDF -->
+                                <a href="assets/dorothy/DorothysJob_GDD.pdf" target="_blank" download class="group relative flex items-center justify-between p-3.5 bg-black/80 border-2 border-white/30 hover:border-[#F2CD5C] rounded transition-all duration-200 hover:bg-[#141259]">
+                                    <div class="flex items-center gap-3.5 min-w-0">
+                                        <!-- ICONO PRINCIPAL (Modificable fácilmente cambiando la clase de FontAwesome) -->
+                                        <div class="w-10 h-10 bg-black border border-white/20 group-hover:border-[#F2CD5C] flex items-center justify-center flex-shrink-0 text-[#F2CD5C] group-hover:text-white transition-colors">
+                                            <i class="fa-solid fa-file-pdf text-xl"></i>
+                                        </div>
+                                        <div class="min-w-0">
+                                            <h4 class="font-ui font-bold text-sm text-white group-hover:text-[#F2CD5C] transition-colors truncate">
+                                                Game Design Document (GDD)
+                                            </h4>
+                                            <p class="text-xs text-slate-400 group-hover:text-slate-300 truncate">
+                                                Especificaciones técnicas, desgloses de diseño y mecánicas (PDF)
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- BOTÓN/ICONO DE ACCIÓN -->
+                                    <div class="flex items-center gap-1.5 text-xs font-bold font-ui uppercase text-black bg-[#F2CD5C] px-3 py-1.5 border border-black group-hover:bg-[#D94179] group-hover:text-white transition-all ml-3 flex-shrink-0">
+                                        <span>PDF</span>
+                                        <i class="fa-solid fa-download"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
             <!-- SECCIÓN DE DOCUMENTACIÓN / DESCARGAS INTEGRADA -->
             <div class="pt-4 mt-6 border-t-2 border-white/10">
                 <h3 class="font-ui font-black text-sm text-[#F2CD5C] uppercase mb-3 tracking-wider flex items-center gap-2">
