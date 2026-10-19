@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calero - Portfolio</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .font-ui {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .cel-block-shadow-sm {
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        .shop-background {
+            background-image: url('assets/shop-background.png');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+        }
+
+        .dialogue-box-container {
+            background-image: url('assets/dialogue-box.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .nametag-container {
+            background-image: url('assets/name-tag.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        /* --- MARCO CONTENEDOR GENERAL --- */
+        .p5-main-board {
+            position: relative;
+            background-color: #0b0b10;
+            border: 4px solid #ffffff;
+            box-shadow: 0px 10px 0px #000000;
+            clip-path: polygon(0% 2%, 100% 0%, 100% 98%, 2% 100%);
+            z-index: 1;
+        }
+
+            .p5-main-board::before {
+                content: '';
+                position: absolute;
+                inset: -8px -10px -10px -8px;
+                background-color: #000000;
+                border: 3px solid #141259;
+                clip-path: polygon(2% 0%, 100% 2%, 97% 100%, 0% 97%);
+                transform: rotate(-1.2deg);
+                z-index: -1;
+            }
+
+        /* --- TARJETAS INDIVIDUALES --- */
+        .p5-shelf-banner {
+            position: relative;
+            background-color: #141259;
+            border: 3px solid #000000;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, filter 0.2s;
+            filter: drop-shadow(4px 4px 0px #000000);
+            z-index: 2;
+        }
+
+            .p5-shelf-banner:hover {
+                transform: scale(1.02) rotate(-0.5deg) translate(-2px, -2px) !important;
+                background-color: #1c1a75;
+                filter: drop-shadow(6px 6px 0px #F2CD5C);
+            }
+
+        .p5-icon-box {
+            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0% 100%);
+        }
+
+        .rpg-shelf-item {
+            background-color: #141259;
+            border: 3px solid #000000;
+            box-shadow: 6px 6px 0px #000000;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+
+            .rpg-shelf-item:hover {
+                transform: translate(-3px, -5px) scale(1.08) !important;
+                background-color: #1c1a75;
+                box-shadow: 10px 10px 0px #000000;
+                border-color: #F2CD5C;
+            }
+
+        .rpg-article-item {
+            background-color: #141259;
+            border: 3px solid #000000;
+            box-shadow: 5px 5px 0px #000000;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+
+            .rpg-article-item:hover {
+                transform: translate(-2px, -3px) scale(1.02) !important;
+                background-color: #1c1a75;
+                box-shadow: 8px 8px 0px #000000;
+                border-color: #F2CD5C;
+            }
+
+        .smooth-transition {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.6s ease, max-width 0.6s ease, padding 0.6s ease;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .shopkeeper-idle {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes itemFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .item-sprite-idle {
+            animation: itemFloat 3s ease-in-out infinite;
+        }
+
+        .wave-container-top {
+            position: fixed;
+            top: 63px;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 20;
+            background: transparent;
+        }
+
+        .wave-container-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 20;
+            background: transparent;
+        }
+
+        .wave-track {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            will-change: transform;
+        }
+
+            .wave-track svg {
+                width: 50%;
+                height: 100%;
+                flex-shrink: 0;
+                display: block;
+            }
+
+        @keyframes waveLoop {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
+
+        @keyframes waveLoopReverse {
+            0% {
+                transform: translate3d(-50%, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .animate-wave-white-top {
+            animation: waveLoop 38s linear infinite;
+        }
+
+        .animate-wave-blue1-top {
+            animation: waveLoop 26s linear infinite;
+        }
+
+        .animate-wave-blue2-top {
+            animation: waveLoop 20s linear infinite;
+        }
+
+        .animate-wave-black-top {
+            animation: waveLoop 14s linear infinite;
+        }
+
+        .animate-wave-white-bot {
+            animation: waveLoopReverse 38s linear infinite;
+        }
+
+        .animate-wave-blue1-bot {
+            animation: waveLoopReverse 26s linear infinite;
+        }
+
+        .animate-wave-blue2-bot {
+            animation: waveLoopReverse 26s linear infinite;
+        }
+
+        .animate-wave-black-bot {
+            animation: waveLoopReverse 14s linear infinite;
+        }
+
+        @keyframes personaOutlinePulse {
+            0% {
+                filter: drop-shadow(3px 0px 0px #000) drop-shadow(-3px 0px 0px #000) drop-shadow(0px 3px 0px #000) drop-shadow(0px -3px 0px #000) drop-shadow(3px 3px 0px #000);
+            }
+
+            33% {
+                filter: drop-shadow(3px 1px 0px #000) drop-shadow(-3px -1px 0px #000) drop-shadow(1px 3px 0px #000) drop-shadow(-1px -3px 0px #000) drop-shadow(4px 4px 0px #000);
+            }
+
+            66% {
+                filter: drop-shadow(2px 3px 0px #000) drop-shadow(-3px 1px 0px #000) drop-shadow(-1px 3px 0px #000) drop-shadow(2px -3px 0px #000) drop-shadow(3px 4px 0px #000);
+            }
+
+            100% {
+                filter: drop-shadow(3px -2px 0px #000) drop-shadow(-3px 2px 0px #000) drop-shadow(2px 3px 0px #000) drop-shadow(-2px -3px 0px #000) drop-shadow(4px 3px 0px #000);
+            }
+        }
+
+        @keyframes personaNametagPulse {
+            0% {
+                filter: drop-shadow(2px 0px 0px #000) drop-shadow(-2px 0px 0px #000) drop-shadow(0px 2px 0px #000) drop-shadow(0px -2px 0px #000) drop-shadow(2px 2px 0px #000);
+            }
+
+            50% {
+                filter: drop-shadow(2px 1px 0px #000) drop-shadow(-2px -1px 0px #000) drop-shadow(1px 2px 0px #000) drop-shadow(-1px -2px 0px #000) drop-shadow(3px 2px 0px #000);
+            }
+
+            100% {
+                filter: drop-shadow(2px -1px 0px #000) drop-shadow(-2px 1px 0px #000) drop-shadow(1px 2px 0px #000) drop-shadow(-1px -2px 0px #000) drop-shadow(2px 3px 0px #000);
+            }
+        }
+
+        .persona-outline-thick {
+            animation: personaOutlinePulse 3.5s ease-in-out infinite alternate;
+        }
+
+        .persona-outline-nametag {
+            animation: personaNametagPulse 3.5s ease-in-out infinite alternate;
+        }
+
+        .particle-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cotl-blob {
+            position: absolute;
+            border-radius: 50%;
+            background: #F2CD5C;
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+            animation: floatUp 6s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(0.6);
+            }
+
+            30%, 70% {
+                opacity: 0.9;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(1.1);
+            }
+        }
+
+        .item-particle-aura {
+            position: absolute;
+            inset: -12px;
+            pointer-events: none;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .item-blob {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: #F2CD5C;
+            border: 1px solid #000000;
+            border-radius: 50%;
+            animation: orbitPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes orbitPulse {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.8) translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.3) translateY(-8px);
+            }
+        }
+
+        .anim-nav-entry {
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+        }
+
+            .anim-nav-entry.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+        .anim-bg-entry {
+            opacity: 0;
+            transform: scale(1.03);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+            .anim-bg-entry.active {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        .vendor-initial-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 550px;
+            transition: left 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), width 0.8s ease, max-width 0.8s ease;
+        }
+
+        .vendor-in-position {
+            left: 0% !important;
+            transform: translateX(0) !important;
+        }
+
+        .board-hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .board-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .shelf-item-hidden {
+            opacity: 0;
+            transform: translate3d(60px, 0, 0);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            will-change: transform, opacity;
+        }
+
+        .shelf-item-visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) !important;
+        }
+
+        .drawer-panel {
+            z-index: 90 !important;
+            position: fixed !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            height: 100vh !important;
+            padding-top: 63px !important;
+        }
+
+        .panel-scroll-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .panel-scroll-content::-webkit-scrollbar-track {
+            background: #000000;
+            border-left: 2px solid #141259;
+        }
+
+        .panel-scroll-content::-webkit-scrollbar-thumb {
+            background: #F2CD5C;
+            border: 2px solid #000000;
+        }
+
+            .panel-scroll-content::-webkit-scrollbar-thumb:hover {
+                background: #F2A766;
+            }
+
+        .panel-scroll-content {
+            scrollbar-width: thin;
+            scrollbar-color: #F2CD5C #000000;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col select-none overflow-hidden bg-black">
+
+    <div id="loadingOverlay" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-500">
+        <div class="relative flex items-center justify-center">
+            <div class="w-20 h-20 border-8 border-black border-t-[#F2CD5C] rounded-full animate-spin bg-black"></div>
+            <i class="fa-solid fa-dice-d20 text-2xl absolute animate-pulse text-[#F2CD5C]"></i>
+        </div>
+        <span class="mt-6 font-ui text-xs font-black tracking-widest uppercase animate-pulse text-[#F2CD5C] bg-black px-4 py-1 border-2 border-black">Loading Portfolio...</span>
+    </div>
+
+    <header id="navHeader" class="anim-nav-entry fixed top-0 left-0 w-full h-[63px] z-[100] bg-black border-b-4 border-black px-6 py-3 flex flex-wrap justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-none bg-[#F2CD5C] border-2 border-black cel-block-shadow-sm flex items-center justify-center text-black font-black font-ui text-base tracking-wider">
+                C4
+            </div>
+            <div>
+                <h1 class="font-black text-white text-base tracking-wide font-ui uppercase">Juan A. Calero</h1>
+                <p class="text-xs font-bold text-[#F2A766]">Game Developer</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-6 text-xs md:text-sm">
+            <a href="https://www.linkedin.com/in/juanantoniocalero/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-brands fa-linkedin text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">LinkedIn</span>
+            </a>
+            <a href="tel:+34633614852" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-solid fa-phone text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">+34 633 614 852</span>
+            </a>
+            <a href="mailto:jacalerodev@gmail.com" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
+                <i class="fa-solid fa-envelope text-[#F2CD5C]"></i>
+                <span class="hidden sm:inline">jacalerodev@gmail.com</span>
+            </a>
+            <a href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf" class="bg-[#F2CD5C] text-black font-black px-4 py-2 border-2 border-black cel-block-shadow-sm transition flex items-center justify-center gap-2 font-ui text-xs tracking-wider uppercase hover:translate-x-0.5 hover:translate-y-0.5">
+                <i class="fa-solid fa-download"></i>
+                <span>Download CV</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ONDAS SUPERIORES -->
+    <div class="wave-container-top">
+        <div class="wave-track animate-wave-white-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-blue1-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-blue2-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-black-top absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path></svg>
+        </div>
+    </div>
+
+    <!-- ONDAS INFERIORES -->
+    <div class="wave-container-bottom">
+        <div class="wave-track animate-wave-white-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-blue1-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-blue2-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path></svg>
+        </div>
+        <div class="wave-track animate-wave-black-bot absolute inset-0">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path></svg>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path></svg>
+        </div>
+    </div>
+
+    <!-- PANEL DERECHO ÚNICO -->
+    <aside id="detailsPanelRight" onclick="event.stopPropagation()" class="drawer-panel right-0 w-full md:w-[45%] bg-black border-l-4 border-black shadow-[-10px_0px_0px_#000] transform translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
+        <div class="p-6 border-b-4 border-black bg-[#141259] flex items-center gap-4 flex-shrink-0">
+            <div id="panelIconRight" class="w-14 h-14 rounded-none bg-black border-2 border-black flex items-center justify-center text-2xl overflow-hidden p-1 text-[#F2CD5C]"></div>
+            <div>
+                <span id="panelCategoryRight" class="text-xs font-ui font-black uppercase tracking-widest text-[#D94179]">Category</span>
+                <h2 id="panelTitleRight" class="text-xl md:text-2xl font-black text-white font-ui uppercase">Title</h2>
+            </div>
+        </div>
+
+        <div id="panelBodyRight" class="panel-scroll-content p-6 flex-1 overflow-y-auto space-y-4 text-slate-200 text-sm md:text-base leading-relaxed bg-[#0a0a0c]"></div>
+
+        <div class="p-5 border-t-4 border-black bg-black flex flex-col gap-3 flex-shrink-0 z-10">
+            <a id="buyButtonRight" href="#" target="_blank" class="w-full bg-[#F2CD5C] text-black border-2 border-black cel-block-shadow-sm font-ui font-black text-sm py-3 px-4 rounded-none text-center transition flex items-center justify-center gap-2 hover:bg-[#f5d77f] uppercase tracking-wider">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="buyButtonTextRight">BUY / VIEW MORE</span>
+            </a>
+            <a id="projectButtonRight" href="#" class="hidden w-full bg-[#1c1a75] text-white border-2 border-black cel-block-shadow-sm font-ui font-black text-sm py-3 px-4 rounded-none text-center transition flex items-center justify-center gap-2 hover:bg-[#252299] uppercase tracking-wider">
+                <i class="fa-solid fa-circle-info"></i>
+                <span id="projectButtonTextRight">MORE INFO</span>
+            </a>
+            <button onclick="closePanel()" class="w-full bg-black text-white border-2 border-white cel-block-shadow-sm font-ui font-bold text-xs py-2.5 px-4 rounded-none transition flex items-center justify-center gap-2 uppercase hover:bg-neutral-800 tracking-wider">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>BACK TO SHOP</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ESCENA PRINCIPAL -->
+    <main id="mainScene" onclick="handleBackgroundClick(event)" class="shop-background anim-bg-entry smooth-transition relative flex-1 w-full pt-[120px] pb-[90px] overflow-hidden flex items-center px-0 md:px-0 md:pl-12 cursor-pointer">
+
+        <div class="absolute inset-0 bg-black/40 pointer-events-none z-0"></div>
+
+        <div id="ambientParticles" class="particle-container z-10"></div>
+
+        <!-- COLUMNA IZQUIERDA: PERSONAJE Y DIÁLOGO -->
+        <div id="characterGroup" class="vendor-initial-center smooth-transition relative md:w-1/2 h-full flex flex-col justify-end items-center z-30 pointer-events-none pb-2 pr-0 md:pr-4">
+
+            <!-- 1. VENDEDOR -->
+            <div onclick="handleShopkeeperClick(event)" class="relative flex items-center justify-center pointer-events-auto cursor-pointer z-10 mb-2">
+                <div id="vendorWrapper" class="shopkeeper-idle relative h-[36vh] sm:h-[42vh] lg:h-[48vh] w-auto aspect-square flex items-center justify-center">
+                    <div class="absolute w-[80%] h-[80%] rounded-full bg-[#F2CD5C] blur-3xl opacity-40"></div>
+                    <div id="vendorParticles" class="absolute inset-0 pointer-events-none"></div>
+
+                    <img id="vendorImage" src="assets/vendedor.png" alt="Shopkeeper" class="persona-outline-thick w-full h-full object-contain relative z-10 transition-transform duration-700 ease-out origin-bottom">
+                </div>
+            </div>
+
+            <!-- 2. CUADRO DE DIÁLOGO -->
+            <div id="dialogueWrapper" onclick="handleShopkeeperClick(event)" class="pointer-events-auto relative w-full smooth-transition cursor-pointer z-40">
+
+                <div class="nametag-container persona-outline-nametag absolute -top-7 left-6 w-auto min-w-[140px] h-10 px-5 flex items-center justify-center z-50">
+                    <span class="font-ui font-black text-xs md:text-sm text-white tracking-wider uppercase drop-shadow-[0_2px_0px_#000] text-center leading-none whitespace-nowrap">
+                        The Shopkeeper
+                    </span>
+                </div>
+
+                <div class="dialogue-box-container persona-outline-thick relative w-full px-6 md:px-8 py-5 md:py-6 min-h-[110px] flex items-center z-10">
+                    <p id="dialogueText" class="font-ui font-bold text-black text-xs md:text-base leading-relaxed pl-2 pr-6 w-full">
+                    </p>
+
+                    <div class="absolute bottom-3 right-6 animate-bounce text-xs md:text-sm text-[#141259]">
+                        <i class="fa-solid fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- COLUMNA DERECHA: MARCO ASIMÉTRICO GENERAL -->
+        <div id="shelvesContainer" class="smooth-transition relative w-full md:w-1/2 h-[calc(100%-30px)] my-auto pointer-events-auto z-20 flex flex-col justify-center pl-0 md:pl-4 pr-0 overflow-hidden">
+
+            <div id="p5Board" class="p5-main-board board-hidden w-full h-full p-4 md:p-5 flex flex-col justify-between gap-3">
+
+                <!-- 1. Developer Profile -->
+                <button onclick="selectItem('developer-profile', event)"
+                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
+                    <div class="item-particle-aura" id="aura-producer"></div>
+                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
+                        <img src="assets/item-profile.png" alt="Developer Profile" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Juan A. Calero Profile Documents</h3>
+                        <p class="text-[10px] md:text-[12px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">All about his background, roles and personal information</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#F2CD5C] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <!-- 2. Project Vault -->
+                <button onclick="selectItem('projects-log', event)"
+                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
+                    <div class="item-particle-aura" id="aura-designer"></div>
+                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
+                        <img src="assets/item-projectvault.png" alt="Project Vault" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Project Vault</h3>
+                        <p class="text-[10px] md:text-[12px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">Managed to get information about every project he worked in!</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#F2A766] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <!-- 3. Articles & Writing -->
+                <button onclick="selectItem('articles', event)"
+                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
+                    <div class="item-particle-aura" id="aura-articles"></div>
+                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
+                        <img src="assets/item-articles.png" alt="Articles" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Article Library</h3>
+                        <p class="text-[10px] md:text-[12px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">Documents, research and video-game related writings of all kinds!</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#F2CD5C] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="data.js"></script>
+    <script>
+        const PANEL_WIDTH_PERCENT = 55;
+        let isPanelOpen = false;
+        let currentItemId = null;
+
+        let typewriterTimer = null;
+
+        function createAmbientParticles() {
+            const container = document.getElementById('ambientParticles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'cotl-blob';
+
+                const size = Math.random() * 8 + 6;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const duration = Math.random() * 4 + 4;
+                const delay = Math.random() * 5;
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.top = `${top}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+
+                container.appendChild(particle);
+            }
+        }
+
+        function createAuraParticles() {
+            const auras = ['aura-producer', 'aura-projects', 'aura-designer', 'aura-articles', 'vendorParticles'];
+            auras.forEach(auraId => {
+                const el = document.getElementById(auraId);
+                if (!el) return;
+
+                const count = auraId === 'vendorParticles' ? 10 : 4;
+                for (let i = 0; i < count; i++) {
+                    const blob = document.createElement('div');
+                    blob.className = 'item-blob';
+                    blob.style.left = `${Math.random() * 80 + 10}%`;
+                    blob.style.top = `${Math.random() * 80 + 10}%`;
+                    blob.style.animationDelay = `${Math.random() * 3}s`;
+                    blob.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                    el.appendChild(blob);
+                }
+            });
+        }
+
+        function applyPanelWidths() {
+            const pRight = document.getElementById('detailsPanelRight');
+            if (window.innerWidth >= 768) {
+                pRight.style.width = `${PANEL_WIDTH_PERCENT}%`;
+            } else {
+                pRight.style.width = '100%';
+            }
+        }
+
+        function typeDialogue(text) {
+            const el = document.getElementById('dialogueText');
+            el.textContent = '';
+            let i = 0;
+            if (typewriterTimer) clearInterval(typewriterTimer);
+            typewriterTimer = setInterval(() => {
+                if (i < text.length) {
+                    el.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typewriterTimer);
+                }
+            }, 18);
+        }
+
+        function handleShopkeeperClick(event) {
+            event.stopPropagation();
+            if (isPanelOpen) {
+                closePanel();
+            }
+        }
+
+        function handleBackgroundClick(event) {
+            if (isPanelOpen) {
+                closePanel();
+            }
+        }
+
+        const TAG_COLORS = ['#F2A766', '#D94179', '#1c1a75'];
+
+        function renderProjectList() {
+            const cards = projects.map(p => {
+                const open = p.external
+                    ? `<a href="${p.external}" target="_blank" rel="noopener"`
+                    : `<button type="button" onclick="openProject('${p.id}')"`;
+                const close = p.external ? '</a>' : '</button>';
+                const head = p.logo
+                    ? `<img src="${p.logo}" alt="${p.title}" class="h-14 md:h-20 w-auto object-contain self-start mb-1">`
+                    : `<h3 class="font-ui font-black text-lg text-white uppercase tracking-wide drop-shadow-md">${p.title}</h3>`;
+                const tags = p.tags.map((t, i) => `<span class="text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider" style="background:${TAG_COLORS[i % 3]}">${t}</span>`).join('');
+                return `${open} class="group relative block w-full h-36 sm:h-40 shrink-0 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm text-left no-underline">
+                        <img src="${p.banner}" alt="" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                        <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">${head}
+                            <div class="flex flex-wrap items-center gap-2 my-1 text-[10px] font-bold">${tags}</div>
+                            <p class="text-[13px] text-slate-200 leading-tight drop-shadow"><strong>${p.year} • ${p.summary}</strong></p>
+                        </div>${close}`;
+            }).join('');
+            return `<p class="mt-2 text-base text-slate-300">Click a project to read about it, it opens right here.</p><div class="flex flex-col gap-3 mt-3">${cards}</div>`;
+        }
+
+        function renderProjectDetail(p) {
+            const links = (p.links || []).map(l => `<a href="${l.url}" target="_blank" rel="noopener" class="bg-[#1c1a75] text-white border-2 border-black cel-block-shadow-sm font-ui font-black text-xs py-2 px-3 text-center hover:bg-[#252299] uppercase tracking-wider">${l.text}</a>`).join('');
+            const video = p.video ? `<video controls muted loop preload="metadata" class="w-full rounded-xl my-4"><source src="${p.video}" type="video/mp4"></video>` : '';
+            const shots = (p.screenshots || []).map(src => `<img src="${src}" alt="" loading="lazy" class="w-full rounded-lg border-2 border-black">`).join('');
+            return `<button type="button" onclick="selectItem('projects-log')" class="font-ui font-black text-xs uppercase tracking-wider text-[#F2CD5C] mb-3"><i class="fa-solid fa-arrow-left"></i> All projects</button>
+                    <img src="${p.banner}" alt="${p.title}" class="w-full rounded-xl border-2 border-black">
+                    ${p.details ? '' : `<p class="mt-3">${p.summary}</p>`}
+                    ${video}${p.details || ''}
+                    ${shots ? `<div class="grid grid-cols-2 gap-2 my-4">${shots}</div>` : ''}
+                    ${links ? `<div class="flex flex-wrap gap-2 mt-4">${links}</div>` : ''}`;
+        }
+
+        function openProject(id) {
+            const p = projects.find(x => x.id === id);
+            if (!p) return;
+            const body = document.getElementById('panelBodyRight');
+            document.getElementById('buyButtonRight').classList.add('hidden');
+            document.getElementById('projectButtonRight').classList.add('hidden');
+            document.getElementById('panelCategoryRight').textContent = `${p.year} • ${p.tags[0]}`;
+            document.getElementById('panelTitleRight').textContent = p.title;
+            body.innerHTML = renderProjectDetail(p);
+            body.scrollTop = 0;
+            typeDialogue(p.dialogue || 'Take your time, there is plenty to see.');
+        }
+
+        function selectItem(itemId, event) {
+            if (event) event.stopPropagation();
+
+            const item = shopItems[itemId];
+            if (!item) return;
+
+            currentItemId = itemId;
+
+            const mainScene = document.getElementById('mainScene');
+            const shelvesContainer = document.getElementById('shelvesContainer');
+            const vendorImage = document.getElementById('vendorImage');
+            const panelRight = document.getElementById('detailsPanelRight');
+            const characterGroup = document.getElementById('characterGroup');
+
+            shelvesContainer.classList.add('opacity-30', 'blur-[2px]');
+
+            const targetBody = document.getElementById('panelBodyRight');
+            const buyButton = document.getElementById('buyButtonRight');
+            const projectButton = document.getElementById('projectButtonRight');
+
+            if (item.hideBuyButton) {
+                buyButton.classList.add('hidden');
+            } else {
+                buyButton.classList.remove('hidden');
+                document.getElementById('buyButtonTextRight').textContent = item.buyText;
+                buyButton.href = item.buyLink;
+            }
+
+            if (item.projectLink) {
+                projectButton.classList.remove('hidden');
+                document.getElementById('projectButtonTextRight').textContent = item.projectText || "MORE INFO";
+                projectButton.href = item.projectLink;
+            } else {
+                projectButton.classList.add('hidden');
+            }
+
+            document.getElementById('panelCategoryRight').textContent = item.category;
+            document.getElementById('panelTitleRight').textContent = item.title;
+            document.getElementById('panelIconRight').innerHTML = `<img src="${item.imgSrc}" class="item-sprite-idle w-full h-full object-contain">`;
+
+            if (vendorImage) {
+                vendorImage.style.transform = 'scale(1.22)';
+            }
+
+            panelRight.classList.remove('translate-x-full');
+
+            mainScene.classList.remove('px-0', 'md:px-0');
+            mainScene.classList.add('pl-4', 'md:pl-8', 'pr-0');
+
+            if (window.innerWidth >= 768) {
+                characterGroup.style.maxWidth = `${100 - PANEL_WIDTH_PERCENT}%`;
+            }
+
+            targetBody.innerHTML = item.description;
+            targetBody.scrollTop = 0;
+            isPanelOpen = true;
+            typeDialogue(item.dialogue);
+        }
+
+        function closePanel() {
+            const mainScene = document.getElementById('mainScene');
+            const shelvesContainer = document.getElementById('shelvesContainer');
+            const vendorImage = document.getElementById('vendorImage');
+            const panelRight = document.getElementById('detailsPanelRight');
+            const characterGroup = document.getElementById('characterGroup');
+
+            if (vendorImage) {
+                vendorImage.style.transform = 'scale(1)';
+            }
+
+            shelvesContainer.classList.remove('opacity-30', 'blur-[2px]');
+
+            panelRight.classList.add('translate-x-full');
+
+            mainScene.classList.remove('pl-4', 'md:pl-8', 'pr-0');
+            mainScene.classList.add('px-0', 'md:px-0');
+
+            characterGroup.style.maxWidth = '';
+
+            isPanelOpen = false;
+            currentItemId = null;
+            typeDialogue("What else would you like to learn about? Click on any object on the shelves.");
+        }
+
+        function runIntroSequence() {
+            const overlay = document.getElementById('loadingOverlay');
+            const navHeader = document.getElementById('navHeader');
+            const mainScene = document.getElementById('mainScene');
+            const characterGroup = document.getElementById('characterGroup');
+            const p5Board = document.getElementById('p5Board');
+            const shelfItems = document.querySelectorAll('.p5-shelf-banner');
+
+            setTimeout(() => {
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => { overlay.remove(); }, 500);
+
+                navHeader.classList.add('active');
+                mainScene.classList.add('active');
+
+                typeDialogue("Welcome to my shop! I'm the Shopkeeper, and I sell all the information you could imagine about Juan A. Calero, the indie game developer!");
+
+                setTimeout(() => {
+                    characterGroup.classList.add('vendor-in-position');
+
+                    setTimeout(() => {
+                        p5Board.classList.remove('board-hidden');
+                        p5Board.classList.add('board-visible');
+
+                        shelfItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.remove('shelf-item-hidden');
+                                item.classList.add('shelf-item-visible');
+                            }, 300 + (index * 150));
+                        });
+
+                        setTimeout(() => {
+                            typeDialogue("Click on any item of the shelf to explore the information I've stored!");
+                        }, 1000);
+
+                    }, 500);
+
+                }, 3200);
+
+            }, 800);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            applyPanelWidths();
+            createAmbientParticles();
+            createAuraParticles();
+            runIntroSequence();
+        });
+
+        window.addEventListener('resize', applyPanelWidths);
+    </script>
+</body>
+</html>
