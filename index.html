@@ -3,1095 +3,875 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calero - Portfolio</title>
+    <title>Juan A. Calero · Game Designer & Producer</title>
+    <meta name="description" content="Portfolio of Juan A. Calero, Game Designer & Producer. Dorothy's Job (Steam), game jams, articles and CV.">
 
+    <!-- Tailwind solo para el contenido HTML que viene de data.js (detalles de proyectos) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800;1,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
+        /* =========================================================
+           PALETA: colores planos. Cambia aqui y cambia toda la web.
+           ========================================================= */
+        :root {
+            --ink: #0a0a0c;        /* negro */
+            --paper: #ffffff;      /* blanco */
+            --accent: #1f45ff;     /* azul electrico (color principal) */
+            --accent-d: #1230c4;   /* azul oscuro para tramas */
+            --pop: #8fbcff;        /* azul claro para detalles (misma familia) */
+            --hl: #cfe1ff;         /* azul muy claro para resaltar */
+
+            --display: 'Anton', Impact, sans-serif;
+            --ui: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+            --body: 'Inter', system-ui, sans-serif;
+
+            --header-h: 64px;
+            --ticker-h: 0px;
+            --ease-snap: cubic-bezier(.2, 1.4, .4, 1);
+            --ease-out: cubic-bezier(.16, 1, .3, 1);
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
+            font-family: var(--body);
+            background: var(--accent);
+            color: var(--paper);
             overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+        :focus-visible { outline: 3px solid var(--hl); outline-offset: 3px; }
+
+        .display { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: .01em; line-height: .92; }
+        .ui { font-family: var(--ui); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+
+        /* chip inclinado: la etiqueta basica de todo el estilo */
+        .tag { display: inline-block; font-family: var(--ui); font-weight: 800; font-style: italic; text-transform: uppercase;
+            letter-spacing: .06em; font-size: 13px; line-height: 1; padding: 5px 10px 4px; transform: skewX(-12deg); }
+        .tag > span { display: inline-block; transform: skewX(12deg); }
+        .tag-ink { background: var(--ink); color: var(--paper); }
+        .tag-paper { background: var(--paper); color: var(--ink); }
+        .tag-accent { background: var(--accent); color: var(--paper); }
+        .tag-pop { background: var(--pop); color: var(--ink); }
+
+        /* ================= CARGA ================= */
+        #loading { position: fixed; inset: 0; z-index: 200; background: var(--ink); display: grid; place-items: center; transition: clip-path .7s var(--ease-out); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        #loading.gone { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+        #loading .word { font-family: var(--display); font-size: clamp(48px, 9vw, 120px); transform: skewX(-10deg) rotate(-4deg); color: var(--paper); position: relative; }
+        #loading .word::after { content: ''; position: absolute; left: -4%; right: -4%; bottom: 8%; height: 18%; background: var(--accent); z-index: -1; transform-origin: left; animation: loadbar 1s var(--ease-out) infinite alternate; }
+        @keyframes loadbar { from { transform: scaleX(.1); } to { transform: scaleX(1); } }
+
+        /* ================= CABECERA ================= */
+        #header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); z-index: 100; background: var(--ink);
+            display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 22px;
+            clip-path: polygon(0 0, 100% 0, 100% 86%, 62% 100%, 0 90%); padding-bottom: 6px;
+            transform: translateY(-100%); transition: transform .6s var(--ease-out); }
+        body.ready #header { transform: none; }
+        .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .brand-mark { font-family: var(--display); font-size: 22px; background: var(--paper); color: var(--ink); padding: 4px 9px 2px; transform: skewX(-10deg) rotate(-4deg); box-shadow: 4px 4px 0 var(--accent); flex-shrink: 0; }
+        .brand-name { font-family: var(--display); font-size: 22px; letter-spacing: .02em; line-height: 1; white-space: nowrap; }
+        .brand-sub { font-family: var(--ui); font-style: italic; font-weight: 800; font-size: 13px; color: var(--pop); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+        .contact { display: flex; align-items: center; gap: 20px; }
+        .contact a.link { font-family: var(--ui); font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; display: flex; gap: 8px; align-items: center; transition: color .15s; }
+        .contact a.link i { color: var(--accent); background: var(--paper); width: 24px; height: 24px; display: grid; place-items: center; font-size: 12px; transform: rotate(-6deg); }
+        .contact a.link:hover { color: var(--pop); }
+        .btn-cv { font-family: var(--display); font-size: 18px; letter-spacing: .04em; text-transform: uppercase; background: var(--paper); color: var(--ink);
+            padding: 7px 16px 5px; transform: skewX(-12deg); box-shadow: 5px 5px 0 var(--pop); transition: transform .15s var(--ease-snap), box-shadow .15s, background .15s; display: inline-flex; gap: 8px; align-items: center; }
+        .btn-cv:hover { transform: skewX(-12deg) translate(-2px, -2px); box-shadow: 8px 8px 0 var(--pop); background: var(--hl); }
+
+        /* ================= FONDO (todo con CSS, colores planos) ================= */
+        #stage { position: fixed; top: var(--header-h); bottom: var(--ticker-h); left: 0; right: 0; overflow: hidden; }
+        .bg-layer { position: absolute; pointer-events: none; }
+        /* trama de puntos */
+        .bg-dots { inset: 0; background-image: radial-gradient(var(--accent-d) 1.6px, transparent 2px); background-size: 12px 12px;
+            -webkit-mask-image: linear-gradient(115deg, #000 0%, transparent 55%); mask-image: linear-gradient(115deg, #000 0%, transparent 55%); }
+        /* placa negra diagonal sobre la que se apoya el tendero */
+        .bg-slab { left: -15%; bottom: -35%; width: 75%; height: 85%; background: var(--ink); transform: rotate(-14deg); transition: transform 1s var(--ease-out), left 1s var(--ease-out); }
+        .bg-slab2 { left: -10%; bottom: -30%; width: 72%; height: 82%; background: var(--paper); transform: rotate(-10deg); transition: transform 1s var(--ease-out), left 1s var(--ease-out); }
+        body.intro-done .bg-slab { left: -38%; transform: rotate(-20deg); }
+        body.intro-done .bg-slab2 { left: -33%; transform: rotate(-16deg); }
+        /* palabra gigante de fondo */
+        .bg-word { right: -2vw; bottom: -6vw; font-family: var(--display); font-size: 26vw; line-height: .8; color: transparent;
+            -webkit-text-stroke: 2px rgba(255,255,255,.18); transform: rotate(-8deg); white-space: nowrap; user-select: none; }
+        /* franjas que se mueven */
+        .bg-stripes { top: 8%; right: -10%; width: 60%; height: 34px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 22px, transparent 22px 40px);
+            transform: rotate(-8deg); }
+        @keyframes stripes { to { background-position: 40px 0; } }
+
+        /* barrido diagonal al terminar la intro */
+        #swipe { position: fixed; inset: 0; z-index: 150; pointer-events: none; }
+        #swipe::before, #swipe::after { content: ''; position: absolute; top: -20%; bottom: -20%; width: 40%; transform: translateX(-160%) skewX(-18deg); }
+        #swipe::before { background: var(--paper); }
+        #swipe::after { background: var(--ink); width: 26%; }
+        body.swiping #swipe::before { animation: swipe .75s var(--ease-out) forwards; }
+        body.swiping #swipe::after { animation: swipe .75s .08s var(--ease-out) forwards; }
+        @keyframes swipe { to { transform: translateX(380%) skewX(-18deg); } }
+
+        /* ================= TENDERO + DIALOGO ================= */
+        #shopkeeper { position: absolute; z-index: 30; bottom: 18px; left: 50%; transform: translateX(-50%);
+            width: min(560px, 44vw); display: flex; flex-direction: column; align-items: center;
+            transition: left .9s var(--ease-out), transform .9s var(--ease-out), width .9s var(--ease-out); }
+        body.intro-done #shopkeeper { left: 2vw; transform: none; width: min(460px, 30vw); }
+
+        .keeper-art { position: relative; width: 82%; aspect-ratio: 1; cursor: pointer; margin-bottom: -18px; }
+        /* rafaga de rayos girando detras */
+        .burst { position: absolute; inset: -18%; border-radius: 50%;
+            background: repeating-conic-gradient(var(--accent) 0 9deg, var(--accent-d) 9deg 18deg);
+            -webkit-mask-image: radial-gradient(circle, #000 35%, transparent 70%); mask-image: radial-gradient(circle, #000 35%, transparent 70%);
+            animation: spin 40s linear infinite; }
+        body.intro-done .burst { opacity: .9; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        /* tu silueta: ya trae su propio contorno, solo le anadimos la sombra plana negra */
+        .keeper-img { position: relative; width: 100%; height: 100%; object-fit: contain; object-position: bottom;
+            filter: drop-shadow(10px 10px 0 var(--ink)); transition: transform .5s var(--ease-snap); transform-origin: bottom center; }
+        .keeper-art { margin-bottom: -46px; width: 98%; }
+        @keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+
+        .dialogue { position: relative; width: 100%; cursor: pointer; }
+        .dialogue-shadow { position: absolute; inset: 0; background: var(--ink); transform: translate(9px, 9px) rotate(1.2deg);
+            clip-path: polygon(1% 6%, 99% 0, 100% 92%, 2% 100%); }
+        .dialogue-box { position: relative; background: var(--paper); color: var(--ink); padding: 26px 30px 22px; min-height: 120px;
+            clip-path: polygon(1% 6%, 99% 0, 100% 92%, 2% 100%); }
+        .dialogue-box::before { content: ''; position: absolute; inset: 6px; border: 3px solid var(--ink); clip-path: polygon(1% 6%, 99% 0, 100% 92%, 2% 100%); pointer-events: none; }
+        #dialogueText { font-family: var(--ui); font-weight: 700; font-size: 21px; line-height: 1.2; margin: 0; min-height: 3.6em; }
+        .nametag { position: absolute; z-index: 2; top: -18px; left: 18px; font-family: var(--display); font-size: 20px; letter-spacing: .04em;
+            background: var(--ink); color: var(--paper); padding: 6px 16px 4px; transform: skewX(-14deg) rotate(-3deg); box-shadow: 5px 5px 0 var(--pop); }
+        .nametag span { display: inline-block; transform: skewX(14deg); }
+        .next { position: absolute; right: 22px; bottom: 14px; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 12px solid var(--pop); animation: blink 1s steps(2) infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* ================= MERCANCIA (ficha + estanteria) ================= */
+        #goods { position: absolute; top: 20px; bottom: 24px; right: 2.5vw; width: 63vw; z-index: 20;
+            display: grid; grid-template-columns: 1fr 1.08fr; gap: 34px; pointer-events: none; }
+        .card { position: relative; pointer-events: auto; opacity: 0; transform: translateX(70vw) rotate(6deg);
+            transition: transform .85s var(--ease-snap), opacity .4s ease; min-height: 0; }
+        .card:nth-child(2) { transition-delay: .1s; }
+        body.goods-in .card { opacity: 1; transform: rotate(var(--tilt, 0deg)); }
+        body.panel-open .card { opacity: 0; transform: translateX(40vw) rotate(4deg); pointer-events: none; transition-delay: 0s; }
+
+        /* forma del panel: borde blanco + sombra desplazada de color */
+        .card { --shape: polygon(0 1.5%, 97% 0, 100% 98%, 2.5% 100%); }
+        .card::before { content: ''; position: absolute; inset: 0; background: var(--sh, var(--ink)); clip-path: var(--shape); transform: translate(12px, 12px); }
+        .card-frame { position: relative; height: 100%; background: var(--frame, var(--paper)); clip-path: var(--shape); padding: 5px; }
+        .card-inner { height: 100%; background: var(--fill, var(--ink)); clip-path: var(--shape); display: flex; flex-direction: column; min-height: 0; }
+        .card-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: 4px 24px 22px; scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+
+        /* --- ficha de personaje (negra) --- */
+        #sheet { --tilt: -1.2deg; }
+        .sheet-head { padding: 20px 24px 8px; position: relative; }
+        .sheet-name { font-family: var(--display); font-size: clamp(30px, 3vw, 48px); line-height: .9; margin: 8px 0 8px; transform: skewX(-6deg); white-space: nowrap; }
+        .sheet-name em { font-style: normal; color: var(--accent); -webkit-text-stroke: 0; }
+        .pitch { font-size: 13.5px; line-height: 1.45; color: #d9dbe4; margin: 0 0 4px; }
+        .sec { margin-top: 10px; }
+        .sec-title { font-family: var(--ui); font-style: italic; font-weight: 900; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; color: var(--pop);
+            display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .sec-title::after { content: ''; flex: 1; height: 3px; background: linear-gradient(90deg, var(--pop), transparent); transform: skewX(-30deg); }
+        .roles { display: grid; gap: 8px; }
+        .role { background: var(--paper); color: var(--ink); padding: 7px 12px 7px; clip-path: polygon(0 0, 100% 6%, 98.5% 100%, 1% 94%); display: flex; align-items: baseline; gap: 10px; }
+        .role h4 { font-family: var(--display); font-size: 18px; margin: 0; line-height: 1; white-space: nowrap; }
+        .role ul { margin: 0; padding: 0; list-style: none; font-size: 12.5px; font-weight: 600; line-height: 1.35; }
+        .role li { display: inline; }
+        .role li + li::before { content: ' / '; color: var(--accent); font-weight: 800; }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip { font-family: var(--ui); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .03em; border: 2px solid var(--paper); padding: 1px 8px; transform: skewX(-10deg); }
+        .facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; font-size: 13px; line-height: 1.4; }
+        .facts li { display: flex; gap: 10px; }
+        .facts i { color: var(--ink); background: var(--accent); color: var(--paper); width: 22px; height: 22px; flex-shrink: 0; display: grid; place-items: center; font-size: 11px; transform: rotate(-6deg); }
+        .awards { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; counter-reset: aw; }
+        .awards li { counter-increment: aw; display: flex; gap: 10px; font-size: 13px; line-height: 1.35; }
+        .awards li::before { content: counter(aw, decimal-leading-zero); font-family: var(--display); font-size: 18px; color: var(--hl); line-height: 1; min-width: 24px; }
+        .awards small { color: #9aa0b4; font-size: 12px; }
+
+        /* --- estanteria (blanca) --- */
+        #shelf { --tilt: 1deg; --frame: var(--ink); --fill: var(--paper); --sh: var(--ink); color: var(--ink); }
+        #shelf .card-scroll { padding-top: 18px; scrollbar-color: var(--ink) transparent; }
+        #shelfBody > * { flex-shrink: 0; }
+        .shelf-title { font-family: var(--display); font-size: 22px; letter-spacing: .03em; display: flex; align-items: center; gap: 10px; margin: 14px 0 8px; }
+        .shelf-title:first-child { margin-top: 0; }
+        .shelf-title .tag { font-size: 12px; }
+        .shelf-title::after { content: ''; flex: 1; height: 4px; background: var(--ink); transform: skewX(-30deg); }
+
+        .item { position: relative; display: block; overflow: hidden; background: var(--ink); border: 3px solid var(--ink);
+            transition: transform .2s var(--ease-snap), box-shadow .2s; box-shadow: 0 0 0 var(--accent); }
+        .item:hover, .item:focus-visible { transform: translate(-3px, -4px) rotate(-1deg); box-shadow: 7px 8px 0 var(--accent); outline: none; z-index: 2; }
+        .item > img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease-out), filter .3s; }
+        .item:hover > img.bg { transform: scale(1.07); }
+        .item .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,12,.92), rgba(10,10,12,.15) 55%, transparent); }
+        .item .year { position: absolute; top: 7px; left: 7px; z-index: 2; }
+        .item .label { position: absolute; left: 0; bottom: 8px; z-index: 2; background: var(--ink); color: var(--paper); font-family: var(--display); font-size: 17px; letter-spacing: .02em; padding: 3px 12px 2px 10px; clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%); max-width: 92%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .item:hover .label { background: var(--accent); }
+
+        .featured { height: 172px; }
+        .featured .info { position: absolute; inset: auto 0 0 0; z-index: 2; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .featured .logo { height: 44px; width: auto; align-self: flex-start; filter: drop-shadow(2px 2px 0 var(--ink)); }
+        .featured .role-line { font-family: var(--ui); font-weight: 800; font-style: italic; font-size: 14px; color: var(--hl); text-transform: uppercase; letter-spacing: .04em; line-height: 1; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .stat { background: var(--paper); color: var(--ink); padding: 4px 6px 3px; transform: skewX(-8deg); line-height: 1; }
+        .stat b { display: block; font-family: var(--display); font-weight: 400; font-size: 22px; transform: skewX(8deg); }
+        .stat span { display: block; font-family: var(--ui); font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; transform: skewX(8deg); }
+
+        .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .tile { height: 68px; }
+        .tile.wide { grid-column: span 2; height: 40px; }
+        .tile.wide .label { bottom: auto; top: 50%; transform: translateY(-50%); }
+
+        .article { display: flex; gap: 10px; align-items: center; padding: 6px; background: var(--paper); border: 3px solid var(--ink); color: var(--ink);
+            transition: transform .2s var(--ease-snap), box-shadow .2s, background .2s, color .2s; }
+        .article:hover, .article:focus-visible { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--pop); background: var(--ink); color: var(--paper); outline: none; }
+        .article img { width: 54px; height: 54px; object-fit: cover; border: 2px solid var(--ink); flex-shrink: 0; }
+        .article b { display: block; font-family: var(--ui); font-weight: 800; font-size: 16px; line-height: 1.05; text-transform: uppercase; }
+        .article small { font-family: var(--ui); font-weight: 700; font-size: 13px; text-transform: uppercase; color: var(--accent); letter-spacing: .04em; }
+
+        .btn-vault { margin-top: 16px; align-self: flex-end; display: inline-flex; gap: 10px; align-items: center; font-family: var(--display); font-size: 18px; letter-spacing: .04em;
+            background: var(--ink); color: var(--paper); padding: 7px 18px 5px; transform: skewX(-12deg); box-shadow: 5px 5px 0 var(--accent); transition: transform .15s var(--ease-snap), box-shadow .15s; }
+        .btn-vault:hover { transform: skewX(-12deg) translate(-2px, -2px); box-shadow: 8px 8px 0 var(--pop); }
+
+        /* ================= PANEL DE DETALLE ================= */
+        #panel { position: fixed; z-index: 90; top: var(--header-h); bottom: var(--ticker-h); right: 0; width: 64vw; background: var(--ink);
+            clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%); display: flex; flex-direction: column;
+            transform: translateX(105%); transition: transform .6s var(--ease-out); }
+        body.panel-open #panel { transform: none; }
+        #panel::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 7%; background: var(--paper); clip-path: polygon(86% 0, 100% 0, 14% 100%, 0 100%); z-index: 2; pointer-events: none; }
+        .panel-head { background: var(--accent); padding: 18px 28px 16px 9%; clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%); }
+        .panel-head h2 { font-family: var(--display); font-size: clamp(30px, 3vw, 46px); margin: 6px 0 0; line-height: .95; transform: skewX(-6deg); }
+        #panelBody { flex: 1; overflow-y: auto; padding: 18px 32px 24px 9%; font-size: 15px; line-height: 1.6; color: #e3e5ee; scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+        .panel-foot { padding: 12px 32px 14px 9%; display: flex; gap: 12px; justify-content: flex-end; border-top: 3px solid var(--paper); }
+        .btn-back { font-family: var(--display); font-size: 18px; letter-spacing: .04em; background: var(--paper); color: var(--ink); padding: 7px 18px 5px; transform: skewX(-12deg); box-shadow: 5px 5px 0 var(--pop); display: inline-flex; gap: 10px; align-items: center; }
+        .btn-back:hover { background: var(--hl); }
+        .btn-link { font-family: var(--ui); font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; background: var(--accent); color: var(--paper);
+            padding: 7px 14px 6px; transform: skewX(-12deg); display: inline-block; box-shadow: 4px 4px 0 var(--paper); transition: box-shadow .15s, transform .15s; }
+        .btn-link:hover { transform: skewX(-12deg) translate(-2px, -2px); box-shadow: 6px 6px 0 var(--pop); }
+        .back-mini { font-family: var(--ui); font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: var(--hl); margin-bottom: 12px; display: inline-block; }
+        .proj-card { position: relative; display: block; width: 100%; height: 150px; overflow: hidden; border: 3px solid var(--paper); text-align: left; margin-bottom: 14px; transition: transform .2s var(--ease-snap), box-shadow .2s; }
+        .proj-card:hover { transform: translate(-3px, -3px) rotate(-.6deg); box-shadow: 8px 8px 0 var(--accent); }
+        .proj-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .proj-card .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,12,.95), transparent 70%); }
+        .proj-card .txt { position: absolute; inset: auto 0 0 0; padding: 12px; }
+        .proj-card .txt h3 { font-family: var(--display); font-size: 24px; margin: 0; line-height: 1; }
+        .proj-card .txt p { margin: 4px 0 0; font-size: 13px; color: #d9dbe4; }
+
+        /* ================= VERSION CORTA / EXPANDIDA =================
+           .less  = lo que se ve de primeras (poca info, mas grande)
+           .more  = la version completa, a dos columnas, cuando el cuadro se expande
+           body.lean-*  -> al pasar el raton, el cuadro se inclina un poco hacia ese lado
+           body.focus-* -> al hacer clic, ese cuadro se expande y empuja al otro a una tira */
+        .pitch.big { font-size: 16px; line-height: 1.5; color: var(--paper); margin-bottom: 14px; }
+        .hi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+        .hi { background: var(--paper); color: var(--ink); padding: 8px 10px 7px; transform: skewX(-8deg); line-height: 1; }
+        .hi b { display: block; font-family: var(--display); font-weight: 400; font-size: 26px; transform: skewX(8deg); }
+        .hi span { display: block; font-family: var(--ui); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; margin-top: 3px; transform: skewX(8deg); }
+        .expand-btn { margin-top: 18px; align-self: flex-start; display: inline-flex; gap: 10px; align-items: center; font-family: var(--display); font-size: 18px; letter-spacing: .04em;
+            background: var(--accent); color: var(--paper); padding: 7px 18px 5px; transform: skewX(-12deg); box-shadow: 5px 5px 0 var(--paper); transition: transform .15s var(--ease-snap), box-shadow .15s; }
+        .expand-btn:hover { transform: skewX(-12deg) translate(-2px, -2px); box-shadow: 8px 8px 0 var(--pop); }
+        #shelf .expand-btn { box-shadow: 5px 5px 0 var(--ink); }
+        .less { display: flex; flex-direction: column; }
+        .more { display: none; }
+
+        .sheet-full { grid-template-columns: 1fr 1fr; gap: 30px; }
+        .shelf-full { grid-template-columns: 1fr 1.1fr; gap: 24px; }
+        .featured.tall { height: 240px; }
+        .row-item { display: flex; gap: 12px; align-items: stretch; background: var(--paper); border: 3px solid var(--ink); color: var(--ink); margin-bottom: 10px;
+            transition: transform .2s var(--ease-snap), box-shadow .2s; }
+        .row-item:hover, .row-item:focus-visible { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--accent); outline: none; }
+        .row-item img { width: 128px; object-fit: cover; flex-shrink: 0; border-right: 3px solid var(--ink); }
+        .row-item div { padding: 7px 10px 8px 0; min-width: 0; }
+        .row-item h4 { font-family: var(--display); font-size: 20px; margin: 0; line-height: 1; }
+        .row-item small { font-family: var(--ui); font-weight: 800; font-size: 12px; text-transform: uppercase; color: var(--accent); letter-spacing: .04em; }
+        .row-item p { margin: 3px 0 0; font-size: 12.5px; line-height: 1.35; }
+
+        .card-toggle { position: absolute; z-index: 5; top: 14px; right: 22px; width: 38px; height: 38px; display: grid; place-items: center; font-size: 16px;
+            background: var(--accent); color: var(--paper); transform: skewX(-10deg) rotate(4deg); box-shadow: 4px 4px 0 var(--paper); transition: transform .2s var(--ease-snap); }
+        #shelf .card-toggle { box-shadow: 4px 4px 0 var(--ink); }
+        .card-toggle:hover { transform: skewX(-10deg) rotate(4deg) scale(1.12); }
+        .card-toggle i { transition: transform .3s var(--ease-snap); }
+        .card.is-open .card-toggle i { transform: rotate(45deg); }
+
+        /* tira vertical cuando el cuadro queda empujado */
+        .mini-label { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+            opacity: 0; pointer-events: none; transition: opacity .3s; cursor: pointer; }
+        .mini-label span { font-family: var(--display); font-size: 40px; letter-spacing: .04em; writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; }
+        .mini-label i { font-size: 20px; background: var(--accent); color: var(--paper); width: 40px; height: 40px; display: grid; place-items: center; transform: skewX(-10deg); }
+        #shelf .mini-label { color: var(--ink); }
+
+        @media (min-width: 1024px) {
+            #goods { grid-template-columns: 1fr 1fr; transition: grid-template-columns .7s var(--ease-out); }
+            .card { min-width: 0; }
+            body.lean-sheet #goods { grid-template-columns: 1.12fr .88fr; }
+            body.lean-shelf #goods { grid-template-columns: .88fr 1.12fr; }
+            body.focus-sheet #goods { grid-template-columns: 1fr .19fr; }
+            body.focus-shelf #goods { grid-template-columns: .19fr 1fr; }
+            .card.is-open .less { display: none; }
+            .card.is-open .more { display: grid; animation: moreIn .45s .25s both; }
+            .card .sheet-head, .card .card-scroll { transition: opacity .25s; }
+            .card.is-mini .sheet-head, .card.is-mini .card-scroll, .card.is-mini .card-toggle { opacity: 0; pointer-events: none; }
+            .card.is-mini .mini-label { opacity: 1; pointer-events: auto; transition-delay: .25s; }
+            .card.is-mini { cursor: pointer; }
+            .card.is-mini:hover { --tilt: 0deg; }
+        }
+        @keyframes moreIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+        /* ================= NAVEGACION DE SECCIONES (cabecera) ================= */
+        .sections { display: flex; gap: 4px; margin-left: auto; margin-right: 14px; }
+        .sections a { font-family: var(--display); font-size: 17px; letter-spacing: .05em; text-transform: uppercase; padding: 6px 13px 4px;
+            transform: skewX(-12deg); display: flex; gap: 8px; align-items: center; transition: background .15s, color .15s; }
+        .sections a > * { transform: skewX(12deg); }
+        .sections a i { color: var(--pop); font-size: 14px; }
+        .sections a:hover { background: var(--paper); color: var(--ink); }
+        .sections a:hover i { color: var(--accent); }
+        body.focus-sheet .sections a[data-nav=cv], body.focus-shelf .sections a[data-nav=projects], body.nav-writings .sections a[data-nav=writings] { background: var(--accent); color: var(--paper); }
+        body.focus-sheet .sections a[data-nav=cv] i, body.focus-shelf .sections a[data-nav=projects] i, body.nav-writings .sections a[data-nav=writings] i { color: var(--paper); }
+        .card.flash { animation: flash .8s var(--ease-snap); }
+        @keyframes flash { 25% { translate: 0 -12px; } 55% { translate: 0 2px; } }
+
+        /* ================= COLUMNA IZQUIERDA: CV + WRITINGS ================= */
+        .col-left { display: flex; flex-direction: column; gap: 26px; min-height: 0; min-width: 0; }
+        #sheet { flex: 1 1 auto; min-height: 0; }
+        #writings { flex: 0 0 auto; --tilt: .8deg; --frame: var(--ink); --fill: var(--paper); --sh: var(--ink); color: var(--ink); }
+        #writings .card-frame { height: auto; }
+        #writings .card-scroll { padding: 14px 22px 16px; max-height: 170px; scrollbar-color: var(--ink) transparent; }
+        #writings .shelf-title { margin: 0 0 8px; font-size: 20px; }
+        #writingsBody { display: flex; flex-direction: column; gap: 8px; }
+        body.focus-shelf #writings { opacity: 0; pointer-events: none; }
+
+        /* ================= BANNERS DE PROYECTOS (estilo Project Vault) ================= */
+        .banners { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .banner { position: relative; display: block; height: 58px; flex-shrink: 0; overflow: hidden; border: 3px solid var(--ink); background: var(--ink); color: var(--paper);
+            transition: transform .2s var(--ease-snap), box-shadow .2s; }
+        .banner:hover, .banner:focus-visible { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--accent); outline: none; z-index: 2; }
+        .banner .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; transition: transform .5s var(--ease-out); }
+        .banner:hover .bg { transform: scale(1.05); }
+        .banner .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,12,.94) 0%, rgba(10,10,12,.6) 45%, rgba(10,10,12,.05) 85%); }
+        .banner .b-txt { position: absolute; inset: 0 46px 0 12px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+        .banner .b-meta { display: flex; align-items: center; gap: 10px; }
+        .banner .tag { font-size: 11px; padding: 3px 7px 2px; }
+        .banner .b-tags { font-family: var(--ui); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--hl); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .banner h4 { font-family: var(--display); font-weight: 400; font-size: 22px; margin: 0; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .banner h4 i { font-size: 13px; vertical-align: middle; }
+        .banner p { margin: 0; font-size: 12.5px; line-height: 1.35; color: #d9dbe4; max-width: 88%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .banner .b-go { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: var(--paper); color: var(--ink); width: 26px; height: 26px; display: grid; place-items: center; font-size: 12px; }
+        .banner:hover .b-go { background: var(--accent); color: var(--paper); }
+        .banner.ext { height: 44px; }
+        .banner.ext .b-meta { display: none; }
+        .banner.big { height: 116px; }
+        .banner.big.ext { height: 70px; }
+
+        /* ================= DIALOGO ESTILO RPG (escritorio) =================
+           La barra de dialogo cruza toda la pantalla abajo. La silueta va delante, apoyada en ella,
+           y al terminar la intro se hace pequena y se pone a la izquierda. La info queda detras,
+           siempre por encima de la barra, asi que nunca queda tapada. */
+        @media (min-width: 1024px) {
+            :root { --dlg-h: 124px; }
+            #shopkeeper, body.intro-done #shopkeeper { position: absolute; inset: 0; left: 0; width: auto; transform: none; display: block; pointer-events: none; z-index: 40; }
+            #shopkeeper .keeper-art { position: absolute; margin: 0; width: auto; height: 84%; aspect-ratio: 1; left: 50%; bottom: calc(var(--dlg-h) - 46px);
+                transform: translateX(-50%); pointer-events: auto; z-index: 1;
+                transition: left .9s var(--ease-out), transform .9s var(--ease-out), height .9s var(--ease-out); }
+            body.intro-done #shopkeeper .keeper-art { left: -1.5vw; transform: none; height: 70%; }
+            /* los rayos solo durante la intro: luego se apagan para no tapar la ficha */
+            .burst { transition: opacity .6s ease; }
+            body.intro-done .burst { opacity: 0; }
+            /* version corta de la estanteria algo mas compacta para que quepa encima de la barra */
+            .less .featured { height: 150px; }
+            .less .tile { height: 60px; }
+            .less .tile.wide { height: 38px; }
+            .less .shelf-title { margin: 10px 0 6px; font-size: 20px; }
+            .less .expand-btn { margin-top: 14px; }
+            #shopkeeper .dialogue { position: absolute; left: 2.5vw; right: 2.5vw; bottom: 16px; width: auto; z-index: 2; pointer-events: auto; }
+            .dialogue-box { min-height: var(--dlg-h); padding: 30px 44px 22px; }
+            #dialogueText { font-size: 23px; min-height: 2.4em; max-width: 1150px; }
+            .nametag { left: 36px; font-size: 22px; }
+            #goods { bottom: calc(var(--dlg-h) + 40px); width: 72vw; }
+            #panel { bottom: calc(var(--dlg-h) + 34px); width: 72vw; }
         }
 
-        .font-ui {
-            font-family: 'Outfit', sans-serif;
+        /* ajustes de altura para que en portatil todo quepa sin scroll (van al final para mandar) */
+        #writings .card-scroll { padding: 12px 20px 14px; }
+        #writings .shelf-title { font-size: 18px; margin-bottom: 6px; }
+        #writings .article { padding: 4px; }
+        #writings .article img { width: 42px; height: 42px; }
+        .less .featured { height: 132px; }
+        .less .shelf-title:first-child { margin-top: 0; }
+        .banner { height: 46px; }
+        .banner.ext { height: 38px; }
+        .banner .b-txt { flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px; }
+        .banner.big { height: 116px; }
+        .banner.big.ext { height: 64px; }
+        .banner.big .b-txt { flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px; }
+        .banners { gap: 6px; }
+        .pitch.big { font-size: 15px; margin-bottom: 4px; }
+        .hi-row { margin-top: 12px; }
+        .less .expand-btn { margin-top: 12px; }
+
+        /* con la navegacion nueva, en portatiles el contacto queda solo con iconos */
+        @media (max-width: 1439px) and (min-width: 1024px) {
+            .contact a.link span { display: none; }
+            .contact { gap: 12px; }
         }
 
-        .cel-block-shadow-sm {
-            box-shadow: 4px 4px 0px #000000;
+        /* ================= ESCRITORIO ESTRECHO ================= */
+        @media (max-width: 1279px) and (min-width: 1024px) {
+            #goods { width: 74vw; gap: 26px; }
+            #panel { width: 74vw; }
+            .card-scroll { padding: 4px 18px 18px; }
+            #dialogueText { font-size: 18px; }
+            .contact a.link span { display: none; }
         }
 
-        .shop-background {
-            background-image: url('assets/shop-background.png');
-            background-size: cover;
-            background-position: center bottom;
-            background-repeat: no-repeat;
+        /* ================= MOVIL Y TABLET ================= */
+        @media (max-width: 1023px) {
+            :root { --header-h: 58px; }
+            #header { padding: 0 14px 6px; }
+            .brand-name { font-size: 18px; }
+            .brand-sub { font-size: 11px; }
+            .contact { gap: 12px; }
+            .contact a.link span, .btn-cv .long { display: none; }
+            .btn-cv { font-size: 16px; padding: 6px 12px 4px; }
+            .brand { flex: 1; overflow: hidden; }
+            .brand-mark { font-size: 18px; padding: 3px 7px 1px; }
+            .contact { flex-shrink: 0; }
+            .contact a.link i { width: 28px; height: 28px; font-size: 13px; }
+            .contact a[href^="tel:"] { display: none; }
+            body.intro-done .dialogue-box { padding-top: 22px !important; }
+
+            #stage { overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+            .bg-layer { position: fixed; }
+            .bg-slab, .bg-slab2 { top: auto; }
+            #shopkeeper { position: relative; left: auto; transform: none; width: min(460px, 92vw); margin: 18px auto 0; bottom: auto; }
+            /* tras la intro el tendero se encoge y se queda anclado abajo */
+            body.intro-done #shopkeeper { position: fixed; left: 8px; right: 8px; width: auto; bottom: calc(var(--ticker-h) + 6px); margin: 0;
+                flex-direction: row; align-items: flex-end; gap: 0; animation: dock .5s var(--ease-out); }
+            @keyframes dock { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+            body.intro-done .keeper-art { width: 92px; flex-shrink: 0; margin: 0 -8px 0 0; z-index: 2; }
+            body.intro-done .burst { display: none; }
+            body.intro-done .dialogue { flex: 1; min-width: 0; }
+            body.intro-done .dialogue-box { padding: 18px 16px 12px; min-height: 0; }
+            body.intro-done #dialogueText { font-size: 15px; min-height: 3.6em; }
+            body.intro-done .nametag { font-size: 14px; top: -12px; }
+
+            #goods { position: relative; top: auto; right: auto; bottom: auto; width: auto; display: flex; flex-direction: column; gap: 30px;
+                padding: 18px 18px 190px; }
+            body:not(.intro-done) #goods { display: none; }
+            .card { transform: translateY(60px); }
+            .card-scroll { overflow: visible; }
+            .sheet-name { font-size: 40px; }
+            /* orden en movil: CV, proyectos y articulos */
+            .col-left { display: contents; }
+            #sheet { order: 1; } #shelf { order: 2; } #writings { order: 3; }
+            #writings .card-scroll { max-height: none; }
+            .sections { margin-right: 6px; gap: 2px; }
+            .sections a { padding: 6px 8px 4px; }
+            .sections a span { display: none; }
+            /* en movil se lee todo seguido: siempre la version completa, sin expandir */
+            .less, .card-toggle, .mini-label { display: none !important; }
+            .more { display: grid; grid-template-columns: 1fr !important; gap: 0 !important; }
+            #panel { width: 100%; clip-path: none; z-index: 120; top: var(--header-h); bottom: 0; }
+            #panel::before { display: none; }
+            .panel-head, #panelBody, .panel-foot { padding-left: 20px; padding-right: 20px; }
         }
 
-        .dialogue-box-container {
-            background-image: url('assets/dialogue-box.png');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
+        /* moviles estrechos: en la cabecera solo queda el logo C4, las secciones y el contacto */
+        @media (max-width: 480px) {
+            .brand > span:not(.brand-mark) { display: none; }
         }
 
-        .nametag-container {
-            background-image: url('assets/name-tag.png');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-        }
-
-        /* --- MARCO CONTENEDOR GENERAL --- */
-        .p5-main-board {
-            position: relative;
-            background-color: #0b0b10;
-            border: 4px solid #ffffff;
-            box-shadow: 0px 10px 0px #000000;
-            clip-path: polygon(0% 2%, 100% 0%, 100% 98%, 2% 100%);
-            z-index: 1;
-        }
-
-            .p5-main-board::before {
-                content: '';
-                position: absolute;
-                inset: -8px -10px -10px -8px;
-                background-color: #000000;
-                border: 3px solid #141259;
-                clip-path: polygon(2% 0%, 100% 2%, 97% 100%, 0% 97%);
-                transform: rotate(-1.2deg);
-                z-index: -1;
-            }
-
-        /* --- TARJETAS INDIVIDUALES --- */
-        .p5-shelf-banner {
-            position: relative;
-            background-color: #141259;
-            border: 3px solid #000000;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, filter 0.2s;
-            filter: drop-shadow(4px 4px 0px #000000);
-            z-index: 2;
-        }
-
-            .p5-shelf-banner:hover {
-                transform: scale(1.02) rotate(-0.5deg) translate(-2px, -2px) !important;
-                background-color: #1c1a75;
-                filter: drop-shadow(6px 6px 0px #F2CD5C);
-            }
-
-        .p5-icon-box {
-            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0% 100%);
-        }
-
-        .rpg-shelf-item {
-            background-color: #141259;
-            border: 3px solid #000000;
-            box-shadow: 6px 6px 0px #000000;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
-        }
-
-            .rpg-shelf-item:hover {
-                transform: translate(-3px, -5px) scale(1.08) !important;
-                background-color: #1c1a75;
-                box-shadow: 10px 10px 0px #000000;
-                border-color: #F2CD5C;
-            }
-
-        .rpg-article-item {
-            background-color: #141259;
-            border: 3px solid #000000;
-            box-shadow: 5px 5px 0px #000000;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
-        }
-
-            .rpg-article-item:hover {
-                transform: translate(-2px, -3px) scale(1.02) !important;
-                background-color: #1c1a75;
-                box-shadow: 8px 8px 0px #000000;
-                border-color: #F2CD5C;
-            }
-
-        .smooth-transition {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.6s ease, max-width 0.6s ease, padding 0.6s ease;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        .shopkeeper-idle {
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes itemFloat {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-6px);
-            }
-        }
-
-        .item-sprite-idle {
-            animation: itemFloat 3s ease-in-out infinite;
-        }
-
-        .wave-container-top {
-            position: fixed;
-            top: 63px;
-            left: 0;
-            width: 100%;
-            height: 75px;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 20;
-            background: transparent;
-        }
-
-        .wave-container-bottom {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 75px;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 20;
-            background: transparent;
-        }
-
-        .wave-track {
-            display: flex;
-            width: 200%;
-            height: 100%;
-            will-change: transform;
-        }
-
-            .wave-track svg {
-                width: 50%;
-                height: 100%;
-                flex-shrink: 0;
-                display: block;
-            }
-
-        @keyframes waveLoop {
-            0% {
-                transform: translate3d(0, 0, 0);
-            }
-
-            100% {
-                transform: translate3d(-50%, 0, 0);
-            }
-        }
-
-        @keyframes waveLoopReverse {
-            0% {
-                transform: translate3d(-50%, 0, 0);
-            }
-
-            100% {
-                transform: translate3d(0, 0, 0);
-            }
-        }
-
-        .animate-wave-white-top {
-            animation: waveLoop 38s linear infinite;
-        }
-
-        .animate-wave-blue1-top {
-            animation: waveLoop 26s linear infinite;
-        }
-
-        .animate-wave-blue2-top {
-            animation: waveLoop 20s linear infinite;
-        }
-
-        .animate-wave-black-top {
-            animation: waveLoop 14s linear infinite;
-        }
-
-        .animate-wave-white-bot {
-            animation: waveLoopReverse 38s linear infinite;
-        }
-
-        .animate-wave-blue1-bot {
-            animation: waveLoopReverse 26s linear infinite;
-        }
-
-        .animate-wave-blue2-bot {
-            animation: waveLoopReverse 26s linear infinite;
-        }
-
-        .animate-wave-black-bot {
-            animation: waveLoopReverse 14s linear infinite;
-        }
-
-        @keyframes personaOutlinePulse {
-            0% {
-                filter: drop-shadow(3px 0px 0px #000) drop-shadow(-3px 0px 0px #000) drop-shadow(0px 3px 0px #000) drop-shadow(0px -3px 0px #000) drop-shadow(3px 3px 0px #000);
-            }
-
-            33% {
-                filter: drop-shadow(3px 1px 0px #000) drop-shadow(-3px -1px 0px #000) drop-shadow(1px 3px 0px #000) drop-shadow(-1px -3px 0px #000) drop-shadow(4px 4px 0px #000);
-            }
-
-            66% {
-                filter: drop-shadow(2px 3px 0px #000) drop-shadow(-3px 1px 0px #000) drop-shadow(-1px 3px 0px #000) drop-shadow(2px -3px 0px #000) drop-shadow(3px 4px 0px #000);
-            }
-
-            100% {
-                filter: drop-shadow(3px -2px 0px #000) drop-shadow(-3px 2px 0px #000) drop-shadow(2px 3px 0px #000) drop-shadow(-2px -3px 0px #000) drop-shadow(4px 3px 0px #000);
-            }
-        }
-
-        @keyframes personaNametagPulse {
-            0% {
-                filter: drop-shadow(2px 0px 0px #000) drop-shadow(-2px 0px 0px #000) drop-shadow(0px 2px 0px #000) drop-shadow(0px -2px 0px #000) drop-shadow(2px 2px 0px #000);
-            }
-
-            50% {
-                filter: drop-shadow(2px 1px 0px #000) drop-shadow(-2px -1px 0px #000) drop-shadow(1px 2px 0px #000) drop-shadow(-1px -2px 0px #000) drop-shadow(3px 2px 0px #000);
-            }
-
-            100% {
-                filter: drop-shadow(2px -1px 0px #000) drop-shadow(-2px 1px 0px #000) drop-shadow(1px 2px 0px #000) drop-shadow(-1px -2px 0px #000) drop-shadow(2px 3px 0px #000);
-            }
-        }
-
-        .persona-outline-thick {
-            animation: personaOutlinePulse 3.5s ease-in-out infinite alternate;
-        }
-
-        .persona-outline-nametag {
-            animation: personaNametagPulse 3.5s ease-in-out infinite alternate;
-        }
-
-        .particle-container {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .cotl-blob {
-            position: absolute;
-            border-radius: 50%;
-            background: #F2CD5C;
-            border: 2px solid #000000;
-            box-shadow: 2px 2px 0px #000000;
-            animation: floatUp 6s ease-in-out infinite;
-        }
-
-        @keyframes floatUp {
-            0% {
-                opacity: 0;
-                transform: translateY(10px) scale(0.6);
-            }
-
-            30%, 70% {
-                opacity: 0.9;
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-60px) scale(1.1);
-            }
-        }
-
-        .item-particle-aura {
-            position: absolute;
-            inset: -12px;
-            pointer-events: none;
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-
-        .item-blob {
-            position: absolute;
-            width: 7px;
-            height: 7px;
-            background: #F2CD5C;
-            border: 1px solid #000000;
-            border-radius: 50%;
-            animation: orbitPulse 3s infinite ease-in-out;
-        }
-
-        @keyframes orbitPulse {
-            0%, 100% {
-                opacity: 0.2;
-                transform: scale(0.8) translateY(0);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1.3) translateY(-8px);
-            }
-        }
-
-        .anim-nav-entry {
-            transform: translateY(-100%);
-            opacity: 0;
-            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
-        }
-
-            .anim-nav-entry.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-        .anim-bg-entry {
-            opacity: 0;
-            transform: scale(1.03);
-            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-            .anim-bg-entry.active {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-        .vendor-initial-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 550px;
-            transition: left 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), width 0.8s ease, max-width 0.8s ease;
-        }
-
-        .vendor-in-position {
-            left: 0% !important;
-            transform: translateX(0) !important;
-        }
-
-        .board-hidden {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .board-visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .shelf-item-hidden {
-            opacity: 0;
-            transform: translate3d(60px, 0, 0);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-            will-change: transform, opacity;
-        }
-
-        .shelf-item-visible {
-            opacity: 1;
-            transform: translate3d(0, 0, 0) !important;
-        }
-
-        .drawer-panel {
-            z-index: 90 !important;
-            position: fixed !important;
-            top: 0 !important;
-            bottom: 0 !important;
-            height: 100vh !important;
-            padding-top: 63px !important;
-        }
-
-        .panel-scroll-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .panel-scroll-content::-webkit-scrollbar-track {
-            background: #000000;
-            border-left: 2px solid #141259;
-        }
-
-        .panel-scroll-content::-webkit-scrollbar-thumb {
-            background: #F2CD5C;
-            border: 2px solid #000000;
-        }
-
-            .panel-scroll-content::-webkit-scrollbar-thumb:hover {
-                background: #F2A766;
-            }
-
-        .panel-scroll-content {
-            scrollbar-width: thin;
-            scrollbar-color: #F2CD5C #000000;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
         }
     </style>
 </head>
-<body class="h-screen flex flex-col select-none overflow-hidden bg-black">
+<body>
 
-    <div id="loadingOverlay" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-500">
-        <div class="relative flex items-center justify-center">
-            <div class="w-20 h-20 border-8 border-black border-t-[#F2CD5C] rounded-full animate-spin bg-black"></div>
-            <i class="fa-solid fa-dice-d20 text-2xl absolute animate-pulse text-[#F2CD5C]"></i>
-        </div>
-        <span class="mt-6 font-ui text-xs font-black tracking-widest uppercase animate-pulse text-[#F2CD5C] bg-black px-4 py-1 border-2 border-black">Loading Portfolio...</span>
-    </div>
+    <div id="loading" aria-hidden="true"><div class="word">Loading</div></div>
+    <div id="swipe" aria-hidden="true"></div>
 
-    <header id="navHeader" class="anim-nav-entry fixed top-0 left-0 w-full h-[63px] z-[100] bg-black border-b-4 border-black px-6 py-3 flex flex-wrap justify-between items-center gap-4">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-none bg-[#F2CD5C] border-2 border-black cel-block-shadow-sm flex items-center justify-center text-black font-black font-ui text-base tracking-wider">
-                C4
-            </div>
-            <div>
-                <h1 class="font-black text-white text-base tracking-wide font-ui uppercase">Juan A. Calero</h1>
-                <p class="text-xs font-bold text-[#F2A766]">Game Developer</p>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-6 text-xs md:text-sm">
-            <a href="https://www.linkedin.com/in/juanantoniocalero/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
-                <i class="fa-brands fa-linkedin text-[#F2CD5C]"></i>
-                <span class="hidden sm:inline">LinkedIn</span>
-            </a>
-            <a href="tel:+34633614852" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
-                <i class="fa-solid fa-phone text-[#F2CD5C]"></i>
-                <span class="hidden sm:inline">+34 633 614 852</span>
-            </a>
-            <a href="mailto:jacalerodev@gmail.com" class="flex items-center gap-2 text-white font-bold hover:text-[#F2CD5C] transition">
-                <i class="fa-solid fa-envelope text-[#F2CD5C]"></i>
-                <span class="hidden sm:inline">jacalerodev@gmail.com</span>
-            </a>
-            <a href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf" class="bg-[#F2CD5C] text-black font-black px-4 py-2 border-2 border-black cel-block-shadow-sm transition flex items-center justify-center gap-2 font-ui text-xs tracking-wider uppercase hover:translate-x-0.5 hover:translate-y-0.5">
-                <i class="fa-solid fa-download"></i>
-                <span>Download CV</span>
-            </a>
-        </div>
+    <header id="header">
+        <a class="brand" href="#" aria-label="Juan A. Calero">
+            <span class="brand-mark">C4</span>
+            <span style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                <span class="brand-name">Juan A. Calero</span>
+                <span class="brand-sub">Game Designer &amp; Producer</span>
+            </span>
+        </a>
+        <nav class="sections" aria-label="Sections">
+            <a href="#cv" data-nav="cv" onclick="goNav('cv', event)"><i class="fa-solid fa-id-card"></i><span>CV</span></a>
+            <a href="#projects" data-nav="projects" onclick="goNav('projects', event)"><i class="fa-solid fa-gamepad"></i><span>Projects</span></a>
+            <a href="#writings" data-nav="writings" onclick="goNav('writings', event)"><i class="fa-solid fa-pen-nib"></i><span>Writings</span></a>
+        </nav>
+        <nav class="contact">
+            <a class="link" href="https://www.linkedin.com/in/juanantoniocalero/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span></a>
+            <a class="link" href="tel:+34633614852"><i class="fa-solid fa-phone"></i><span>+34 633 614 852</span></a>
+            <a class="link" href="mailto:jacalerodev@gmail.com"><i class="fa-solid fa-envelope"></i><span>jacalerodev@gmail.com</span></a>
+            <a class="btn-cv" href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf"><i class="fa-solid fa-download"></i><span><span class="long">Download </span>CV</span></a>
+        </nav>
     </header>
 
-    <!-- ONDAS SUPERIORES -->
-    <div class="wave-container-top">
-        <div class="wave-track animate-wave-white-top absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path></svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,95 C1000,125 800,65 600,95 C400,125 200,65 0,95 Z" fill="#ffffff"></path></svg>
-        </div>
-        <div class="wave-track animate-wave-blue1-top absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path></svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,75 C1020,45 780,105 600,75 C420,45 180,105 0,75 Z" fill="#1c1a75"></path></svg>
-        </div>
-        <div class="wave-track animate-wave-blue2-top absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path></svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,55 C980,85 820,25 600,55 C380,85 220,25 0,55 Z" fill="#141259"></path></svg>
-        </div>
-        <div class="wave-track animate-wave-black-top absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path></svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 L1200,0 L1200,35 C1050,15 750,55 600,35 C450,15 150,55 0,35 Z" fill="#000000"></path></svg>
-        </div>
-    </div>
+    <main id="stage" onclick="onStageClick(event)">
+        <div class="bg-layer bg-dots"></div>
+        <div class="bg-layer bg-stripes"></div>
+        <div class="bg-layer bg-word" aria-hidden="true">CALERO</div>
+        <div class="bg-layer bg-slab2"></div>
+        <div class="bg-layer bg-slab"></div>
 
-    <!-- ONDAS INFERIORES -->
-    <div class="wave-container-bottom">
-        <div class="wave-track animate-wave-white-bot absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path></svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,25 C1000,-5 800,55 600,25 C400,-5 200,55 0,25 Z" fill="#ffffff"></path></svg>
-        </div>
-        <div class="wave-track animate-wave-blue1-bot absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path></svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,45 C1020,75 780,15 600,45 C420,75 180,15 0,45 Z" fill="#1c1a75"></path></svg>
-        </div>
-        <div class="wave-track animate-wave-blue2-bot absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path></svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,65 C980,35 820,95 600,65 C380,35 220,95 0,65 Z" fill="#141259"></path></svg>
-        </div>
-        <div class="wave-track animate-wave-black-bot absolute inset-0">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path></svg>
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,120 L1200,85 C1050,105 750,65 600,85 C450,105 150,65 0,85 Z" fill="#000000"></path></svg>
-        </div>
-    </div>
-
-    <!-- PANEL DERECHO ÚNICO -->
-    <aside id="detailsPanelRight" onclick="event.stopPropagation()" class="drawer-panel right-0 w-full md:w-[45%] bg-black border-l-4 border-black shadow-[-10px_0px_0px_#000] transform translate-x-full transition-transform duration-500 ease-out flex flex-col pointer-events-auto">
-        <div class="p-6 border-b-4 border-black bg-[#141259] flex items-center gap-4 flex-shrink-0">
-            <div id="panelIconRight" class="w-14 h-14 rounded-none bg-black border-2 border-black flex items-center justify-center text-2xl overflow-hidden p-1 text-[#F2CD5C]"></div>
-            <div>
-                <span id="panelCategoryRight" class="text-xs font-ui font-black uppercase tracking-widest text-[#D94179]">Category</span>
-                <h2 id="panelTitleRight" class="text-xl md:text-2xl font-black text-white font-ui uppercase">Title</h2>
+        <!-- TENDERO -->
+        <div id="shopkeeper">
+            <div class="keeper-art" onclick="onKeeperClick(event)">
+                <div class="burst"></div>
+                <img id="keeperImg" class="keeper-img" src="assets/silueta.png" alt="Juan A. Calero">
+            </div>
+            <div class="dialogue" onclick="onKeeperClick(event)" role="status" aria-live="polite">
+                <div class="dialogue-shadow"></div>
+                <div class="nametag"><span>Calero</span></div>
+                <div class="dialogue-box">
+                    <p id="dialogueText"></p>
+                    <span class="next"></span>
+                </div>
             </div>
         </div>
 
-        <div id="panelBodyRight" class="panel-scroll-content p-6 flex-1 overflow-y-auto space-y-4 text-slate-200 text-sm md:text-base leading-relaxed bg-[#0a0a0c]"></div>
+        <!-- MERCANCIA: ficha + estanteria, entran en el hueco que deja el tendero -->
+        <div id="goods">
+          <div class="col-left">
+            <section id="sheet" class="card" onclick="onCardClick('sheet', event)" onmouseenter="lean('sheet')" onmouseleave="lean(null)" aria-label="Character sheet">
+                <button class="card-toggle" onclick="toggleFocus('sheet', event)" aria-label="Expand character sheet"><i class="fa-solid fa-plus"></i></button>
+                <div class="card-frame"><div class="card-inner">
+                    <div class="mini-label"><i class="fa-solid fa-plus"></i><span>Character sheet</span></div>
+                    <div class="sheet-head">
+                        <span class="tag tag-accent"><span>Character sheet</span></span>
+                        <h1 class="sheet-name" id="sheetName"></h1>
+                        <span class="tag tag-paper"><span id="sheetTitle"></span></span>
+                    </div>
+                    <div class="card-scroll" id="sheetBody"></div>
+                </div></div>
+            </section>
 
-        <div class="p-5 border-t-4 border-black bg-black flex flex-col gap-3 flex-shrink-0 z-10">
-            <a id="buyButtonRight" href="#" target="_blank" class="w-full bg-[#F2CD5C] text-black border-2 border-black cel-block-shadow-sm font-ui font-black text-sm py-3 px-4 rounded-none text-center transition flex items-center justify-center gap-2 hover:bg-[#f5d77f] uppercase tracking-wider">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="buyButtonTextRight">BUY / VIEW MORE</span>
-            </a>
-            <a id="projectButtonRight" href="#" class="hidden w-full bg-[#1c1a75] text-white border-2 border-black cel-block-shadow-sm font-ui font-black text-sm py-3 px-4 rounded-none text-center transition flex items-center justify-center gap-2 hover:bg-[#252299] uppercase tracking-wider">
-                <i class="fa-solid fa-circle-info"></i>
-                <span id="projectButtonTextRight">MORE INFO</span>
-            </a>
-            <button onclick="closePanel()" class="w-full bg-black text-white border-2 border-white cel-block-shadow-sm font-ui font-bold text-xs py-2.5 px-4 rounded-none transition flex items-center justify-center gap-2 uppercase hover:bg-neutral-800 tracking-wider">
-                <i class="fa-solid fa-rotate-left"></i>
-                <span>BACK TO SHOP</span>
-            </button>
+            <!-- tercer bloque: articulos -->
+            <section id="writings" class="card" onclick="event.stopPropagation()" onmouseenter="lean('sheet')" onmouseleave="lean(null)" aria-label="Writings">
+                <div class="card-frame"><div class="card-inner">
+                    <div class="card-scroll">
+                        <div class="shelf-title">Writings</div>
+                        <div id="writingsBody"></div>
+                    </div>
+                </div></div>
+            </section>
+          </div>
+
+            <section id="shelf" class="card" onclick="onCardClick('shelf', event)" onmouseenter="lean('shelf')" onmouseleave="lean(null)" aria-label="Projects">
+                <button class="card-toggle" onclick="toggleFocus('shelf', event)" aria-label="Expand projects"><i class="fa-solid fa-plus"></i></button>
+                <div class="card-frame"><div class="card-inner">
+                    <div class="mini-label"><i class="fa-solid fa-plus"></i><span>Projects</span></div>
+                    <div class="card-scroll" id="shelfBody" style="display:flex;flex-direction:column"></div>
+                </div></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- PANEL DE DETALLE: ocupa el mismo hueco que la mercancia -->
+    <aside id="panel" aria-hidden="true">
+        <div class="panel-head">
+            <span class="tag tag-ink"><span id="panelCat">Category</span></span>
+            <h2 id="panelTitle">Title</h2>
+        </div>
+        <div id="panelBody"></div>
+        <div class="panel-foot">
+            <button class="btn-back" onclick="closePanel()"><i class="fa-solid fa-rotate-left"></i> Back to shop</button>
         </div>
     </aside>
 
-    <!-- ESCENA PRINCIPAL -->
-    <main id="mainScene" onclick="handleBackgroundClick(event)" class="shop-background anim-bg-entry smooth-transition relative flex-1 w-full pt-[120px] pb-[90px] overflow-hidden flex items-center px-0 md:px-0 md:pl-12 cursor-pointer">
 
-        <div class="absolute inset-0 bg-black/40 pointer-events-none z-0"></div>
-
-        <div id="ambientParticles" class="particle-container z-10"></div>
-
-        <!-- COLUMNA IZQUIERDA: PERSONAJE Y DIÁLOGO -->
-        <div id="characterGroup" class="vendor-initial-center smooth-transition relative md:w-1/2 h-full flex flex-col justify-end items-center z-30 pointer-events-none pb-2 pr-0 md:pr-4">
-
-            <!-- 1. VENDEDOR -->
-            <div onclick="handleShopkeeperClick(event)" class="relative flex items-center justify-center pointer-events-auto cursor-pointer z-10 mb-2">
-                <div id="vendorWrapper" class="shopkeeper-idle relative h-[36vh] sm:h-[42vh] lg:h-[48vh] w-auto aspect-square flex items-center justify-center">
-                    <div class="absolute w-[80%] h-[80%] rounded-full bg-[#F2CD5C] blur-3xl opacity-40"></div>
-                    <div id="vendorParticles" class="absolute inset-0 pointer-events-none"></div>
-
-                    <img id="vendorImage" src="assets/vendedor.png" alt="Shopkeeper" class="persona-outline-thick w-full h-full object-contain relative z-10 transition-transform duration-700 ease-out origin-bottom">
-                </div>
-            </div>
-
-            <!-- 2. CUADRO DE DIÁLOGO -->
-            <div id="dialogueWrapper" onclick="handleShopkeeperClick(event)" class="pointer-events-auto relative w-full smooth-transition cursor-pointer z-40">
-
-                <div class="nametag-container persona-outline-nametag absolute -top-7 left-6 w-auto min-w-[140px] h-10 px-5 flex items-center justify-center z-50">
-                    <span class="font-ui font-black text-xs md:text-sm text-white tracking-wider uppercase drop-shadow-[0_2px_0px_#000] text-center leading-none whitespace-nowrap">
-                        The Shopkeeper
-                    </span>
-                </div>
-
-                <div class="dialogue-box-container persona-outline-thick relative w-full px-6 md:px-8 py-5 md:py-6 min-h-[110px] flex items-center z-10">
-                    <p id="dialogueText" class="font-ui font-bold text-black text-xs md:text-base leading-relaxed pl-2 pr-6 w-full">
-                    </p>
-
-                    <div class="absolute bottom-3 right-6 animate-bounce text-xs md:text-sm text-[#141259]">
-                        <i class="fa-solid fa-caret-down"></i>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- COLUMNA DERECHA: MARCO ASIMÉTRICO GENERAL -->
-        <div id="shelvesContainer" class="smooth-transition relative w-full md:w-1/2 h-[calc(100%-30px)] my-auto pointer-events-auto z-20 flex flex-col justify-center pl-0 md:pl-4 pr-0 overflow-hidden">
-
-            <div id="p5Board" class="p5-main-board board-hidden w-full h-full p-4 md:p-5 flex flex-col justify-between gap-3">
-
-                <!-- 1. Developer Profile -->
-                <button onclick="selectItem('developer-profile', event)"
-                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
-                    <div class="item-particle-aura" id="aura-producer"></div>
-                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
-                        <img src="assets/item-profile.png" alt="Developer Profile" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                    </div>
-                    <div class="flex-1 min-w-0 pr-2">
-                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Juan A. Calero Profile Documents</h3>
-                        <p class="text-[10px] md:text-[12px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">All about his background, roles and personal information</p>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-[#F2CD5C] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-
-                <!-- 2. Featured Project -->
-                <button onclick="selectItem('featured-game', event)"
-                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
-                    <div class="item-particle-aura" id="aura-projects"></div>
-                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
-                        <img src="assets/item-featuredproject.png" alt="Featured Project" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                    </div>
-                    <div class="flex-1 min-w-0 pr-2">
-                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Featured Project</h3>
-                        <p class="text-[10px] md:text-[12px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">One of his projects that deserved a highlighted position!</p>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-[#D94179] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-
-                <!-- 3. Project Vault -->
-                <button onclick="selectItem('projects-log', event)"
-                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
-                    <div class="item-particle-aura" id="aura-designer"></div>
-                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
-                        <img src="assets/item-projectvault.png" alt="Project Vault" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                    </div>
-                    <div class="flex-1 min-w-0 pr-2">
-                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Project Vault</h3>
-                        <p class="text-[10px] md:text-[12px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">Managed to get information about every project he worked in!</p>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-[#F2A766] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-
-                <!-- 4. Articles & Writing -->
-                <button onclick="selectItem('articles', event)"
-                        class="p5-shelf-banner shelf-item-hidden relative w-full flex-1 flex items-center gap-4 p-3 group cursor-pointer text-left">
-                    <div class="item-particle-aura" id="aura-articles"></div>
-                    <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-20 md:h-20">
-                        <img src="assets/item-articles.png" alt="Articles" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                    </div>
-                    <div class="flex-1 min-w-0 pr-2">
-                        <h3 class="font-ui font-black text-xs md:text-sm lg:text-base uppercase tracking-wider text-[#F2CD5C] truncate -skew-x-6">Article Library</h3>
-                        <p class="text-[10px] md:text-[12px] text-slate-300 line-clamp-1 mt-0.5 font-semibold">Documents, research and video-game related writings of all kinds!</p>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-[#F2CD5C] text-sm pr-2 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-
-            </div>
-
-        </div>
-
-    </main>
-
+    <script src="data.js"></script>
     <script>
-        const PANEL_WIDTH_PERCENT = 55;
-        let isPanelOpen = false;
-        let currentItemId = null;
+        const $ = id => document.getElementById(id);
+        const isDesktop = () => matchMedia('(min-width: 1024px)').matches;
 
-        const shopItems = {
-            'developer-profile': {
-                category: 'Profile Information',
-                title: 'Game Designer | Game Producer',
-                imgSrc: 'assets/item-profile.png',
-                dialogue: "So, you need someone to design your game... Or maybe to help organize your team? Or project? In that case, I know a guy...",
-                hideBuyButton: true,
-                description: `
-                                    <p class="text-base">Hi, I'm Juan A. <strong>Calero</strong>. I have taken roles in projects as both Game Designer, creating full core loops and game loops from game concept ideas, as well as a Game Producer, coordinating teams and adjusting pipelines, schedules and roadmaps to ensure feasibility of the projects I take part in!</p>
-                                    <p class="font-black text-[#F2A766] mt-4 mb-3 uppercase text-lg tracking-wider">Select one of the items below to check my full profile for each role!</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-                                        <a href="role-designer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
-                                            <div class="item-particle-aura"></div>
-                                            <div class="w-full h-24 flex items-center justify-center my-1">
-                                                <img src="assets/item-designer.png" alt="Game Designer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                            </div>
-                                            <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2A766] mt-2">Game Designer</span>
-                                            <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Systems, Balancing & Flow</span>
-                                        </a>
-                                        <a href="role-producer.html" class="rpg-shelf-item rounded-xl p-3 flex flex-col items-center justify-between group cursor-pointer text-center no-underline relative overflow-hidden">
-                                            <div class="item-particle-aura"></div>
-                                            <div class="w-full h-24 flex items-center justify-center my-1">
-                                                <img src="assets/item-producer.png" alt="Game Producer" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                            </div>
-                                            <span class="font-ui font-black text-xs uppercase tracking-wider text-[#F2A766] mt-2">Game Producer</span>
-                                            <span class="text-[10px] text-slate-300 mt-0.5 leading-tight">Agile, Roadmaps & Delivery</span>
-                                        </a>
-                                    </div>
-                                    <br>
-                                    <p class="font-black text-[#F2A766] mt-4 mb-3 uppercase text-lg tracking-wider">General information:</p>
-                                    <p class="text-base">Currently based in Madrid (Spain) but open to realocation as well as full remote work.<br>
-                                    <br>
-                                    <strong>Education:</strong><br>
-                                    • Master's in Game Design, UTAD. Madrid.<br>
-                                    • Bachelor's Degree in Videogame Design and Development, URJC. Madrid.<br>
-                                    <br>
-                                    <strong>Languages:</strong><br>
-                                    • Spanish (Native)<br>
-                                    • English (Advanced C1)<br>
-                                    • German (Basic)<br>
-                                    <br>
-                                    <strong>Honors & Awards:</strong><br>
-                                    • Finalist for best university game at BIG Conference 2025 for "Dorothy's Job".<br>
-                                    • 2nd best game at Madrid Hackathon 11 for "Ready, Steadicam!".<br>
-                                    • Awarded with honors for my final degree project "Design and Development of a Prototype videogame focused in crisis management envirnments".<br>
-                                    • Top 1000 rank from 10.6k entries in GMTK26 game jam for “Diescend”.<br>
-                                    </p>
-
-                                `
-            },
-            'featured-game': {
-                category: 'An isometric twin-stick shooter mixing cleaning and combat!',
-                title: 'Dorothy´s Job',
-                imgSrc: 'assets/item-featuredproject.png',
-                dialogue: "Ah sure, the pièce de résistance, his most valuable project... (yet)",
-                buyText: "CHECK ON STEAM",
-                buyLink: "https://store.steampowered.com/app/3926730/Dorothys_Job/",
-                projectText: "PROJECT PAGE",
-                projectLink: "project-detail-dorothy.html",
-                description: `
-                                    <p class="mt-2"><strong>Dorothy's Job</strong> is a 3D game that uses fast-paced combat, procedural level generation and the distinct cleaning mechanic to create a unique gameplay loop.<br>
-                                    <div style="margin: 30px 0;">
-                                        <video controls autoplay loop muted width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                                            <source src="assets/dorothy/DorothyTrailer.mp4" type="video/mp4">
-                                        </video>
-                                        <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">Dorothy's Job Trailer</p>
-                                    </div>
-                                    <p class="font-black text-[#D94179]"><strong>Roles: </strong> Mechanics Designer & Game Producer</p>
-                                    <br>
-                                    🎮 As a <strong>Mechanics Designer</strong>, I designed and iterated on the game's core gameplay, balance and combat-cleaning loop collaborating closely with programmers and artists to integrate systems consistently with the design vision and create a great experience!<br>
-                                    <br>
-                                    🎮 As a <strong>Game Producer</strong>, I coordinated the project workflow for a 20 person core team, which grew to 40 on peak development. I created the game's roadmap, led weekly meetings, managed milestones and scope, supervised documentation and maintained clear communication, ensuring team coordination.</p>
-                                    I also managed the Steamworks page, configuration and game publishment process.<br>
-                                    Check out more information about the game clicking the project page or check out the Steam page!
-                                    <div class="p-4 border-2 border-black bg-black mt-3 space-y-2 text-xs md:text-sm">
-                                        <p>⭐ <strong>Development:</strong> 10-month development cycle.</p>
-                                        <p>⭐ <strong>Steam launch:</strong> 34.600+ total units/licenses distributed and over 550 wishlists managed on a 4-week pre-launch campaign.</p>
-                                        <p>⭐ <strong>Game acceptance:</strong> 84% positive reviews on Steam.</p>
-                                    </div>
-                                `
-            },
-            'projects-log': {
-                category: 'All my projects and games together',
-                title: 'Project Vault',
-                imgSrc: 'assets/item-projectvault.png',
-                dialogue: "Ah yes, the vault. All the project information Calero worked in is stored here. Click on one to see by yourself!",
-                hideBuyButton: true,
-                description: `
-                                    <p class="mt-2 text-base text-slate-300"><strong>• Here's a collection of the projects I worked in.<br>• These projects include everything from professional projects, Game Jam games and personal projects.</p>
-                                    <p class="font-black text-[#F2A766] text-lg uppercase tracking-wider my-3">Click on a project to go to its own page!</p></strong>
-                                    <div class="flex flex-col gap-3 mt-2">
-                                        <a href="project-detail.html" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                            <img src="assets/banner-project1.png" alt="Project1" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=Diescend'">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                                            <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                                <img src="assets/banner-project1-logo.png" alt="Diescend Logo" class="h-30 md:h-20 w-auto object-contain self-start mb-1 group-hover:scale-105 transition-transform">
-                                                <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                                    <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">GMTK 26 Jam Submission</span>
-                                                    <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Strategy with Rogue-like Mechanics</span>
-                                                    <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Godot</span>
-                                                </div>
-                                                <p class="text-[13px] text-slate-200 leading-tight drop-shadow">
-                                                    <strong>2026 • Descend the tower betting on dice battles and beating members of your old mafia gang.</strong>
-                                                </p>
-                                            </div>
-                                        </a>
-                                        <a href="project-detail-dorothy.html" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                            <img src="assets/banner-project5.png" alt="Project5" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/222/fff?text=DorothysJob'">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                                            <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                                <img src="assets/banner-project5-logo.png" alt="Dorothy Logo" class="h-30 md:h-20 w-auto object-contain self-start mb-1 group-hover:scale-105 transition-transform">
-                                                <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                                    <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Game</span>
-                                                    <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Twin-stick Shooter</span>
-                                                    <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Unreal Engine 5</span>
-                                                </div>
-                                                <p class="text-[13px] text-slate-200 leading-tight pb-1 drop-shadow">
-                                                    <strong>2025 • Try to beat every level on the clock as Dorothy, the buff maid in this frenetic game mixing cleaning and combat!</strong>
-                                                </p>
-                                            </div>
-                                        </a>
-                                        <a href="project-detail-mochuelo.html" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                            <img src="assets/banner-project2.png" alt="Project2" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=GuardMyHive'">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                                            <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                                <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                                    Guard My Hive
-                                                </h3>
-                                                <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                                    <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Game (Unreleased)</span>
-                                                    <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Tower Defense with Auto-chess mechanics</span>
-                                                    <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Unity</span>
-                                                </div>
-                                                <p class="text-[13px] text-slate-200 leading-tight drop-shadow">
-                                                    <strong> 2026 (Coming soon) • A game about defending a bee colony. Bzz!!</strong>
-                                                </p>
-                                            </div>
-                                        </a>
-                                        <a href="project-detail-steadicam.html" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                            <img src="assets/banner-project3.png" alt="Project3" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=ReadySteadicam'">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                                            <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                                <img src="assets/banner-project3-logo.png" alt="Steadicam Logo" class="h-14 md:h-20 w-auto object-contain self-start mb-1 origin-left transform scale-110">
-                                                <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                                    <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">HackJam 11 MiG 2nd best game award</span>
-                                                    <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Local Coop Experience</span>
-                                                    <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Godot</span>
-                                                </div>
-                                                <p class="text-[13px] text-slate-200 leading-tight drop-shadow">
-                                                    <strong>2025 • Local coop mini game experience about sightseeing and taking photos!</strong>
-                                                </p>
-                                            </div>
-                                        </a>
-                                        <a href="project-detail-walkingtime.html" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                            <img src="assets/banner-project4.png" alt="Project4" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=WalkingTime'">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                                            <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                                <img src="assets/banner-project4-logo.png" alt="Walking Time Logo" class="h-20 md:h-14 w-auto object-contain self-start mb-1 origin-left transform scale-150">
-                                                <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                                    <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Game</span>
-                                                    <span class="bg-[#D94179] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Educational & Resource management</span>
-                                                    <span class="bg-[#1c1a75] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Unity</span>
-                                                </div>
-                                                <p class="text-[13px] text-slate-200 leading-tight drop-shadow">
-                                                    <strong>2024 • Educational strategic puzzle game about excentric characters exploring an island!</strong>
-                                                </p>
-                                            </div>
-                                        </a>
-                                        <a href="https://c4lipo.itch.io" target="_blank" class="group relative w-full h-36 sm:h-40 rounded-xl overflow-hidden border-2 border-black cel-block-shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-[#F2CD5C] block no-underline">
-                                            <img src="assets/banner-project6.png" alt="Project6" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/800x400/333/fff?text=ItchIo'">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                                            <div class="absolute inset-0 p-3 flex flex-col justify-end z-10">
-                                            <h3 class="font-ui font-black text-lg text-white uppercase tracking-wide group-hover:text-[#F2CD5C] transition-colors drop-shadow-md">
-                                                My Itch.io
-                                            </h3>
-                                                <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                                    <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">The rest of my Jam Projects</span>
-                                                </div>
-                                                <p class="text-[13px] text-slate-200 leading-tight drop-shadow">
-                                                    <strong>2025 • Link to my itch.io profile, where all my little projects and jams are stored.</strong>
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                `
-            },
-            'articles': {
-                category: 'Publications',
-                title: 'Article Library',
-                imgSrc: 'assets/item-articles.png',
-                dialogue: "Here I store all the writings about videogames. Have a look, they're a good read!",
-                hideBuyButton: true,
-                description: `
-                                    <div class="flex flex-col gap-3 mt-2">
-                                       <a href="article-herstory.html" class="rpg-article-item rounded-xl p-3 flex items-center gap-3 group cursor-pointer no-underline relative overflow-hidden">
-                                            <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-black/60 border-2 border-black rounded-lg p-1 flex items-center justify-center">
-                                                <img src="assets/item-article.png" alt="Her Story" class="item-sprite-idle max-h-full max-w-full object-contain group-hover:scale-110 transition">
-                                            </div>
-                                            <div class="flex-1 min-w-0">
-
-                                                <div class="flex items-center justify-between gap-2 mb-1">
-                                                    <span class="font-ui font-black text-xs sm:text-sm text-[#F2CD5C] uppercase tracking-wider truncate">"Her Story" and the Power of Non-linear Narrative</span>
-
-                                                    <span class="text-[9px] font-bold text-[#D94179] bg-black px-1.5 py-0.5 border border-black rounded uppercase flex-shrink-0">5 min read</span>
-
-                                                </div>
-                                                <div class="flex items-center gap-2 my-1 text-[10px] font-bold">
-                                                    <span class="bg-[#F2A766] text-white px-2 py-0.5 rounded border border-black uppercase tracking-wider">Game Analysis</span>
-                                                </div>
-                                                <p class="text-[11px] sm:text-xs text-slate-300 line-clamp-2 leading-relaxed">
-                                                    An in-depth analysis of Sam Barlow's FMV masterpiece. Exploring non-linear storytelling, mechanic-narrative integration, and dynamic player engagement.
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                `
-            }
-        };
-
-        let typewriterTimer = null;
-
-        function createAmbientParticles() {
-            const container = document.getElementById('ambientParticles');
-            const particleCount = 20;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'cotl-blob';
-
-                const size = Math.random() * 8 + 6;
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                const duration = Math.random() * 4 + 4;
-                const delay = Math.random() * 5;
-
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${left}%`;
-                particle.style.top = `${top}%`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.animationDelay = `${delay}s`;
-
-                container.appendChild(particle);
-            }
-        }
-
-        function createAuraParticles() {
-            const auras = ['aura-producer', 'aura-projects', 'aura-designer', 'aura-articles', 'vendorParticles'];
-            auras.forEach(auraId => {
-                const el = document.getElementById(auraId);
-                if (!el) return;
-
-                const count = auraId === 'vendorParticles' ? 10 : 4;
-                for (let i = 0; i < count; i++) {
-                    const blob = document.createElement('div');
-                    blob.className = 'item-blob';
-                    blob.style.left = `${Math.random() * 80 + 10}%`;
-                    blob.style.top = `${Math.random() * 80 + 10}%`;
-                    blob.style.animationDelay = `${Math.random() * 3}s`;
-                    blob.style.animationDuration = `${Math.random() * 2 + 2}s`;
-                    el.appendChild(blob);
-                }
-            });
-        }
-
-        function applyPanelWidths() {
-            const pRight = document.getElementById('detailsPanelRight');
-            if (window.innerWidth >= 768) {
-                pRight.style.width = `${PANEL_WIDTH_PERCENT}%`;
-            } else {
-                pRight.style.width = '100%';
-            }
-        }
-
-        function typeDialogue(text) {
-            const el = document.getElementById('dialogueText');
+        // ---------- DIALOGO (efecto maquina de escribir) ----------
+        let typeTimer = null, currentLine = '';
+        function say(text) {
+            if (text === currentLine && typeTimer) return;
+            currentLine = text;
+            const el = $('dialogueText');
             el.textContent = '';
+            clearInterval(typeTimer);
             let i = 0;
-            if (typewriterTimer) clearInterval(typewriterTimer);
-            typewriterTimer = setInterval(() => {
-                if (i < text.length) {
-                    el.textContent += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(typewriterTimer);
-                }
-            }, 18);
+            typeTimer = setInterval(() => {
+                el.textContent = text.slice(0, ++i);
+                if (i >= text.length) { clearInterval(typeTimer); typeTimer = null; }
+            }, 17);
+        }
+        // Como en los juegos: un clic mientras escribe completa la frase
+        function finishLine() {
+            if (!typeTimer) return false;
+            clearInterval(typeTimer); typeTimer = null;
+            $('dialogueText').textContent = currentLine;
+            return true;
+        }
+        let hoverTimer = null;
+        function sayOnHover(text) {
+            if (!introDone || isPanelOpen) return;
+            clearTimeout(hoverTimer);
+            hoverTimer = setTimeout(() => say(text), 110);
+        }
+        const IDLE_LINE = () => isDesktop()
+            ? "Here's the merchandise: my character sheet, my games and my writings. Hover anything and I'll tell you about it!"
+            : "Here's the merchandise: my character sheet, my games and my writings. Tap anything to see more!";
+
+        // ---------- FICHA DE PERSONAJE ----------
+        function renderSheet() {
+            const [first, ...rest] = profile.name.split(' ');
+            $('sheetName').innerHTML = `${first} ${rest.slice(0, -1).join(' ')} <em>${rest[rest.length - 1]}</em>`;
+            $('sheetTitle').textContent = profile.title;
+            const roles = `<div class="roles">${profile.roles.map(r => `<div class="role"><h4>${r.name}</h4><ul>${r.points.map(p => `<li>${p}</li>`).join('')}</ul></div>`).join('')}</div>`;
+            $('sheetBody').innerHTML = `
+                <div class="less">
+                    <p class="pitch big">${profile.pitch}</p>
+                    <div class="hi-row">${(profile.highlights || []).map(([b, s]) => `<div class="hi"><b>${b}</b><span>${s}</span></div>`).join('')}</div>
+                    <button class="expand-btn" onclick="toggleFocus('sheet', event)">Full CV <i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div class="more sheet-full">
+                    <div>
+                        <p class="pitch">${profile.pitch}</p>
+                        <div class="sec"><div class="sec-title">Roles</div>${roles}</div>
+                        <div class="sec"><div class="sec-title">Tools</div>
+                            <div class="chips">${profile.tools.map(t => `<span class="chip">${t}</span>`).join('')}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="sec" style="margin-top:0"><div class="sec-title">Info</div>
+                            <ul class="facts">${profile.facts.map(f => `<li><i class="fa-solid ${f.icon}"></i><span>${f.text}</span></li>`).join('')}</ul>
+                        </div>
+                        <div class="sec"><div class="sec-title">Honors &amp; awards</div>
+                            <ol class="awards">${profile.awards.map(a => `<li><span>${a.text}${a.note ? ` <small>(${a.note})</small>` : ''}</span></li>`).join('')}</ol>
+                        </div>
+                        <a class="expand-btn" href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf"><i class="fa-solid fa-download"></i> Download CV (PDF)</a>
+                    </div>
+                </div>`;
+            $('sheet').addEventListener('mouseenter', () => { if (!focused) sayOnHover(shopItems['developer-profile'].dialogue); });
         }
 
-        function handleShopkeeperClick(event) {
-            event.stopPropagation();
-            if (isPanelOpen) {
-                closePanel();
-            }
+        // ---------- ESTANTERIA ----------
+        function itemAttrs(p) {
+            const hover = `onmouseenter="sayProject('${p.id}')" onfocus="sayProject('${p.id}')"`;
+            return p.external
+                ? `href="${p.external}" target="_blank" rel="noopener" ${hover}`
+                : `href="#${p.id}" onclick="openProject('${p.id}', event)" ${hover}`;
+        }
+        function sayProject(id) { const p = projects.find(x => x.id === id); if (p) sayOnHover(p.dialogue || p.summary); }
+
+        function renderShelf() {
+            const feat = projects.find(p => p.featured) || projects[0];
+            const rest = projects.filter(p => p !== feat);
+            const stats = (feat.stats || []).map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+
+            const featuredCard = (cls) => `
+                <a class="item featured ${cls}" ${itemAttrs(feat)}>
+                    <img class="bg" src="${feat.banner}" alt="">
+                    <div class="shade"></div>
+                    <span class="year tag tag-paper"><span>${feat.year}</span></span>
+                    <div class="info">
+                        ${feat.logo ? `<img class="logo" src="${feat.logo}" alt="${feat.title}">` : `<span class="display" style="font-size:28px">${feat.title}</span>`}
+                        <span class="role-line">${feat.role || ''} · ${feat.tags[feat.tags.length - 1]}</span>
+                        ${stats ? `<div class="stats">${stats}</div>` : ''}
+                    </div>
+                </a>`;
+            // banner estilo Project Vault: imagen de fondo, degradado y titulo grande
+            const banner = (p, big) => `
+                <a class="banner ${big ? 'big' : ''} ${p.external ? 'ext' : ''}" ${itemAttrs(p)}>
+                    <img class="bg" src="${p.banner}" alt="">
+                    <div class="shade"></div>
+                    <div class="b-txt">
+                        <span class="b-meta"><span class="tag ${p.external ? 'tag-accent' : 'tag-paper'}"><span>${p.external ? 'itch.io' : p.year}</span></span>
+                            ${big ? `<span class="b-tags">${p.tags.slice(1, 3).join(' · ')}</span>` : ''}</span>
+                        <h4>${p.title}${p.external ? ' <i class="fa-solid fa-arrow-up-right-from-square"></i>' : ''}</h4>
+                        ${big ? `<p>${p.summary}</p>` : ''}
+                    </div>
+                    <i class="fa-solid fa-chevron-right b-go"></i>
+                </a>`;
+
+            $('shelfBody').innerHTML = `
+              <div class="less">
+                <div class="shelf-title">Projects <span class="tag tag-pop"><span>Out on Steam</span></span></div>
+                ${featuredCard('')}
+                <div class="banners">${rest.map(p => banner(p, false)).join('')}</div>
+              </div>
+              <div class="more shelf-full">
+                <div>
+                    <div class="shelf-title">Featured <span class="tag tag-pop"><span>Out on Steam</span></span></div>
+                    ${featuredCard('tall')}
+                    <p style="font-size:13.5px;line-height:1.45;margin:10px 0 0">${feat.summary}</p>
+                </div>
+                <div>
+                    <div class="shelf-title">More games</div>
+                    <div class="banners">${rest.map(p => banner(p, true)).join('')}</div>
+                </div>
+              </div>`;
+
+            $('shelf').addEventListener('mouseleave', () => { if (!focused) sayOnHover(IDLE_LINE()); });
+            $('sheet').addEventListener('mouseleave', () => { if (!focused) sayOnHover(IDLE_LINE()); });
         }
 
-        function handleBackgroundClick(event) {
-            if (isPanelOpen) {
-                closePanel();
-            }
+        // ---------- WRITINGS (tercer bloque, bajo el CV) ----------
+        function renderWritings() {
+            $('writingsBody').innerHTML = articles.map((a, i) => `
+                <a class="article" href="${a.url}" onmouseenter="sayOnHover(articles[${i}].dialogue)">
+                    <img src="${a.image}" alt="">
+                    <span><b>${a.title}</b><small>${a.tag} · ${a.readTime}</small></span>
+                </a>`).join('');
+            $('writings').addEventListener('mouseleave', () => { if (!focused) sayOnHover(IDLE_LINE()); });
         }
 
-        function selectItem(itemId, event) {
-            if (event) event.stopPropagation();
+        // ---------- EXPANDIR / EMPUJAR CUADROS ----------
+        // Hover: el cuadro gana un poco de ancho (pista). Clic: se expande y el otro queda como tira.
+        let focused = null;
+        const FOCUS_LINES = {
+            sheet: "Here's my full sheet: roles, tools, studies and awards. Click the strip on the right to swap!",
+            shelf: "Every game I've worked on and everything I've written. Click any of them to see more!"
+        };
+        function setFocus(which) {
+            if (!isDesktop()) return;
+            focused = which;
+            const b = document.body;
+            b.classList.remove('focus-sheet', 'focus-shelf', 'lean-sheet', 'lean-shelf');
+            if (which) b.classList.add('focus-' + which);
+            ['sheet', 'shelf'].forEach(id => {
+                $(id).classList.toggle('is-open', id === which);
+                $(id).classList.toggle('is-mini', !!which && id !== which);
+                $(id).querySelector('.card-toggle').setAttribute('aria-expanded', id === which);
+            });
+            say(which ? FOCUS_LINES[which] : IDLE_LINE());
+        }
+        function toggleFocus(which, e) {
+            if (e) { e.preventDefault(); e.stopPropagation(); }
+            setFocus(focused === which ? null : which);
+        }
+        function onCardClick(which, e) {
+            e.stopPropagation();
+            if (e.target.closest('a, button')) return;   // los enlaces y botones hacen lo suyo
+            if (focused !== which) setFocus(which);
+        }
+        function lean(which) {
+            if (!isDesktop() || focused || !introDone) return;
+            document.body.classList.remove('lean-sheet', 'lean-shelf');
+            if (which) document.body.classList.add('lean-' + which);
+        }
 
-            const item = shopItems[itemId];
-            if (!item) return;
-
-            currentItemId = itemId;
-
-            const mainScene = document.getElementById('mainScene');
-            const shelvesContainer = document.getElementById('shelvesContainer');
-            const vendorImage = document.getElementById('vendorImage');
-            const panelRight = document.getElementById('detailsPanelRight');
-            const characterGroup = document.getElementById('characterGroup');
-
-            shelvesContainer.classList.add('opacity-30', 'blur-[2px]');
-
-            const targetBody = document.getElementById('panelBodyRight');
-            const buyButton = document.getElementById('buyButtonRight');
-            const projectButton = document.getElementById('projectButtonRight');
-
-            if (item.hideBuyButton) {
-                buyButton.classList.add('hidden');
+        // ---------- NAVEGACION DE LA CABECERA ----------
+        function goNav(which, e) {
+            if (e) e.preventDefault();
+            if (!introDone) endIntro();
+            if (isPanelOpen) closePanel();
+            const id = { cv: 'sheet', projects: 'shelf', writings: 'writings' }[which];
+            if (isDesktop()) {
+                // CV y proyectos se expanden; writings vuelve a la vista normal y da un saltito
+                if (which === 'writings') setFocus(null); else setFocus(id);
+                document.body.classList.toggle('nav-writings', which === 'writings');
+                if (which === 'writings') setTimeout(() => document.body.classList.remove('nav-writings'), 1800);
             } else {
-                buyButton.classList.remove('hidden');
-                document.getElementById('buyButtonTextRight').textContent = item.buyText;
-                buyButton.href = item.buyLink;
+                const stage = $('stage');
+                const top = $(id).getBoundingClientRect().top - stage.getBoundingClientRect().top + stage.scrollTop - 14;
+                stage.scrollTo({ top, behavior: 'smooth' });
+                // respaldo: si el navegador no hace el desplazamiento suave, salta directamente
+                setTimeout(() => { if (Math.abs(stage.scrollTop - top) > 40) stage.scrollTop = top; }, 700);
             }
+            const el = $(id);
+            el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+        }
 
-            if (item.projectLink) {
-                projectButton.classList.remove('hidden');
-                document.getElementById('projectButtonTextRight').textContent = item.projectText || "MORE INFO";
-                projectButton.href = item.projectLink;
-            } else {
-                projectButton.classList.add('hidden');
-            }
-
-            document.getElementById('panelCategoryRight').textContent = item.category;
-            document.getElementById('panelTitleRight').textContent = item.title;
-            document.getElementById('panelIconRight').innerHTML = `<img src="${item.imgSrc}" class="item-sprite-idle w-full h-full object-contain">`;
-
-            if (vendorImage) {
-                vendorImage.style.transform = 'scale(1.22)';
-            }
-
-            panelRight.classList.remove('translate-x-full');
-
-            mainScene.classList.remove('px-0', 'md:px-0');
-            mainScene.classList.add('pl-4', 'md:pl-8', 'pr-0');
-
-            if (window.innerWidth >= 768) {
-                characterGroup.style.maxWidth = `${100 - PANEL_WIDTH_PERCENT}%`;
-            }
-
-            targetBody.innerHTML = item.description;
-            targetBody.scrollTop = 0;
+        // ---------- PANEL DE DETALLE ----------
+        let isPanelOpen = false;
+        function showPanel(cat, title, html, line) {
+            $('panelCat').textContent = cat;
+            $('panelTitle').textContent = title;
+            $('panelBody').innerHTML = html;
+            $('panelBody').scrollTop = 0;
+            document.body.classList.add('panel-open');
+            $('panel').setAttribute('aria-hidden', 'false');
             isPanelOpen = true;
-            typeDialogue(item.dialogue);
+            if (line) say(line);
         }
-
         function closePanel() {
-            const mainScene = document.getElementById('mainScene');
-            const shelvesContainer = document.getElementById('shelvesContainer');
-            const vendorImage = document.getElementById('vendorImage');
-            const panelRight = document.getElementById('detailsPanelRight');
-            const characterGroup = document.getElementById('characterGroup');
-
-            if (vendorImage) {
-                vendorImage.style.transform = 'scale(1)';
-            }
-
-            shelvesContainer.classList.remove('opacity-30', 'blur-[2px]');
-
-            panelRight.classList.add('translate-x-full');
-
-            mainScene.classList.remove('pl-4', 'md:pl-8', 'pr-0');
-            mainScene.classList.add('px-0', 'md:px-0');
-
-            characterGroup.style.maxWidth = '';
-
+            if (!isPanelOpen) return;
+            document.body.classList.remove('panel-open');
+            $('panel').setAttribute('aria-hidden', 'true');
             isPanelOpen = false;
-            currentItemId = null;
-            typeDialogue("What else would you like to learn about? Click on any object on the shelves.");
+            $('panelBody').querySelectorAll('video').forEach(v => v.pause());
+            say("What else would you like to see? Everything else is still on display.");
         }
 
-        function runIntroSequence() {
-            const overlay = document.getElementById('loadingOverlay');
-            const navHeader = document.getElementById('navHeader');
-            const mainScene = document.getElementById('mainScene');
-            const characterGroup = document.getElementById('characterGroup');
-            const p5Board = document.getElementById('p5Board');
-            const shelfItems = document.querySelectorAll('.p5-shelf-banner');
-
-            setTimeout(() => {
-                overlay.classList.add('opacity-0', 'pointer-events-none');
-                setTimeout(() => { overlay.remove(); }, 500);
-
-                navHeader.classList.add('active');
-                mainScene.classList.add('active');
-
-                typeDialogue("Welcome to my shop! I'm the Shopkeeper, and I sell all the information you could imagine about Juan A. Calero, the indie game developer!");
-
-                setTimeout(() => {
-                    characterGroup.classList.add('vendor-in-position');
-
-                    setTimeout(() => {
-                        p5Board.classList.remove('board-hidden');
-                        p5Board.classList.add('board-visible');
-
-                        shelfItems.forEach((item, index) => {
-                            setTimeout(() => {
-                                item.classList.remove('shelf-item-hidden');
-                                item.classList.add('shelf-item-visible');
-                            }, 300 + (index * 150));
-                        });
-
-                        setTimeout(() => {
-                            typeDialogue("Click on any item of the shelf to explore the information I've stored!");
-                        }, 1000);
-
-                    }, 500);
-
-                }, 3200);
-
-            }, 800);
+        function openProject(id, event) {
+            if (event) { event.preventDefault(); event.stopPropagation(); }
+            const p = projects.find(x => x.id === id);
+            if (!p) return;
+            const links = (p.links || []).map(l => `<a class="btn-link" href="${l.url}" target="_blank" rel="noopener">${l.text}</a>`).join('');
+            const shots = (p.screenshots || []).map(s => `<img src="${s}" alt="" loading="lazy" style="width:100%;border:3px solid #fff">`).join('');
+            const html = `
+                <button class="back-mini" onclick="openVault(event)"><i class="fa-solid fa-arrow-left"></i> All projects</button>
+                <img src="${p.banner}" alt="${p.title}" style="width:100%;border:3px solid #fff;box-shadow:8px 8px 0 var(--accent)">
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 6px">${p.tags.map((t, i) => `<span class="tag ${['tag-accent', 'tag-pop', 'tag-paper'][i % 3]}"><span>${t}</span></span>`).join('')}</div>
+                ${p.details ? '' : `<p style="margin-top:12px">${p.summary}</p>`}
+                ${p.video ? `<video controls muted preload="metadata" style="width:100%;margin:14px 0;border:3px solid #fff"><source src="${p.video}" type="video/mp4"></video>` : ''}
+                ${p.details || ''}
+                ${shots ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0">${shots}</div>` : ''}
+                ${links ? `<div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:18px">${links}</div>` : ''}`;
+            showPanel(`${p.year} · ${p.tags[0]}`, p.title, html, p.dialogue || "Take your time, there's plenty to see.");
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            applyPanelWidths();
-            createAmbientParticles();
-            createAuraParticles();
-            runIntroSequence();
+        function openVault(event) {
+            if (event) { event.preventDefault(); event.stopPropagation(); }
+            const item = shopItems['projects-log'];
+            const html = projects.map(p => {
+                const open = p.external ? `<a class="proj-card" href="${p.external}" target="_blank" rel="noopener">` : `<button class="proj-card" onclick="openProject('${p.id}', event)">`;
+                return `${open}<img src="${p.banner}" alt=""><div class="shade"></div>
+                    <span class="tag tag-paper" style="position:absolute;top:10px;left:10px"><span>${p.year}</span></span>
+                    <div class="txt"><h3>${p.title}</h3><p>${p.summary}</p></div>${p.external ? '</a>' : '</button>'}`;
+            }).join('');
+            showPanel(item.category, item.title, html, item.dialogue);
+        }
+
+        // ---------- INTRO: el tendero saluda, se aparta y entra la mercancia ----------
+        let introDone = false, introTimer = null;
+        function endIntro() {
+            if (introDone) return;
+            introDone = true;
+            clearTimeout(introTimer);
+            document.body.classList.add('swiping', 'intro-done');
+            setTimeout(() => { document.body.classList.add('goods-in'); say(IDLE_LINE()); }, 380);
+            setTimeout(() => document.body.classList.remove('swiping'), 1000);
+        }
+        function onKeeperClick(e) {
+            e.stopPropagation();
+            if (!introDone) return endIntro();
+            if (finishLine()) return;
+            if (isPanelOpen) closePanel();
+        }
+        function onStageClick() {
+            if (!introDone) return endIntro();
+            if (isPanelOpen) closePanel();
+            else if (focused) setFocus(null);
+        }
+        addEventListener('keydown', e => {
+            if (!introDone) return endIntro();
+            if (e.key !== 'Escape') return;
+            if (isPanelOpen) closePanel();
+            else if (focused) setFocus(null);
         });
 
-        window.addEventListener('resize', applyPanelWidths);
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSheet();
+            renderShelf();
+            renderWritings();
+            setTimeout(() => {
+                $('loading').classList.add('gone');
+                document.body.classList.add('ready');
+                say("Welcome to my shop! I'm Juan A. Calero, game designer and producer, and everything on display today is about me!");
+                introTimer = setTimeout(endIntro, 2600);
+            }, 700);
+        });
     </script>
 </body>
 </html>
