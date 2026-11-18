@@ -602,6 +602,68 @@
             body.focus-shelf #shelf .card-scroll, body.focus-writings #writings .card-scroll { padding-top: 66px !important; }
         }
 
+        /* ================= CV AMPLIADO: experiencia, herramientas y descargas ================= */
+        .timeline { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+        .timeline > li { border-left: 4px solid var(--accent); padding: 2px 0 2px 14px; }
+        .t-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+        .t-head b { font-family: var(--display); font-weight: 400; font-size: 19px; line-height: 1.05; color: var(--paper); }
+        .t-date { flex-shrink: 0; font-family: var(--ui); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--pop); white-space: nowrap; }
+        .t-sub { font-family: var(--ui); font-weight: 700; font-size: 14px; color: var(--hl); margin: 2px 0 6px; }
+        .t-sub em { font-style: italic; color: #b9bdcc; }
+        .timeline ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; font-size: 13px; line-height: 1.45; color: #d9dbe4; }
+        .timeline ul li::before { content: '▸ '; color: var(--accent); }
+        .skill-group { margin-bottom: 10px; }
+        .skill-label { display: block; font-family: var(--ui); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--hl); margin-bottom: 5px; }
+        .cv-downloads { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+        .cv-downloads .expand-btn { margin-top: 0; }
+        /* CV ampliado: experiencia arriba a lo ancho (4 columnas, de la mas reciente a la mas antigua) y el resto debajo */
+        .cv-rest { display: grid; gap: 34px; margin-top: 26px; padding-top: 22px; border-top: 3px dashed #2a2c35; }
+        .cv-rest .pitch { margin: 0; }
+        /* titulos grandes del CV ampliado: separan "Experience" del bloque "More about me" */
+        .cv-big { display: flex; align-items: center; gap: 16px; margin: 0 0 20px; }
+        .cv-big span { font-family: var(--display); font-weight: 400; font-size: 18px; letter-spacing: .05em; text-transform: uppercase; line-height: 1;
+            background: var(--accent); color: var(--ink); padding: 5px 14px 3px; transform: skewX(-12deg); box-shadow: 4px 4px 0 var(--paper); display: inline-flex; gap: 9px; align-items: center; }
+        .cv-big span i { font-size: 14px; }
+        .cv-big::after { content: ''; flex: 1; height: 5px; background: linear-gradient(90deg, var(--paper), transparent); transform: skewX(-30deg); }
+        .cv-big-2 { margin-top: 36px; }
+        .cv-exp .cv-big { margin-bottom: 17px; }
+        .cv-big-2 { margin-top: 30px; }
+        /* botones de descarga: grandes, al final del CV, como llamada a la accion (no un apartado mas) */
+        .cv-download-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 26px; margin: 38px 0 10px; padding-top: 26px; border-top: 3px solid #2a2c35; }
+        .cv-download-bar .expand-btn { margin: 0; font-size: 26px; padding: 14px 30px 11px; gap: 14px; box-shadow: 7px 7px 0 var(--paper); }
+        .cv-download-bar .expand-btn i { font-size: 22px; }
+        .cv-download-bar .expand-btn:hover { box-shadow: 10px 10px 0 var(--pop); }
+        .cv-rest { margin-top: 0 !important; padding-top: 0 !important; border-top: 0 !important; }
+        @media (min-width: 1024px) {
+            body.focus-sheet .sheet-full { grid-template-columns: 1fr; gap: 0; }
+            .cv-rest { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr); }
+            .cv-exp .timeline { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+            .cv-exp .timeline > li { border-left: 0; border-top: 4px solid var(--accent); padding: 12px 0 0; position: relative; }
+            /* punto de la linea de tiempo */
+            .cv-exp .timeline > li::before { content: ''; position: absolute; top: -10px; left: 0; width: 16px; height: 16px; background: var(--accent); border: 3px solid var(--ink); transform: rotate(45deg); }
+            .cv-exp .t-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+            .cv-exp .t-date { order: -1; }
+            .cv-exp .t-head b { font-size: 18px; }
+            .cv-exp .timeline ul { font-size: 12.5px; line-height: 1.34; gap: 2px; }
+            .cv-exp .t-sub { margin-bottom: 4px; }
+            /* en el CV ampliado, el nombre y el titulo van en una linea para dejar sitio a la experiencia */
+            #sheet.is-open .sheet-head { display: flex; align-items: center; gap: 16px; padding-bottom: 2px; }
+            #sheet.is-open .sheet-name { font-size: 36px; margin: 0; }
+        }
+
+        /* ================= MENU "DOWNLOAD CV" ================= */
+        .btn-cv .fa-caret-down { font-size: 13px; transition: transform .2s; }
+        body.cv-open .btn-cv .fa-caret-down { transform: rotate(180deg); }
+        .cv-drop { position: fixed; z-index: 160; top: calc(var(--header-h) + 4px); right: 20px; display: flex; flex-direction: column; min-width: 230px;
+            background: var(--ink); border: 4px solid var(--paper); box-shadow: 8px 8px 0 var(--accent);
+            opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .15s, transform .2s var(--ease-snap); }
+        body.cv-open .cv-drop { opacity: 1; transform: none; pointer-events: auto; }
+        .cv-drop a { display: flex; gap: 10px; align-items: center; padding: 12px 16px 10px; font-family: var(--display); font-size: 18px; letter-spacing: .04em; text-transform: uppercase; color: var(--paper); }
+        .cv-drop a + a { border-top: 2px solid #2a2c35; }
+        .cv-drop a i { color: var(--accent); }
+        .cv-drop a:hover, .cv-drop a:focus-visible { background: var(--accent); color: var(--ink); outline: none; }
+        .cv-drop a:hover i { color: var(--ink); }
+
         /* con la navegacion nueva, en portatiles el contacto queda solo con iconos */
         @media (max-width: 1439px) and (min-width: 1024px) {
             .contact a.link span { display: none; }
@@ -689,13 +751,9 @@
     <header id="header">
         <a class="brand" href="#" aria-label="Juan A. Calero">
             <span class="brand-mark">C4</span>
-            <span style="display:flex;flex-direction:column;gap:3px;min-width:0">
-                <span class="brand-name">Juan A. Calero</span>
-                <span class="brand-sub">Game Designer &amp; Producer</span>
-            </span>
         </a>
         <nav class="sections" aria-label="Sections">
-            <a href="#cv" data-nav="cv" onclick="goNav('cv', event)"><i class="fa-solid fa-id-card"></i><span>CV</span></a>
+            <a href="#about" data-nav="cv" onclick="goNav('cv', event)"><i class="fa-solid fa-user"></i><span>About me</span></a>
             <a href="#projects" data-nav="projects" onclick="goNav('projects', event)"><i class="fa-solid fa-gamepad"></i><span>Projects</span></a>
             <a href="#writings" data-nav="writings" onclick="goNav('writings', event)"><i class="fa-solid fa-pen-nib"></i><span>Writings</span></a>
             <a href="https://c4lipo.itch.io" target="_blank" rel="noopener" class="ext" title="My jam games on itch.io"><i class="fa-brands fa-itch-io"></i><span>itch.io</span><i class="fa-solid fa-arrow-up-right-from-square ext-ico"></i></a>
@@ -704,9 +762,11 @@
             <a class="link" href="https://www.linkedin.com/in/juanantoniocalero/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span></a>
             <a class="link" href="tel:+34633614852"><i class="fa-solid fa-phone"></i><span>+34 633 614 852</span></a>
             <a class="link" href="mailto:jacalerodev@gmail.com"><i class="fa-solid fa-envelope"></i><span>jacalerodev@gmail.com</span></a>
-            <a class="btn-cv" href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf"><i class="fa-solid fa-download"></i><span><span class="long">Download </span>CV</span></a>
+            <button class="btn-cv" id="cvBtn" onclick="toggleCvMenu(event)" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-download"></i><span><span class="long">Download </span>CV</span><i class="fa-solid fa-caret-down"></i></button>
         </nav>
     </header>
+    <!-- menu del boton "Download CV" (fuera de la cabecera para que su recorte no lo corte) -->
+    <div id="cvDrop" class="cv-drop" role="menu"></div>
 
     <main id="stage" onclick="onStageClick(event)">
         <div class="bg-layer bg-dots"></div>
@@ -819,30 +879,43 @@
             const [first, ...rest] = profile.name.split(' ');
             $('sheetName').innerHTML = `${first} ${rest.slice(0, -1).join(' ')} <em>${rest[rest.length - 1]}</em>`;
             $('sheetTitle').textContent = profile.title;
-            const roles = `<div class="roles">${profile.roles.map(r => `<div class="role"><h4>${r.name}</h4><ul>${r.points.map(p => `<li>${p}</li>`).join('')}</ul></div>`).join('')}</div>`;
+            const experience = profile.experience.map(e => `
+                <li>
+                    <div class="t-head"><b>${e.role}</b><span class="t-date">${e.dates}</span></div>
+                    <div class="t-sub">${e.company} · ${e.place}${e.project ? ` · <em>${e.project}</em>` : ''}</div>
+                    <ul>${e.points.map(p => `<li>${p}</li>`).join('')}</ul>
+                </li>`).join('');
+            const skills = profile.skills.map(([group, list]) => `
+                <div class="skill-group"><span class="skill-label">${group}</span><div class="chips">${list.map(t => `<span class="chip">${t}</span>`).join('')}</div></div>`).join('');
+            const downloads = profile.cvs.map(cv => `
+                <a class="expand-btn" href="${cv.file}" target="_blank" rel="noopener"><i class="fa-solid fa-download"></i> ${cv.label} (PDF)</a>`).join('');
             $('sheetBody').innerHTML = `
                 <div class="less">
                     <p class="pitch big">${profile.pitch}</p>
                 </div>
                 <div class="more sheet-full">
-                    <div>
-                        <p class="pitch">${profile.pitch}</p>
-                        <div class="sec"><div class="sec-title">Roles</div>${roles}</div>
-                    </div>
-                    <div>
-                        <div class="sec" style="margin-top:0"><div class="sec-title">Info</div>
-                            <ul class="facts">${profile.facts.map(f => `<li><i class="fa-solid ${f.icon}"></i><span>${f.text}</span></li>`).join('')}</ul>
+                    <!-- 1) experiencia a lo ancho: es lo primero que se ve al abrir -->
+                    <div class="sec cv-exp" style="margin-top:0"><h3 class="cv-big"><span><i class="fa-solid fa-briefcase"></i> Experience</span></h3><ol class="timeline">${experience}</ol></div>
+                    <!-- 2) el resto, debajo (haciendo scroll) -->
+                    <h3 class="cv-big cv-big-2"><span><i class="fa-solid fa-user"></i> More about me</span></h3>
+                    <div class="cv-rest">
+                        <div>
+                            <div class="sec" style="margin-top:0"><div class="sec-title">About me</div><p class="pitch">${profile.pitch}</p></div>
+                            <div class="sec"><div class="sec-title">Education &amp; info</div>
+                                <ul class="facts">${profile.facts.map(f => `<li><i class="fa-solid ${f.icon}"></i><span>${f.text}</span></li>`).join('')}</ul>
+                            </div>
                         </div>
-                        <div class="sec"><div class="sec-title">Tools</div>
-                            <div class="chips">${profile.tools.map(t => `<span class="chip">${t}</span>`).join('')}</div>
+                        <div>
+                            <div class="sec" style="margin-top:0"><div class="sec-title">Skills &amp; tools</div>${skills}</div>
+                        </div>
+                        <div>
+                            <div class="sec" style="margin-top:0"><div class="sec-title">Achievements</div>
+                                <ol class="awards">${profile.awards.map(a => `<li><span>${a.text}${a.note ? ` <small>(${a.note})</small>` : ''}</span></li>`).join('')}</ol>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="sec" style="margin-top:0"><div class="sec-title">Honors &amp; awards</div>
-                            <ol class="awards">${profile.awards.map(a => `<li><span>${a.text}${a.note ? ` <small>(${a.note})</small>` : ''}</span></li>`).join('')}</ol>
-                        </div>
-                        <a class="expand-btn" href="assets/cv-juan-a-calero.pdf" download="Juan A. Calero - CV.pdf"><i class="fa-solid fa-download"></i> Download CV (PDF)</a>
-                    </div>
+                    <!-- 3) descargas: botones grandes al final del todo -->
+                    <div class="cv-download-bar">${downloads}</div>
                 </div>`;
             $('sheet').addEventListener('mouseenter', () => { if (!focused) sayOnHover(profile.dialogue); });
         }
@@ -943,7 +1016,7 @@
         // Hover: el cuadro gana un poco de ancho (pista). Clic: se expande y el otro queda como tira.
         let focused = null;
         const FOCUS_LINES = {
-            sheet: "Here's my full CV: roles, tools, studies and awards. Press Back to main or Esc to return!",
+            sheet: "Here's my full CV: experience, skills, studies and achievements. You can download the PDF version too!",
             shelf: "Every game I've worked on, all in one place. Click any of them to see more!",
             writings: "Everything I've written about videogames. Pick one and I'll open it right here!"
         };
@@ -969,6 +1042,19 @@
             if (e.target.closest('a, button')) return;   // los enlaces y botones hacen lo suyo
             if (focused !== which) setFocus(which);
         }
+
+        // ---------- MENU "DOWNLOAD CV" (Designer / Producer) ----------
+        function renderCvMenu() {
+            $('cvDrop').innerHTML = profile.cvs.map(cv =>
+                `<a role="menuitem" href="${cv.file}" target="_blank" rel="noopener" onclick="toggleCvMenu(null, false)"><i class="fa-solid fa-file-pdf"></i> ${cv.label}</a>`).join('');
+        }
+        function toggleCvMenu(e, force) {
+            if (e) e.stopPropagation();
+            const open = force === undefined ? !document.body.classList.contains('cv-open') : force;
+            document.body.classList.toggle('cv-open', open);
+            $('cvBtn').setAttribute('aria-expanded', open);
+        }
+        document.addEventListener('click', e => { if (!e.target.closest('#cvDrop')) toggleCvMenu(null, false); });
 
         // ---------- NAVEGACION DE LA CABECERA ----------
         function goNav(which, e) {
@@ -1114,6 +1200,7 @@
         addEventListener('keydown', e => {
             if (!introDone) return endIntro();
             if (e.key !== 'Escape') return;
+            if (document.body.classList.contains('cv-open')) return toggleCvMenu(null, false);
             if (isPanelOpen) closePanel();
             else if (focused) setFocus(null);
         });
@@ -1122,6 +1209,7 @@
             renderSheet();
             renderShelf();
             renderWritings();
+            renderCvMenu();
             setTimeout(() => {
                 $('loading').classList.add('gone');
                 document.body.classList.add('ready');

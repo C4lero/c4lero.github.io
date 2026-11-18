@@ -201,27 +201,79 @@ const articles = [
 ];
 
 // Ficha de personaje (el bloque CV). Edita aqui tus datos.
+// Contenido sacado de tus dos CV (pdf/CV_..._Game_Designer.pdf y pdf/CV_..._Game_Producer.pdf).
 const profile = {
     name: 'Juan A. Calero',
     title: 'Game Designer & Producer',
     // lo que digo al pasar el raton por el CV
     dialogue: "So, you need someone to design your game... or to keep your team and your project on track? Well, that's exactly what I do!",
-    pitch: "I design core loops and mechanics starting from a game concept, and as a producer I coordinate teams, roadmaps and scope so projects actually ship!",
-    roles: [
-        { name: 'Game Designer', points: ['Core & game loops', 'Mechanics & balancing', 'Combat & level flow'] },
-        { name: 'Game Producer', points: ['Roadmaps & milestones', 'Scope & risk control', 'Scrum / Kanban teams'] }
+    // presentacion corta: es lo que se ve en el bloque CV sin ampliar
+    pitch: "I design, prototype and document core mechanics and UI/UX in Unreal Engine 5, Unity and Godot, and I coordinate multidisciplinary teams to get games finished, from the first concept to a Steam launch.",
+    // los dos CV descargables (boton de la cabecera y CV ampliado)
+    cvs: [
+        { label: 'Game Designer CV', file: 'pdf/CV_Juan_Antonio_Calero_EN_Game_Designer.pdf' },
+        { label: 'Game Producer CV', file: 'pdf/CV_Juan_Antonio_Calero_EN_Game_Producer.pdf' }
     ],
-    tools: ['Unreal 5', 'Unity', 'Godot', 'Jira', 'Trello', 'Notion', 'GitHub', 'PlasticSCM'],
+    // experiencia: de lo mas reciente a lo mas antiguo
+    experience: [
+        {
+            role: 'Game Designer & Game Producer', company: 'Mochuelo Games', place: 'Remote',
+            project: 'Tower Defense (unreleased) · Unity', dates: 'Sep 2025 – Present',
+            points: [
+                'Co-designed the core mechanics, game structure and systems to shape the game concept.',
+                'Set up the development roadmap, aligning production milestones with launch strategy and market opportunities.',
+                'Coordinate a cross-departmental team of 10 with an adaptable workflow from pre-production onwards.',
+                'Balance the game loop and keep feature scope in check to protect the viability of the project.',
+                'Run sprint planning, task tracking and team communication; write GDDs and pitch documentation.'
+            ]
+        },
+        {
+            role: 'Associate Game Producer & Game / UI/UX Designer', company: 'Bola 13 Studios', place: 'Madrid, on-site',
+            project: "Dorothy's Job · Unreal Engine 5 · Steam", dates: 'Jan 2025 – Feb 2026',
+            points: [
+                'Designed and iterated the main game loop around the synergy between simultaneous combat and cleaning.',
+                'Built a progression across 10 procedurally generated levels.',
+                'Created four distinct weapons (melee and ranged), consumables and a reward system tied to rooms and the timer.',
+                'Coordinated a core team of 20 developers that grew to 40 in critical phases, over a 10-month cycle.',
+                'Ran cross-departmental meetings, resolved blockers, and managed documentation, backlog and sprints in Notion and ClickUp.',
+                "Designed the game's interfaces and HUD with Procreate and Illustrator."
+            ]
+        },
+        {
+            role: 'Game Designer & UI Designer | 2D Artist', company: 'Kumiho Esports', place: 'Madrid, on-site',
+            project: 'Nexus Legends & Nine Tails', dates: 'Jun 2024 – Sep 2024',
+            points: [
+                'Planned and documented "Nine Tails" from its initial concept: core gameplay, mechanics and game loop, plus a scope and resources study.',
+                'Designed, created and implemented the complete UI, HUD and user experience of the educational quiz game "Nexus Legends".'
+            ]
+        },
+        {
+            role: 'Freelance Game Designer', company: 'itch.io', place: 'Remote',
+            project: 'Game jams & personal projects', dates: '2023 – Present',
+            points: [
+                'Took part in several game jams as a designer.',
+                'Prototyped mechanics in Unreal Engine 5 and Unity, defined game loops and built branching narrative structures.',
+                'Designed an educational game to prepare people for crisis-management situations.'
+            ]
+        }
+    ],
+    // herramientas agrupadas
+    skills: [
+        ['Engines', ['Unreal Engine 5', 'Unity', 'Godot', 'Twine']],
+        ['Art & UI', ['Photoshop', 'Illustrator', 'Procreate']],
+        ['Production', ['Notion', 'ClickUp', 'Asana', 'Miro', 'Trello', 'GitHub', 'Agile / Scrum']]
+    ],
     facts: [
         { icon: 'fa-location-dot', text: 'Madrid, Spain · open to relocation & remote' },
-        { icon: 'fa-graduation-cap', text: "Master's in Game Design (UTAD) · Bachelor's in Videogame Design & Development (URJC)" },
-        { icon: 'fa-language', text: 'Spanish (native) · English (C1) · German (basic)' }
+        { icon: 'fa-graduation-cap', text: "Master's in Game Design · UTAD, Madrid (2025)" },
+        { icon: 'fa-graduation-cap', text: "Bachelor's in Video Game Design & Development · URJC, Madrid (2024)" },
+        { icon: 'fa-language', text: 'Spanish (native) · English (C1, professional) · German (basic)' }
     ],
     awards: [
-        { text: 'Finalist, best university game · BIG Conference 2025', note: "Dorothy's Job" },
+        { text: 'Finalist, Best University Game · BIG Conference 2025', note: "Dorothy's Job" },
         { text: '2nd best game · Madrid Hackathon 11', note: 'Ready, Steadicam!' },
-        { text: 'Top 1000 of 10.6k entries · GMTK Jam 2026', note: 'Diescend' },
-        { text: 'Final degree project awarded with honors' }
+        { text: 'Top 1000 out of 10,600 entries · GMTK Game Jam 2026', note: 'Diescend' },
+        { text: 'Honours (Matrícula de Honor) for my Final Degree Project', note: 'Crisis Sim Game' }
     ]
 };
 
