@@ -66,6 +66,14 @@
             letter-spacing: .06em; font-size: 13px; line-height: 1; padding: 5px 10px 4px; transform: skewX(-12deg); }
         .tag > span { display: inline-block; transform: skewX(12deg); }
         .tag-paper { background: var(--paper); color: var(--ink); }
+        /* "Open to work": junto al titulo de la ficha, con un punto que late */
+        .tag-open { background: var(--pop); color: var(--ink); display: inline-flex; align-items: center; gap: 7px; }
+        .tag-open .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: openPulse 1.6s ease-in-out infinite; }
+        @keyframes openPulse { 50% { opacity: .25; } }
+        .tag-loc { background: var(--hl); color: var(--ink); display: inline-flex; align-items: center; gap: 7px; }
+        .tag-loc i { font-size: .95em; line-height: 1; }
+        /* las etiquetas de la ficha: alineadas entre si y, si saltan de linea, pegadas a la izquierda */
+        .sheet-head .tag { vertical-align: middle; margin: 0 6px 4px 0; }
         .tag-accent { background: var(--accent); color: var(--ink); }
         .tag-pop { background: var(--pop); color: var(--ink); }
 
@@ -222,9 +230,23 @@
 
         .featured { height: 172px; }
         .featured .info { position: absolute; inset: auto 0 0 0; z-index: 2; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
-        .featured .logo { height: 44px; width: auto; align-self: flex-start; filter: drop-shadow(2px 2px 0 var(--ink)); }
-        .featured .role-line { font-family: var(--ui); font-weight: 800; font-style: italic; font-size: 14px; color: var(--hl); text-transform: uppercase; letter-spacing: .04em; line-height: 1; }
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        /* logo grande a la izquierda y el rol al lado */
+        .featured .year { left: auto; right: 7px; }
+        /* tarjeta corta: la imagen (al mismo tamano) se desplaza a la derecha para que el texto del rol
+           no tape a la protagonista; el hueco de la izquierda funde a negro detras del logo */
+        .featured:not(.tall) > img.bg { left: var(--feat-shift, 22%); right: auto; width: 100%; max-width: none;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%); mask-image: linear-gradient(90deg, transparent, #000 22%); }
+        .featured .f-head { display: flex; align-items: flex-end; gap: 12px; }
+        .featured .logo { height: 68px; width: auto; max-width: 55%; object-fit: contain; object-position: left bottom; flex-shrink: 0; filter: drop-shadow(2px 2px 0 var(--ink)); }
+        .featured .role-line { font-family: var(--ui); font-weight: 800; font-style: italic; font-size: 14px; color: var(--hl); text-transform: uppercase; letter-spacing: .04em; line-height: 1.1; padding-bottom: 4px;
+            text-shadow: 2px 2px 0 var(--ink), -1px -1px 0 var(--ink), 1px -1px 0 var(--ink), -1px 1px 0 var(--ink), 0 0 10px rgba(10,10,12,.9); }
+        .featured .role-line small { display: block; margin-top: 4px; font-size: 12px; color: var(--pop); }
+        .less .featured .logo { height: 58px; }
+        .less .featured .role-line { max-width: 10.5em; }
+        .featured.tall .logo { height: 96px; }
+        .featured.tall .role-line { font-size: 17px; }
+        .featured.tall .role-line small { font-size: 14px; }
+        .stats { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); gap: 6px; }
         .stat { background: var(--paper); color: var(--ink); padding: 4px 6px 3px; transform: skewX(-8deg); line-height: 1; }
         .stat b { display: block; font-family: var(--display); font-weight: 400; font-size: 22px; transform: skewX(8deg); }
         .stat span { display: block; font-family: var(--ui); font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; transform: skewX(8deg); }
@@ -432,7 +454,7 @@
         /* banners con logo que se reparten todo el alto del bloque */
         #shelf .less { flex: 1 1 auto; min-height: 0; }
         .less .banners { flex: 1 1 auto; min-height: 0; }
-        .less .banner { height: auto; flex: 1 1 0; min-height: 56px; }
+        .less .banner { height: auto; flex: 1 1 0; min-height: 40px; }
         .banner .b-logo { height: 74%; max-height: 72px; width: auto; max-width: 62%; object-fit: contain; object-position: left center; filter: drop-shadow(2px 2px 0 var(--ink)); }
         .banner.big .b-logo { height: 44px; max-height: 44px; }
         .banner .b-txt h4 { font-size: 24px; }
@@ -612,6 +634,29 @@
         .t-sub em { font-style: italic; color: #b9bdcc; }
         .timeline ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; font-size: 13px; line-height: 1.45; color: #d9dbe4; }
         .timeline ul li::before { content: '▸ '; color: var(--accent); }
+        /* cabecera de cada puesto en filas: fecha · lugar / cargo / estudio / juego · motor */
+        .timeline .t-date { display: block; margin-bottom: 3px; }
+        .timeline .t-role { display: block; font-family: var(--display); font-weight: 400; font-size: 19px; line-height: 1.05; color: var(--paper); }
+        .timeline .t-studio { font-family: var(--ui); font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; color: var(--hl); margin-top: 3px; }
+        .timeline .t-game { font-family: var(--ui); font-weight: 600; font-style: italic; font-size: 14px; color: #b9bdcc; margin: 2px 0 4px; }
+        .timeline .t-studio:last-of-type + ul, .timeline .t-studio + ul { margin-top: 6px; }
+        /* logo del estudio: todos en la misma placa oscura con borde blanco, para que se vean como una familia */
+        .timeline .t-studio { display: flex; align-items: center; gap: 9px; margin-top: 4px; }
+        .t-logo { flex-shrink: 0; width: 32px; height: 32px; display: grid; place-items: center; background: var(--ink); border: 2px solid var(--paper);
+            box-shadow: 3px 3px 0 var(--accent); transform: rotate(-3deg); overflow: hidden; }
+        .t-logo img { width: 100%; height: 100%; object-fit: contain; }
+        .t-logo i { font-size: 16px; color: var(--paper); }
+        /* el juego de cada puesto enlaza a su ficha (o a itch.io) */
+        .timeline .t-game a { color: var(--pop); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; transition: color .15s; }
+        .timeline .t-game a:hover { color: var(--paper); }
+        .timeline .t-game a i { font-size: 11px; margin-left: 2px; }
+        .awards .aw-link { color: var(--pop); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; transition: color .15s; }
+        .awards .aw-link:hover { color: var(--paper); }
+        .awards .aw-link i { font-size: 10px; margin-left: 2px; }
+        /* proyecto sin imagen: fondo de trama con los colores de la web */
+        .ph-img { position: absolute; inset: 0; width: 100%; height: 100%;
+            background: radial-gradient(var(--bg-d) 1.6px, transparent 2px) 0 0 / 11px 11px, repeating-linear-gradient(-45deg, #23252e 0 14px, #1a1c23 14px 28px); }
+        .proj-card .ph-img { position: absolute; }
         .skill-group { margin-bottom: 10px; }
         .skill-label { display: block; font-family: var(--ui); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--hl); margin-bottom: 5px; }
         .cv-downloads { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
@@ -644,7 +689,7 @@
             .cv-exp .t-head { flex-direction: column; align-items: flex-start; gap: 2px; }
             .cv-exp .t-date { order: -1; }
             .cv-exp .t-head b { font-size: 18px; }
-            .cv-exp .timeline ul { font-size: 12.5px; line-height: 1.34; gap: 2px; }
+            .cv-exp .timeline ul { font-size: 12.5px; line-height: 1.3; gap: 2px; }
             .cv-exp .t-sub { margin-bottom: 4px; }
             /* en el CV ampliado, el nombre y el titulo van en una linea para dejar sitio a la experiencia */
             #sheet.is-open .sheet-head { display: flex; align-items: center; gap: 16px; padding-bottom: 2px; }
@@ -801,6 +846,8 @@
                     <div class="sheet-head">
                         <h1 class="sheet-name" id="sheetName"></h1>
                         <span class="tag tag-paper"><span id="sheetTitle"></span></span>
+                        <span class="tag tag-open" id="sheetOpen"><span class="dot"></span><span id="sheetOpenText"></span></span>
+                        <span class="tag tag-loc" id="sheetLoc"><i class="fa-solid fa-location-dot"></i><span id="sheetLocText"></span></span>
                     </div>
                     <div class="card-scroll" id="sheetBody"></div>
                 </div></div>
@@ -845,6 +892,7 @@
 
         // ---------- DIALOGO (efecto maquina de escribir) ----------
         let typeTimer = null, currentLine = '';
+        const TYPE_MS = 28;          // ms por letra (antes 17: iba demasiado rapido para leer)
         function say(text) {
             if (text === currentLine && typeTimer) return;
             currentLine = text;
@@ -855,7 +903,7 @@
             typeTimer = setInterval(() => {
                 el.textContent = text.slice(0, ++i);
                 if (i >= text.length) { clearInterval(typeTimer); typeTimer = null; }
-            }, 17);
+            }, TYPE_MS);
         }
         // Como en los juegos: un clic mientras escribe completa la frase
         function finishLine() {
@@ -879,14 +927,23 @@
             const [first, ...rest] = profile.name.split(' ');
             $('sheetName').innerHTML = `${first} ${rest.slice(0, -1).join(' ')} <em>${rest[rest.length - 1]}</em>`;
             $('sheetTitle').textContent = profile.title;
+            if (profile.availability) $('sheetOpenText').textContent = profile.availability; else $('sheetOpen').remove();
+            if (profile.location) $('sheetLocText').textContent = profile.location; else $('sheetLoc').remove();
             const experience = profile.experience.map(e => `
                 <li>
-                    <div class="t-head"><b>${e.role}</b><span class="t-date">${e.dates}</span></div>
-                    <div class="t-sub">${e.company} · ${e.place}${e.project ? ` · <em>${e.project}</em>` : ''}</div>
+                    <div class="t-date">${e.dates} · ${e.place}</div>
+                    <b class="t-role">${e.role}</b>
+                    <div class="t-studio">${e.logo ? `<span class="t-logo"><img src="${e.logo}" alt=""></span>` : e.logoIcon ? `<span class="t-logo"><i class="${e.logoIcon}"></i></span>` : ''}<span>${e.company}</span></div>
+                    ${e.project ? `<div class="t-game">${
+                        e.projectId ? `<a href="#${e.projectId}" onclick="openProject('${e.projectId}', event)">${e.project} <i class="fa-solid fa-arrow-right"></i></a>`
+                        : e.url ? `<a href="${e.url}" target="_blank" rel="noopener">${e.project} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`
+                        : e.project}</div>` : ''}
                     <ul>${e.points.map(p => `<li>${p}</li>`).join('')}</ul>
                 </li>`).join('');
             const skills = profile.skills.map(([group, list]) => `
                 <div class="skill-group"><span class="skill-label">${group}</span><div class="chips">${list.map(t => `<span class="chip">${t}</span>`).join('')}</div></div>`).join('');
+            // datos rapidos: los del birrete van a Education, el resto a Info
+            const factList = test => profile.facts.filter(test).map(f => `<li><i class="fa-solid ${f.icon}"></i><span>${f.text}</span></li>`).join('');
             const downloads = profile.cvs.map(cv => `
                 <a class="expand-btn" href="${cv.file}" target="_blank" rel="noopener"><i class="fa-solid fa-download"></i> ${cv.label} (PDF)</a>`).join('');
             $('sheetBody').innerHTML = `
@@ -897,12 +954,14 @@
                     <!-- 1) experiencia a lo ancho: es lo primero que se ve al abrir -->
                     <div class="sec cv-exp" style="margin-top:0"><h3 class="cv-big"><span><i class="fa-solid fa-briefcase"></i> Experience</span></h3><ol class="timeline">${experience}</ol></div>
                     <!-- 2) el resto, debajo (haciendo scroll) -->
-                    <h3 class="cv-big cv-big-2"><span><i class="fa-solid fa-user"></i> More about me</span></h3>
+                    <h3 class="cv-big cv-big-2"><span><i class="fa-solid fa-star"></i> Education, Skills &amp; Achievements</span></h3>
                     <div class="cv-rest">
                         <div>
-                            <div class="sec" style="margin-top:0"><div class="sec-title">About me</div><p class="pitch">${profile.pitch}</p></div>
-                            <div class="sec"><div class="sec-title">Education &amp; info</div>
-                                <ul class="facts">${profile.facts.map(f => `<li><i class="fa-solid ${f.icon}"></i><span>${f.text}</span></li>`).join('')}</ul>
+                            <div class="sec" style="margin-top:0"><div class="sec-title">Education</div>
+                                <ul class="facts">${factList(f => f.icon === 'fa-graduation-cap')}</ul>
+                            </div>
+                            <div class="sec"><div class="sec-title">Languages</div>
+                                <ul class="facts">${factList(f => f.icon !== 'fa-graduation-cap')}</ul>
                             </div>
                         </div>
                         <div>
@@ -910,7 +969,7 @@
                         </div>
                         <div>
                             <div class="sec" style="margin-top:0"><div class="sec-title">Achievements</div>
-                                <ol class="awards">${profile.awards.map(a => `<li><span>${a.text}${a.note ? ` <small>(${a.note})</small>` : ''}</span></li>`).join('')}</ol>
+                                <ol class="awards">${profile.awards.map(a => `<li><span>${a.text}${a.note ? ` <small>(${a.projectId ? `<a class="aw-link" href="#${a.projectId}" onclick="openProject('${a.projectId}', event)">${a.note} <i class="fa-solid fa-arrow-right"></i></a>` : a.note})</small>` : ''}</span></li>`).join('')}</ol>
                             </div>
                         </div>
                     </div>
@@ -919,6 +978,11 @@
                 </div>`;
             $('sheet').addEventListener('mouseenter', () => { if (!focused) sayOnHover(profile.dialogue); });
         }
+
+        // imagen de un proyecto; si no tiene banner (p. ej. Miscellaneous) se pinta un fondo de trama
+        const bannerImg = (p, cls) => p.banner
+            ? `<img class="${cls}" src="${p.banner}" alt="">`
+            : `<div class="${cls} ph-img" aria-hidden="true"></div>`;
 
         // ---------- ESTANTERIA ----------
         function itemAttrs(p) {
@@ -941,9 +1005,11 @@
                     <div class="shade"></div>
                     <span class="year tag tag-paper"><span>${feat.year}</span></span>
                     <div class="info">
-                        ${feat.logo ? `<img class="logo" src="${feat.logo}" alt="${feat.title}">` : `<span class="display" style="font-size:28px">${feat.title}</span>`}
-                        <span class="role-line">${feat.role || ''} · ${feat.tags[feat.tags.length - 1]}</span>
-                        ${stats ? `<div class="stats">${stats}</div>` : ''}
+                        <div class="f-head">
+                            ${feat.logo ? `<img class="logo" src="${feat.logo}" alt="${feat.title}">` : `<span class="display" style="font-size:28px">${feat.title}</span>`}
+                            <span class="role-line">${feat.role || ''}<small>${feat.tags[feat.tags.length - 1]}</small></span>
+                        </div>
+                        ${stats ? `<div class="stats" style="--n:${feat.stats.length}">${stats}</div>` : ''}
                     </div>
                 </a>`;
             // banner estilo Project Vault: imagen de fondo, degradado y el LOGO del juego
@@ -953,7 +1019,7 @@
                 const year = `<span class="tag tag-paper"><span>${p.year}</span></span>`;
                 return `
                 <a class="banner ${big ? 'big' : ''}" ${itemAttrs(p)}>
-                    <img class="bg" src="${p.banner}" alt="">
+                    ${bannerImg(p, "bg")}
                     <div class="shade"></div>
                     <div class="b-txt">
                         ${big
@@ -1016,7 +1082,7 @@
         // Hover: el cuadro gana un poco de ancho (pista). Clic: se expande y el otro queda como tira.
         let focused = null;
         const FOCUS_LINES = {
-            sheet: "Here's my full CV: experience, skills, studies and achievements. You can download the PDF version too!",
+            sheet: "Here's my full CV: experience, skills, studies and achievements. Check the button below to download the PDF version too!",
             shelf: "Every game I've worked on, all in one place. Click any of them to see more!",
             writings: "Everything I've written about videogames. Pick one and I'll open it right here!"
         };
@@ -1115,7 +1181,7 @@
                 </section>`).join('');
             const html = `
                 <header class="d-hero">
-                    <img class="bg" src="${p.banner}" alt="">
+                    ${bannerImg(p, "bg")}
                     <div class="shade"></div>
                     <div class="d-hero-txt">
                         <div class="d-meta"><span class="tag tag-paper"><span>${p.year}</span></span>${p.tags.map((t, i) => `<span class="tag ${tagCls[i % 2]}"><span>${t}</span></span>`).join('')}</div>
@@ -1125,7 +1191,7 @@
                 </header>
                 <div class="d-grid">
                     <div class="d-main">
-                        ${p.about ? `<h3 class="d-h">About the game</h3><p>${p.about}</p>` : (p.details || '')}
+                        ${p.about ? `<h3 class="d-h">${p.aboutTitle || 'About the game'}</h3><p>${p.about}</p>` : (p.details || '')}
                         ${p.video ? `<video controls muted preload="metadata"><source src="${p.video}" type="video/mp4"></video>` : ''}
                         ${contribs ? `<h3 class="d-h">My contributions</h3>${contribs}` : ''}
                         ${shots ? `<h3 class="d-h">Screenshots</h3><div class="shots">${shots}</div>` : ''}
@@ -1169,7 +1235,7 @@
                 <header class="vault-head"><span class="tag tag-accent"><span>All my projects</span></span><h2 class="d-title">Project Vault</h2></header>
                 <div class="vault-grid">${projects.map(p => {
                 const open = p.external ? `<a class="proj-card" href="${p.external}" target="_blank" rel="noopener">` : `<button class="proj-card" onclick="openProject('${p.id}', event)">`;
-                return `${open}<img src="${p.banner}" alt=""><div class="shade"></div>
+                return `${open}${bannerImg(p, "")}<div class="shade"></div>
                     <span class="tag tag-paper" style="position:absolute;top:10px;left:10px"><span>${p.year}</span></span>
                     <div class="txt"><h3>${p.title}</h3><p>${p.summary}</p></div>${p.external ? '</a>' : '</button>'}`;
             }).join('')}</div>`;
@@ -1213,8 +1279,10 @@
             setTimeout(() => {
                 $('loading').classList.add('gone');
                 document.body.classList.add('ready');
-                say("Welcome to my shop! I'm Juan A. Calero, game designer and producer, and everything on display today is about me!");
-                introTimer = setTimeout(endIntro, 2600);
+                const hello = "Welcome to my shop! I'm Juan A. Calero, game designer and producer, and everything on display today is about me!";
+                say(hello);
+                // la intro sigue hasta que termina de escribirse la frase + tiempo para leerla (clic o tecla la salta)
+                introTimer = setTimeout(endIntro, hello.length * TYPE_MS + 1600);
             }, 700);
         });
     </script>
