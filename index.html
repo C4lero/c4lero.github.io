@@ -405,6 +405,14 @@
             .nametag { left: 36px; font-size: 22px; }
             #goods { bottom: calc(var(--dlg-h) + 40px); width: 72vw; }
             #panel { bottom: calc(var(--dlg-h) + 34px); width: 72vw; }
+            /* con una ficha o un articulo abierto, la barra de dialogo se encoge para dejar sitio;
+               al volver al menu principal recupera su tamano */
+            body.panel-open { --dlg-h: 58px; }
+            .dialogue-box { transition: min-height .35s var(--ease-out), padding .35s var(--ease-out); }
+            #dialogueText { transition: font-size .35s var(--ease-out); }
+            body.panel-open .dialogue-box { padding: 18px 44px 10px; }
+            body.panel-open #dialogueText { font-size: 18px; min-height: 1.2em; }
+            body.panel-open .nametag { font-size: 18px; }
         }
 
         /* ajustes de altura para que en portatil todo quepa sin scroll (van al final para mandar) */
@@ -489,10 +497,58 @@
         .d-h::after { content: ''; flex: 1; height: 4px; background: linear-gradient(90deg, var(--accent), transparent); transform: skewX(-30deg); }
         .d-main video { width: 100%; border: 4px solid var(--paper); box-shadow: 8px 8px 0 var(--accent); margin: 10px 0 6px; }
         .contrib { background: #15161c; border-left: 6px solid var(--accent); padding: 16px 18px; margin-bottom: 14px; }
-        .contrib h4 { font-family: var(--display); font-weight: 400; font-size: 24px; margin: 0 0 8px; color: var(--paper); }
+        /* nombre del rol como etiqueta grande, para que cada bloque destaque */
+        .contrib h4 { display: inline-block; font-family: var(--display); font-weight: 400; font-size: 28px; letter-spacing: .03em; line-height: 1; margin: 0 0 14px;
+            background: var(--accent); color: var(--ink); padding: 7px 16px 5px; transform: skewX(-10deg); box-shadow: 5px 5px 0 var(--paper); }
         .contrib ul { margin: 0 0 10px; padding-left: 18px; }
         .contrib li { margin-bottom: 4px; }
         .contrib li::marker { color: var(--pop); }
+        /* capturas del desarrollo dentro de cada rol */
+        .c-shots { display: grid; gap: 12px; margin: 6px 0 14px; }
+        .c-shots.n1 { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+        .c-shots.n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .c-shots.n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .c-shots figure { margin: 0; }
+        .c-shots a { display: block; border: 3px solid var(--paper); box-shadow: 5px 5px 0 var(--accent); overflow: hidden; transition: transform .15s var(--ease-snap), box-shadow .15s; }
+        .c-shots a:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--pop); }
+        .c-shots img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+        .c-shots figcaption { margin-top: 8px; font-size: 12.5px; line-height: 1.35; color: #c3c6d2; }
+        @media (max-width: 700px) { .c-shots.n2, .c-shots.n3 { grid-template-columns: 1fr; } }
+        /* grupos de imagenes con titulo dentro de un rol */
+        .c-group { margin: 4px 0 16px; }
+        .c-group h6 { margin: 0 0 8px; font-family: var(--ui); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--pop); }
+        /* piezas sueltas de UI: miniaturas sin recortar sobre fondo oscuro */
+        .c-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+        .c-tiles figure { margin: 0; }
+        .c-tiles a { display: grid; place-items: center; height: 110px; padding: 10px; background: radial-gradient(circle at 50% 40%, #2a2c35, #101116); border: 2px solid #3a3d4a; transition: border-color .15s, transform .15s; }
+        .c-tiles a:hover { border-color: var(--pop); transform: translateY(-2px); }
+        .c-tiles img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+        .c-tiles figcaption { margin-top: 5px; font-size: 11.5px; text-align: center; color: #c3c6d2; }
+        /* desplegable "Cut mechanics" */
+        .cut { margin-top: 14px; }
+        .cut summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; font-family: var(--ui); font-weight: 800; font-style: italic;
+            text-transform: uppercase; letter-spacing: .05em; font-size: 15px; background: var(--paper); color: var(--ink); padding: 8px 16px 6px; transform: skewX(-10deg);
+            box-shadow: 4px 4px 0 var(--accent); transition: box-shadow .15s, transform .15s; }
+        .cut summary::-webkit-details-marker { display: none; }
+        .cut summary:hover { transform: skewX(-10deg) translate(-2px, -2px); box-shadow: 6px 6px 0 var(--pop); }
+        .cut summary .cut-n { background: var(--accent); color: var(--ink); font-style: normal; padding: 1px 7px; }
+        .cut summary .cut-arrow { font-size: 12px; transition: transform .2s; }
+        .cut[open] summary .cut-arrow { transform: rotate(180deg); }
+        .cut-card { margin-top: 16px; background: #0e0f14; border: 2px dashed #3a3d4a; padding: 14px 16px; }
+        .cut-card h5 { margin: 0 0 10px; font-family: var(--display); font-weight: 400; font-size: 22px; color: var(--paper); display: flex; align-items: center; gap: 10px; }
+        .cut-card h5::after { content: 'Cut'; font-family: var(--ui); font-weight: 900; font-style: italic; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+            background: var(--accent); color: var(--ink); padding: 2px 8px 1px; transform: rotate(-4deg); }
+        .cut-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+        .cut-body dl { margin: 0; }
+        .cut-body dt { font-family: var(--ui); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--pop); margin-top: 10px; }
+        .cut-body dt:first-child { margin-top: 0; }
+        .cut-body dd { margin: 3px 0 0; font-size: 13.5px; line-height: 1.45; }
+        .cut-shots { display: grid; gap: 12px; }
+        .cut-shots figure { margin: 0; }
+        .cut-shots a { display: block; border: 3px solid var(--paper); box-shadow: 5px 5px 0 var(--accent); overflow: hidden; }
+        .cut-shots img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+        .cut-shots figcaption { margin-top: 6px; font-size: 12px; line-height: 1.35; color: #c3c6d2; }
+        @media (max-width: 900px) { .cut-body { grid-template-columns: 1fr; } }
         .contrib .note { font-style: italic; color: var(--hl); border-left: 3px solid var(--pop); padding-left: 12px; }
         .hl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-top: 10px; }
         .hl { background: var(--paper); color: var(--ink); padding: 10px 12px; clip-path: polygon(0 0, 100% 3%, 98% 100%, 1% 97%); }
@@ -502,6 +558,23 @@
         .shots img { width: 100%; border: 3px solid var(--paper); }
         .d-soon { font-family: var(--ui); font-weight: 800; font-size: 20px; text-transform: uppercase; color: var(--pop); }
         .d-side { display: flex; flex-direction: column; gap: 18px; align-self: start; position: sticky; top: 0; }
+        /* con video: columna mas ancha y el video se queda fijo arriba mientras se lee la ficha */
+        .d-grid.has-video { grid-template-columns: minmax(0, 1fr) 420px; }
+        .d-grid.has-video .d-side { top: 80px; }   /* toda la columna (video + Steam) fija, bajo el boton "Back to main" */
+        .d-factbar { display: flex; flex-direction: column; gap: 18px; }
+        /* con video, cifras y datos van en una franja arriba de la columna principal */
+        .d-main .d-factbar { display: block; margin-bottom: 26px; }
+        /* boton de Steam (y demas enlaces) a todo el ancho de la columna del video */
+        .has-video .d-links { align-items: stretch; }
+        .has-video .d-links .btn-link { display: block; text-align: center; font-size: 19px; padding: 11px 14px 9px; }
+        .has-video .d-links .btn-link > * { display: inline-block; }
+        .d-main .d-factbar .stats { grid-template-columns: 1fr; }
+        .d-main .d-factbar .stat { padding: 8px 12px; }
+        .d-main .d-factbar .stat b { font-size: 30px; }
+        .d-main .d-factbar .d-facts { grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr); }
+        .d-video .yt { position: relative; width: 100%; aspect-ratio: 16 / 9; border: 4px solid var(--paper); box-shadow: 8px 8px 0 var(--accent); background: #000; overflow: hidden; }
+        .d-video .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; border: 0; }
+        .d-video .cap { display: block; margin-top: 10px; font-family: var(--ui); font-weight: 800; font-style: italic; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--pop); }
         .d-side .stats { grid-template-columns: 1fr; }
         .d-side .stat { padding: 8px 12px; }
         .d-side .stat b { font-size: 30px; }
@@ -531,7 +604,7 @@
         @media (min-width: 1024px) {
             #panel { left: 2.5vw; right: 2.5vw; width: auto !important; top: calc(var(--header-h) + 20px); bottom: calc(var(--dlg-h) + 40px);
                 clip-path: none; border: 5px solid var(--paper); box-shadow: 12px 12px 0 var(--ink);
-                opacity: 0; pointer-events: none; transform: translateY(40px) scale(.96); transition: transform .5s var(--ease-snap), opacity .3s ease; }
+                opacity: 0; pointer-events: none; transform: translateY(40px) scale(.96); transition: transform .5s var(--ease-snap), opacity .3s ease, bottom .35s var(--ease-out); }
             body.panel-open #panel { opacity: 1; pointer-events: auto; transform: none; }
             #panel::before { display: none; }
             body.panel-open #shopkeeper .keeper-art { opacity: 0; pointer-events: none; }
@@ -540,10 +613,14 @@
             .d-hero { height: 210px; }
             .d-hero.art { height: 200px; }
             .d-logo { height: 76px; }
+            .d-logo-big { height: 124px; max-width: 45%; }
         }
         @media (max-width: 1023px) {
             .d-grid { grid-template-columns: 1fr; padding: 20px 18px 0; }
             .d-side { position: static; }
+            .d-grid.has-video { grid-template-columns: 1fr; }
+            .d-main .d-factbar { grid-template-columns: 1fr; }
+            .d-main .d-factbar .d-facts { grid-template-columns: auto minmax(0, 1fr); }
             .d-hero { height: 220px; }
             .d-hero-txt { left: 18px; right: 18px; }
             .d-logo { height: 60px; }
@@ -1159,9 +1236,17 @@
             $('panel').setAttribute('aria-hidden', 'true');
             isPanelOpen = false;
             $('panelBody').querySelectorAll('video').forEach(v => v.pause());
+            // al cerrar, el video de YouTube se quita para que deje de sonar
+            $('panelBody').querySelectorAll('.yt iframe').forEach(f => f.remove());
             say("What else would you like to see? Everything else is still on display.");
         }
 
+        // Video de YouTube: arranca solo y en silencio (los navegadores solo permiten autoplay sin sonido)
+        const ytPlayer = (id, title) => `
+            <div class="yt">
+                <iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&playsinline=1&rel=0" title="${title} trailer"
+                    allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>`;
         function openProject(id, event) {
             if (event) { event.preventDefault(); event.stopPropagation(); }
             const p = projects.find(x => x.id === id);
@@ -1171,35 +1256,56 @@
             const facts = p.facts || [['Year', p.year], ['Context', p.tags[0]], ['Genre', p.tags[1]], ['Engine', p.tags[2]]].filter(f => f[1]);
             const stats = (p.stats || []).map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
             const links = (p.links || []).map(l => `<a class="btn-link" href="${l.url}" target="_blank" rel="noopener">${l.text} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`).join('');
+            // cifras + datos rapidos: en la columna lateral o, si hay video, en una franja arriba de la columna principal
+            // (con video la franja va sin las cifras grandes: ya salen en los datos de al lado)
+            const factBar = `<div class="d-factbar">${stats && !p.youtube ? `<div class="stats" style="--n:${p.stats.length}">${stats}</div>` : ''}<dl class="d-facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></div>`;
             const shots = (p.screenshots || []).map(s => `<img src="${s}" alt="${p.title} screenshot" loading="lazy">`).join('');
+            const shotGrid = list => `<div class="c-shots n${Math.min(list.length, 3)}">${list.map(im => `<figure><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${(im.caption || '').replace(/<[^>]+>/g, '')}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`;
             const contribs = (p.contributions || []).map(c => `
                 <section class="contrib">
                     <h4>${c.role}</h4>
                     <ul>${c.points.map(x => `<li>${x}</li>`).join('')}</ul>
+                    ${c.images ? shotGrid(c.images) : ''}
+                    ${c.groups ? c.groups.map(g => `<div class="c-group"><h6>${g.title}</h6>${g.tiles
+                        ? `<div class="c-tiles">${g.images.map(im => `<figure><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${im.caption || ''}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`
+                        : shotGrid(g.images)}</div>`).join('') : ''}
                     ${c.note ? `<p class="note">${c.note}</p>` : ''}
                     ${c.highlights ? `<div class="hl-grid">${c.highlights.map(([t, d]) => `<div class="hl"><b>${t}</b><span>${d}</span></div>`).join('')}</div>` : ''}
+                    ${c.cut ? `<details class="cut">
+                        <summary><i class="fa-solid fa-scissors"></i> Cut mechanics <span class="cut-n">${c.cut.length}</span><i class="fa-solid fa-chevron-down cut-arrow"></i></summary>
+                        ${c.cut.map(m => `<article class="cut-card">
+                            <h5>${m.title}</h5>
+                            <div class="cut-body">
+                                <dl>
+                                    <dt>What it was</dt><dd>${m.what}</dd>
+                                    ${m.how ? `<dt>How I designed it</dt><dd>${m.how}</dd>` : ''}
+                                    <dt>Why we cut it</dt><dd>${m.why}</dd>
+                                    ${m.kept ? `<dt>What we kept</dt><dd>${m.kept}</dd>` : ''}
+                                </dl>
+                                ${m.images ? `<div class="cut-shots">${m.images.map(im => `<figure><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${im.caption || ''}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>` : ''}
+                            </div>
+                        </article>`).join('')}
+                    </details>` : ''}
                 </section>`).join('');
             const html = `
                 <header class="d-hero">
                     ${bannerImg(p, "bg")}
                     <div class="shade"></div>
                     <div class="d-hero-txt">
+                        ${p.logo ? `<img class="d-logo d-logo-big" src="${p.logo}" alt="${p.title}">` : `<h2 class="d-title">${p.title}</h2>`}
                         <div class="d-meta"><span class="tag tag-paper"><span>${p.year}</span></span>${p.tags.map((t, i) => `<span class="tag ${tagCls[i % 2]}"><span>${t}</span></span>`).join('')}</div>
-                        ${p.logo ? `<img class="d-logo" src="${p.logo}" alt="${p.title}">` : `<h2 class="d-title">${p.title}</h2>`}
-                        <p class="d-sum">${p.summary}</p>
                     </div>
                 </header>
-                <div class="d-grid">
+                <div class="d-grid ${p.youtube ? 'has-video' : ''}">
                     <div class="d-main">
+                        ${p.youtube ? factBar : ''}
                         ${p.about ? `<h3 class="d-h">${p.aboutTitle || 'About the game'}</h3><p>${p.about}</p>` : (p.details || '')}
-                        ${p.video ? `<video controls muted preload="metadata"><source src="${p.video}" type="video/mp4"></video>` : ''}
-                        ${contribs ? `<h3 class="d-h">My contributions</h3>${contribs}` : ''}
-                        ${shots ? `<h3 class="d-h">Screenshots</h3><div class="shots">${shots}</div>` : ''}
+                        ${contribs}
+                        ${shots ? `<h3 class="d-h">Final game screenshots</h3><div class="shots">${shots}</div>` : ''}
                         ${!p.about && !p.details && !contribs ? `<p class="d-soon">A full write-up of this project is coming soon.</p>` : ''}
                     </div>
                     <aside class="d-side">
-                        ${stats ? `<div class="stats">${stats}</div>` : ''}
-                        <dl class="d-facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+                        ${p.youtube ? `<div class="d-video">${ytPlayer(p.youtube, p.title)}<span class="cap"><i class="fa-brands fa-youtube"></i> Trailer</span></div>` : factBar}
                         ${links ? `<div class="d-links">${links}</div>` : ''}
                         <button class="back-mini" onclick="openVault(event)"><i class="fa-solid fa-grip"></i> All projects</button>
                     </aside>

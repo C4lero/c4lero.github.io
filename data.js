@@ -12,9 +12,9 @@ const projects = [
         role: 'Mechanics Designer & Producer',
         stats: [['84%', 'positive reviews'], ['40', 'people team']],
         summary: 'Try to beat every level on the clock as Dorothy, the buff maid in this frenetic game mixing cleaning and combat!',
-        dialogue: "My pièce de résistance, my most valuable project... (so far). It's out on Steam, and I produced the whole thing!",
-        video: 'assets/dorothy/DorothyTrailer.mp4',
-        screenshots: ['assets/dorothy/screenshot-dorothy-1.png', 'assets/dorothy/screenshot-dorothy-2.png', 'assets/dorothy/screenshot-dorothy-3.png', 'assets/dorothy/screenshot-dorothy-4.png'],
+        dialogue: "My pièce de résistance, my most valuable project... (so far). It's out on Steam, and I'm really proud of what we built!",
+        youtube: 'LgurwsG-pxo',   // id del trailer en YouTube (lo que va despues de "watch?v=")
+        screenshots: ['assets/dorothy/final-1.jpg', 'assets/dorothy/final-2.jpg', 'assets/dorothy/final-3.jpg', 'assets/dorothy/final-4.jpg'],
         links: [
             { text: 'Check on Steam', url: 'https://store.steampowered.com/app/3926730/Dorothys_Job/' }
             // Cuando subas el PDF a assets/dorothy/, descomenta esta linea:
@@ -27,50 +27,109 @@ const projects = [
             ['Platform', 'PC (Steam)'],
             ['Development', '10 months'],
             ['Team size', '20 to 40 members'],
-            ['Steam launch', '34,600+ units · 550+ wishlists in a 4-week pre-launch campaign'],
+            ['Steam launch', '34,600+ units distributed · 550+ wishlists in a 4-week pre-launch campaign'],
             ['Reviews', '84% positive on Steam']
         ],
-        about: "Dorothy's Job is a fast-paced isometric twin-stick shooter starring Dorothy, a buff maid tasked with maintaining a Dark Lord's mansion. Master a high-stakes gameplay loop that forces you to balance heavy-duty cleaning with intense combat, all while racing against time. The game uses procedural level generation to keep every run different.",
+        about: "Dorothy's Job is a fast-paced isometric twin-stick shooter starring Dorothy, a buff maid tasked with maintaining a Dark Lord's mansion. Master a high-stakes gameplay loop that forces you to balance heavy-duty cleaning with intense combat, all while racing against time. The game uses procedural level generation to keep every run different.<br><br>It is <b>the first game made by Bola 13 Studios</b>, and we took it the whole way: from the selection process where the idea was chosen among several pitches, through pre-production and a 10-month development, to its final launch on Steam.",
         // contributions: lo que hice en cada rol
         contributions: [
             {
                 role: 'Mechanics Designer',
                 points: [
-                    'Designed and iterated the core gameplay loop combining active combat with cleaning mechanics.',
-                    'Collaborated with art and programming teams to implement systems aligned with design intent.',
-                    'Maintained clear design documentation (GDD) to ensure cross-departmental alignment.'
+                    'Designed and iterated the core loop as part of a 6-person design team: a twin-stick shooter where <b>cleaning the mansion matters as much as fighting</b>.',
+                    "Set the key design rule: <b>Dorothy cleans, she doesn't destroy</b>. Classic twin-stick tropes like breaking props into debris were discarded, and every mechanic was built around her.",
+                    'Kept the GDD as the single source of truth for art and programming, so systems were implemented as designed.'
                 ],
-                note: "As part of a 6-person design core, my main focus was creating mechanics that blended cleaning and combat. Key constraint: standard twin-stick tropes (like breaking props into debris) were discarded. Dorothy is meant to clean the mansion, not destroy it.",
+                // images: capturas del desarrollo que ilustran este rol (se ven debajo de los puntos)
+                images: [
+                    { src: "assets/dorothy/dev-dirt-trail.jpg", caption: "Cleaning loop: Dorothy leaves a dirt trail until she reaches a cleaning station." },
+                    { src: "assets/dorothy/dev-alpha-room.jpg", caption: "Alpha build: testing the dirtiness meter and the mop charge in a single room." },
+                    { src: "assets/dorothy/dev-procedural.jpg", caption: "Procedurally generated rooms during development." }
+                ],
                 highlights: [
-                    ['Procedural generation', 'Procedurally generated levels were the key programming feature, so we worked closely to keep them balanced and had backup plans in case something failed.'],
-                    ['Visual clarity', 'Adjusted the two floor dirt types, bullets, status effects and UI to stay readable throughout gameplay.'],
-                    ['A game built around a character', 'Mechanics, systems and visuals were designed around Dorothy herself, which drove many gameplay decisions.']
+                    ['Procedural generation', 'Balanced the procedurally generated levels together with programming, with backup plans in case the feature failed.'],
+                    ['Visual clarity', 'Tuned the two dirt types, bullets, status effects and UI to stay readable in the middle of combat.']
+                ],
+                // cut: mecanicas descartadas (se ven en un desplegable "Cut mechanics" dentro de este rol)
+                cut: [
+                    {
+                        title: 'Room gimmicks',
+                        what: "Each room type had its own special challenge that changed how you played it: a dusty fireplace that kept spawning Dust Bunnies until you cleaned it, a cursed cauldron summoning Oozers until you defeated the marked cultists, or spore bulbs that made Dorothy stink if she stayed too close. General props could also be hit to clean, damage or disorient everything around them.",
+                        how: 'Documented every gimmick down to its tunable parameters and the full list of props, animations, VFX and SFX it needed, ready for production.',
+                        why: "The concept never got clear enough to fit the core loop organically, it clashed with the procedural generation, and players couldn't tell why some props were interactive and others weren't. With the deadline approaching, we cut it.",
+                        kept: 'Some props designed for the gimmicks, like the fireplace and the cauldron, stayed in the final rooms as set dressing.',
+                        images: [
+                            { src: 'assets/dorothy/cut-fireplace.jpg', caption: 'The fireplace: it was meant to spawn Dust Bunnies until Dorothy cleaned it.' },
+                            { src: 'assets/dorothy/cut-cauldron.jpg', caption: 'The cauldron: it was meant to summon Oozers during a ritual.' }
+                        ]
+                    },
+                    {
+                        title: 'Weapon modules',
+                        what: 'Each weapon could equip modules that changed how it shot or cleaned and modified its effects: different fire rates, burst patterns, area shapes and debuffs, from stacking slows and stuns to floors that stayed clean for a few seconds.',
+                        how: 'Defined fire rates, debuff stacking rules, durations and area-of-effect shapes for every module, with tunable values for balancing and audio mock-ups of how each fire rate should feel.',
+                        why: "Weapon customization wasn't a core pillar of the game, and with limited time, keeping the four weapons balanced against each other was already a challenge. Multiplying that by modules wasn't worth it.",
+                        kept: 'We picked the module we liked most for each weapon and turned it into its final shooting or cleaning mode.',
+                        images: [
+                            { src: 'assets/dorothy/cut-weapon-concepts.jpg', caption: 'Mop concept: its modules changed the style and range of the melee swing, from a wide greatsword sweep to a long spear thrust.' }
+                        ]
+                    }
                 ]
             },
             {
                 role: 'Game Producer',
                 points: [
-                    'Coordinated cross-departmental workflows for a team scaling up to 40 members.',
-                    'Managed production roadmaps, sprint planning, milestones and scope; led weekly meetings.',
-                    'Managed the Steamworks page, configuration and the publishing process.'
+                    'Coordinated a core team of 20 developers that <b>grew to 40 in critical phases</b> over a 10-month development cycle, leading the weekly cross-departmental meetings to unblock the team.',
+                    'Built the <b>monthly planning</b> following an Agile methodology: broke every feature down into tasks and pipelines, assigned them and tracked their progress end to end with <b>Notion databases</b>.',
+                    'Ran the Steam launch: store page, Steamworks setup and a 4-week pre-launch campaign with <b>550+ wishlists</b>, leading to <b>34,600+ units distributed and 84% positive reviews</b>.'
                 ],
-                note: 'I served as the bridge between design expectations and technical execution, keeping the team aligned while mitigating production risks.',
                 highlights: [
-                    ['Team scaling', 'Structured communication pipelines as the team grew from 20 to 40 members.'],
-                    ['Risk mitigation', 'Set up backup plans for critical technical features to guarantee deadlines.']
+                    ['Team scaling', 'Set up communication pipelines so the team could double in size without losing alignment.'],
+                    ['Risk mitigation', 'Planned backup solutions for critical technical features, like procedural generation, to protect the deadlines.']
                 ]
             },
             {
                 role: 'UI Artist',
                 points: [
-                    'Designed HUD elements, menus and visual feedback for an arcade feel.',
-                    'Created high-contrast graphic assets and iconography tailored for fast gameplay.',
-                    'Iterated on UI layouts based on playtest feedback to maximise clarity.'
+                    "Designed the game's <b>HUD, menus and visual feedback</b> in Procreate and Illustrator, with an arcade, comic-book feel.",
+                    'Created <b>high-contrast icons and graphic assets</b> that stay readable during fast, chaotic combat.',
+                    'Iterated on the UI layouts based on <b>playtest feedback</b> to maximise clarity.'
                 ],
-                note: "A stylised, high-contrast interface that complements the game's comic-book look without cluttering the screen during chaotic combat.",
+                // groups: galerias con titulo. tiles: true = piezas sueltas en miniatura (sin recortar, sobre fondo oscuro)
+                groups: [
+                    {
+                        title: 'HUD evolution',
+                        images: [
+                            { src: "assets/dorothy/ui-hud-sketches.jpg", caption: "<b>1 · Sketches.</b> First ideas for health, timer, dirtiness meter and weapon cooldown." },
+                            { src: "assets/dorothy/dev-hud.jpg", caption: "<b>2 · First HUD concept.</b> Early in-engine version: hearts, timer, room minimap and consumables." },
+                            { src: "assets/dorothy/ui-final-hud.jpg", caption: "<b>3 · Final HUD.</b> Released version: Dorothy's portrait and energy bar, ornate minimap and timer." }
+                        ]
+                    },
+                    {
+                        title: 'Final UI art',
+                        tiles: true,
+                        images: [
+                            { src: "assets/dorothy/ui-asset-dirtiness.png", caption: 'Dirtiness bar' },
+                            { src: "assets/dorothy/ui-asset-timer-frame.png", caption: 'Timer frame' },
+                            { src: "assets/dorothy/ui-asset-loadout-frame.png", caption: 'Loadout frame' },
+                            { src: "assets/dorothy/ui-ach-1.png", caption: 'Achievement icon' },
+                            { src: "assets/dorothy/ui-ach-51.png", caption: 'Achievement icon' }
+                        ]
+                    },
+                    {
+                        title: 'Screens',
+                        images: [
+                            { src: "assets/dorothy/ui-level-select.jpg", caption: 'Level select: grade seals, stars and locked levels.' },
+                            { src: "assets/dorothy/ui-loadout-chest.jpg", caption: 'Final weapon selection screen: the cleaning chest with attack, clean and special slots.' },
+                            { src: "assets/dorothy/ui-dialogue-layout.jpg", caption: 'Dialogue box layout and positioning reference.' },
+                            { src: "assets/dorothy/dev-item-pickup.jpg", caption: 'Early version of the new weapon screen, before the final chest.' },
+                            { src: "assets/dorothy/ui-results-sketches-1.jpg", caption: 'Results screen: first layout sketches.' },
+                            { src: "assets/dorothy/ui-results-sketches-2.jpg", caption: 'Results screen: iterations for good and bad grades.' }
+                        ]
+                    }
+                ],
                 highlights: [
-                    ['HUD readability', 'Balanced cleaning meters and health UI to stay clear in high-speed gameplay.'],
-                    ['Style cohesion', "Custom pop-art UI components matching the game's comic-book aesthetic."]
+                    ['HUD readability', 'Balanced the cleaning meters, health and timer so they stay clear at high speed.'],
+                    ['Style cohesion', "Custom pop-art UI components matching the game's comic-book look."]
                 ]
             }
         ]
@@ -230,7 +289,7 @@ const articles = [
     {
         // ARTICULO DE EJEMPLO: cambia el titulo, los datos y el content por tu articulo real
         title: "Cleaning Meets Combat: Designing Dorothy's Job Core Loop",
-        image: 'assets/dorothy/screenshot-dorothy-1.png',
+        image: 'assets/dorothy/final-1.jpg',
         tag: 'Design Postmortem', topic: 'Design', readTime: '7 min read', date: 'Coming soon',
         summary: "How we merged a cleaning mechanic with twin-stick combat, what broke during playtests and how iteration shaped the final loop.",
         dialogue: "This one's a behind-the-scenes look at how I designed Dorothy's Job core loop. Coming soon!",
@@ -246,7 +305,7 @@ const articles = [
     {
         // ARTICULO DE EJEMPLO
         title: 'Producing a Student Game: From 20 to 40 People',
-        image: 'assets/dorothy/screenshot-dorothy-3.png',
+        image: 'assets/dorothy/final-3.jpg',
         tag: 'Production', topic: 'Production', readTime: '6 min read', date: 'Coming soon',
         summary: "What changes when a team doubles mid-project: communication pipelines, roadmaps, scope and the backup plans that saved our deadlines.",
         dialogue: "The producer side of Dorothy's Job: how we kept 40 people moving in the same direction. Coming soon!",
