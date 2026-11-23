@@ -551,6 +551,8 @@
         .c-tiles a { display: grid; place-items: center; height: 110px; padding: 10px; background: radial-gradient(circle at 50% 40%, #2a2c35, #101116); border: 2px solid #3a3d4a; transition: border-color .15s, transform .15s; }
         .c-tiles a:hover { border-color: var(--pop); transform: translateY(-2px); }
         .c-tiles img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+        .c-tiles.light { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+        .c-tiles.light a { background: #fff; border-color: var(--paper); height: 120px; padding: 4px; }
         .c-tiles figcaption { margin-top: 5px; font-size: 11.5px; text-align: center; color: #c3c6d2; }
         /* desplegable "Cut mechanics" */
         .cut { margin-top: 14px; }
@@ -584,6 +586,25 @@
         .hl span { font-size: 13px; line-height: 1.4; }
         .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .shots img { width: 100%; border: 3px solid var(--paper); }
+        .shots.n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        @media (max-width: 760px) { .shots.n3 { grid-template-columns: 1fr; } }
+        .shots img { cursor: zoom-in; }
+        /* visor de imagenes dentro de la pagina */
+        #lightbox { position: fixed; inset: 0; z-index: 400; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 14px;
+            background: rgba(10, 10, 12, .92); padding: 40px 80px; cursor: zoom-out; }
+        #lightbox.open { display: flex; animation: lbIn .18s ease-out; }
+        @keyframes lbIn { from { opacity: 0; } }
+        #lightbox img { max-width: 100%; max-height: calc(100vh - 150px); width: auto; height: auto; border: 4px solid var(--paper); box-shadow: 10px 10px 0 var(--accent); background: #fff; cursor: default; }
+        #lightbox .lb-cap { max-width: 900px; text-align: center; font-size: 14px; line-height: 1.45; color: var(--paper); cursor: default; }
+        #lightbox .lb-count { font-family: var(--ui); font-weight: 800; font-size: 12px; letter-spacing: .08em; color: var(--pop); }
+        #lightbox button { position: absolute; display: grid; place-items: center; width: 48px; height: 48px; background: var(--paper); color: var(--ink); font-size: 20px; transform: skewX(-8deg);
+            box-shadow: 4px 4px 0 var(--accent); cursor: pointer; transition: background .15s; }
+        #lightbox button:hover { background: var(--hl); }
+        #lightbox .lb-close { top: 20px; right: 24px; }
+        #lightbox .lb-prev { left: 18px; top: 50%; margin-top: -24px; }
+        #lightbox .lb-next { right: 18px; top: 50%; margin-top: -24px; }
+        #lightbox.single .lb-prev, #lightbox.single .lb-next, #lightbox.single .lb-count { display: none; }
+        @media (max-width: 760px) { #lightbox { padding: 70px 12px 30px; } #lightbox .lb-prev, #lightbox .lb-next { top: auto; bottom: 16px; margin: 0; } }
         .d-soon { font-family: var(--ui); font-weight: 800; font-size: 20px; text-transform: uppercase; color: var(--pop); }
         .d-side { display: flex; flex-direction: column; gap: 18px; align-self: start; position: sticky; top: 0; }
         /* con video: columna mas ancha y el video se queda fijo arriba mientras se lee la ficha */
@@ -1270,6 +1291,7 @@
         }
         function closePanel() {
             if (!isPanelOpen) return;
+            lbClose();
             document.body.classList.remove('panel-open');
             $('panel').setAttribute('aria-hidden', 'true');
             isPanelOpen = false;
@@ -1278,6 +1300,47 @@
             $('panelBody').querySelectorAll('.yt iframe, .c-video iframe').forEach(f => f.remove());
             say("What else would you like to see? Everything else is still on display.");
         }
+
+        // ---------- VISOR DE IMAGENES (zoom dentro de la pagina, sin abrir otra pestana) ----------
+        // Cualquier imagen de una ficha se amplia al hacer clic; las flechas pasan por las de su mismo grupo.
+        const LB_GROUPS = '.c-shots, .c-fit, .c-tiles, .cut-shots, .shots';
+        let lbList = [], lbIndex = 0;
+        const lb = document.createElement('div');
+        lb.id = 'lightbox';
+        lb.innerHTML = `<img alt=""><span class="lb-count"></span><p class="lb-cap"></p>
+            <button class="lb-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            <button class="lb-prev" type="button" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="lb-next" type="button" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>`;
+        document.body.appendChild(lb);
+        const lbShow = i => {
+            lbIndex = (i + lbList.length) % lbList.length;
+            const it = lbList[lbIndex];
+            lb.querySelector('img').src = it.src;
+            lb.querySelector('.lb-cap').innerHTML = it.caption;
+            lb.querySelector('.lb-count').textContent = `${lbIndex + 1} / ${lbList.length}`;
+        };
+        const lbOpen = (list, i) => { lbList = list; lb.classList.toggle('single', list.length < 2); lb.classList.add('open'); lbShow(i); };
+        const lbClose = () => lb.classList.remove('open');
+        const lbIsOpen = () => lb.classList.contains('open');
+        lb.addEventListener('click', e => {
+            e.stopPropagation();
+            if (e.target.closest('.lb-prev')) return lbShow(lbIndex - 1);
+            if (e.target.closest('.lb-next')) return lbShow(lbIndex + 1);
+            if (e.target.closest('.lb-close') || e.target === lb) lbClose();
+        });
+        $('panelBody').addEventListener('click', e => {
+            const img = e.target.closest('img');
+            const group = img && img.closest(LB_GROUPS);
+            if (!group) return;
+            e.preventDefault(); e.stopPropagation();
+            const imgs = [...group.querySelectorAll('img')];
+            const list = imgs.map(im => {
+                const link = im.closest('a');
+                const cap = im.closest('figure')?.querySelector('figcaption');
+                return { src: link ? link.getAttribute('href') : im.getAttribute('src'), caption: cap ? cap.innerHTML : '' };
+            });
+            lbOpen(list, imgs.indexOf(img));
+        });
 
         // Video de YouTube: arranca solo y en silencio (los navegadores solo permiten autoplay sin sonido)
         const ytPlayer = (id, title) => `
@@ -1298,18 +1361,19 @@
             // (con video la franja va sin las cifras grandes: ya salen en los datos de al lado)
             const factBar = `<div class="d-factbar"><dl class="d-facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></div>`;
             const shots = (p.screenshots || []).map(s => `<img src="${s}" alt="${p.title} screenshot" loading="lazy">`).join('');
+            const shotsCls = (p.screenshots || []).length === 3 ? 'n3' : '';   // 3 capturas = una fila de 3; si no, de 2 en 2
             const shotGrid = list => `<div class="c-shots n${Math.min(list.length, 3)}">${list.map(im => `<figure><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${(im.caption || '').replace(/<[^>]+>/g, '')}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`;
             const contribs = (p.contributions || []).map(c => `
                 <section class="contrib">
                     <h4>${c.role}</h4>
                     ${c.intro ? `<p class="c-intro">${c.intro}</p>` : ''}
                     <ul>${c.points.map(x => `<li>${x}</li>`).join('')}</ul>
-                    ${p.shotsFirst && shots ? `<div class="c-group"><h6>Final game screenshots</h6><div class="shots">${shots}</div></div>` : ''}
+                    ${p.shotsFirst && shots ? `<div class="c-group"><h6>Final game screenshots</h6><div class="shots ${shotsCls}">${shots}</div></div>` : ''}
                     ${c.video ? `<div class="c-group"><h6>${c.video.title || 'Video'}</h6><div class="c-video"><div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/${c.video.id}?rel=0" title="${c.video.title || p.title}" loading="lazy"
                         allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>${c.video.caption ? `<p class="c-video-cap">${c.video.caption}</p>` : ''}</div></div>` : ''}
                     ${c.images ? shotGrid(c.images) : ''}
                     ${c.groups ? c.groups.map(g => `<div class="c-group"><h6>${g.title}</h6>${g.tiles
-                        ? `<div class="c-tiles">${g.images.map(im => `<figure><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${im.caption || ''}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`
+                        ? `<div class="c-tiles ${g.light ? 'light' : ''}">${g.images.map(im => `<figure><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${im.caption || ''}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`
                         : g.fit
                         ? `<div class="c-fit">${g.images.map(im => `<figure style="flex: ${im.r || 1.6} ${im.r || 1.6} ${Math.round((im.r || 1.6) * 150)}px"><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${(im.caption || '').replace(/<[^>]+>/g, '')}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`
                         : shotGrid(g.images)}</div>`).join('') : ''}
@@ -1346,7 +1410,7 @@
                         ${factBar}
                         ${p.about ? `<h3 class="d-h">${p.aboutTitle || 'About the game'}</h3><p>${p.about}</p>` : (p.details || '')}
                         ${contribs}
-                        ${shots && !p.shotsFirst ? `<h3 class="d-h">Final game screenshots</h3><div class="shots">${shots}</div>` : ''}
+                        ${shots && !p.shotsFirst ? `<h3 class="d-h">Final game screenshots</h3><div class="shots ${shotsCls}">${shots}</div>` : ''}
                         ${!p.about && !p.details && !contribs ? `<p class="d-soon">A full write-up of this project is coming soon.</p>` : ''}
                     </div>
                     <aside class="d-side">
@@ -1416,6 +1480,13 @@
         }
         addEventListener('keydown', e => {
             if (!introDone) return endIntro();
+            // con el visor abierto: flechas para pasar imagenes y Esc lo cierra (sin cerrar la ficha)
+            if (lbIsOpen()) {
+                if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
+                else if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+                else if (e.key === 'Escape') lbClose();
+                return;
+            }
             if (e.key !== 'Escape') return;
             if (document.body.classList.contains('cv-open')) return toggleCvMenu(null, false);
             if (isPanelOpen) closePanel();

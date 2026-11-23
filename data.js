@@ -199,9 +199,15 @@ const projects = [
                         images: [
                             { src: 'assets/diescend/itch-cover.jpg', r: 1.26, caption: 'Cover with the game logo.' },
                             { src: 'assets/diescend/itch-thumbnail.png', r: 1.26, caption: 'Thumbnail.' },
-                            { src: 'assets/diescend/cast-banner.jpg', r: 3.48, caption: 'Cast banner.' },
-                            { src: 'assets/diescend/itch-background.jpg', r: 1.78, caption: 'Page background with the cast framing the game.' }
+                            { src: 'assets/diescend/cast-banner.jpg', r: 3.48, caption: 'Cast banner.' }
                         ]
+                    },
+                    {
+                        // light: miniaturas sobre fondo claro (los personajes estan dibujados sobre blanco)
+                        title: 'The cast · art by the team',
+                        tiles: true,
+                        light: true,
+                        images: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => ({ src: `assets/diescend/char-${n}.jpg` }))
                     }
                 ],
                 note: 'The characters were drawn by the 2D and 3D artists of the team; I composed them into the banners and the itch.io page.'
