@@ -137,10 +137,78 @@ const projects = [
     {
         id: 'diescend', year: '2026', title: 'Diescend',
         banner: 'assets/images/diescend-banner.png', logo: 'assets/images/diescend-logo.png',
-        tags: ['GMTK 26 Jam Submission', 'Strategy with Rogue-like Mechanics', 'Godot'],
+        heroLogo: 'assets/diescend/brand-logo.png',   // logo grande (con la torre de dados) solo para la cabecera de la ficha
+        // mismo esquema de etiquetas que Dorothy's Job: tipo de proyecto · genero · motor
+        tags: ['Roguelike Dice Strategy', 'Godot'],   // sin etiqueta de jam: ya lo indica el sello amarillo
+        jam: 'GMTK Game Jam 2026',   // proyecto de jam: sale un sello en la ficha y "JAM" en los banners
         summary: 'Descend the tower betting on dice battles and beating members of your old mafia gang.',
         dialogue: "Dice, a tower and an old mafia gang. I made it for GMTK Jam and it got into the top 1000 of 10.6k entries!",
-        details: ''
+        links: [
+            { text: 'Play on itch.io', url: 'https://c4lipo.itch.io/diescend' }
+        ],
+        facts: [
+            ['Jam', 'GMTK Game Jam 2026 · Theme: "Count Down"'],
+            ['Result', 'Top 1000 out of 10,600+ entries'],
+            ['Best ratings', 'Narrative #960 · Artwork #1054 (4.00 / 5)'],
+            ['Team', '7 people: programming, 3D art, 2D art, music and design'],
+            ['My role', 'Game Designer & Producer'],
+            ['Engine', 'Godot']
+        ],
+        about: "Diescend is a roguelike dice duel built around the jam's theme, <b>Count Down</b>. You play a former high-ranking member of a mafia that burned down your house and your family, and you return to their tower months later, very much alive.<br><br>Floor by floor you descend, facing your old comrades at the table: before each clash you bet on whether your die will win or lose, and every successful bet counts your dice down. The first to run out of dice wins. Major Arcana tarot cards twist the rules of every match, a revolver settles the disputes and, as the mafia's motto goes, <i>\"Fortune is a sore loser\"</i>.",
+        // proyecto de jam: un solo bloque con lo que hice, sin separar por roles
+        youtube: 'g-0P1xMQ0z0', youtubeLabel: 'Development: from prototype to final build',   // video largo (columna derecha)
+        contributions: [
+            {
+                role: 'What we did',
+                intro: "We built the whole game around the theme, <b>Count Down</b>, on two levels. In every clash both dice lose value at the same time, <b>counting down</b> until only one is left standing, and that is how each round is scored. And the whole run is a countdown of floors: you <b>descend the tower from floor 10 to the exit at floor 0</b>, with every floor harder than the last.<br><br>As the team's designer and producer, my part of it was:",
+                points: [
+                    '<b>Produced the project</b>: scope, task planning in Trello and coordination of a 7-person team during the jam.',
+                    'Designed the <b>core dice duel</b> and the phases of every round.',
+                    '<b>Balanced the progression</b> floor by floor: dice per match, dice per round, number of Arcana and probability tables for dice faces and special marks.',
+                    'Designed the <b>Major Arcana modifiers</b>, the tutorial flow and the full game flowchart, from the main menu to the ending.',
+                    'Defined the <b>table layout and its interactions</b>: hover and click states for dice, tarot cards and the revolver.',
+                    'Co-created the <b>lore</b> of the tower and its characters, and made the <b>logo, 2D pieces and itch.io page art</b>.'
+                ],
+                // video del desarrollo: del prototipo a la version final (se ve dentro del bloque, sin autoplay)
+                video: { id: 'PdDLwc49NnU', title: 'Presentation trailer', caption: 'The short presentation trailer of the game. You can see the dice counting down as they clash.' },
+                groups: [
+                    {
+                        // fit: true = cada imagen entera, con su proporcion (r = ancho / alto), sin recortes
+                        title: 'Design on Miro',
+                        fit: true,
+                        images: [
+                            { src: 'assets/diescend/miro-overview.jpg', r: 3.1, caption: 'Theme, core dice mechanics and the Arcana modifiers.' },
+                            { src: 'assets/diescend/miro-dice-generation.jpg', r: 1.52, caption: 'Dice generation: probability of each die and mark, floor by floor.' }
+                        ]
+                    },
+                    {
+                        title: 'Branding',
+                        tiles: true,
+                        images: [
+                            { src: 'assets/diescend/brand-logo.png', caption: 'Logo' },
+                            { src: 'assets/diescend/brand-title.png', caption: 'Title' },
+                            { src: 'assets/diescend/brand-tower.png', caption: 'Tower icon' },
+                            { src: 'assets/diescend/brand-dice-icon.png', caption: 'Dice icon' },
+                            { src: 'assets/diescend/brand-ornament-top.png', caption: 'Page ornament' },
+                            { src: 'assets/diescend/brand-ornament-bottom.png', caption: 'Closing ornament' }
+                        ]
+                    },
+                    {
+                        title: 'itch.io page',
+                        fit: true,
+                        images: [
+                            { src: 'assets/diescend/itch-cover.jpg', r: 1.26, caption: 'Cover with the game logo.' },
+                            { src: 'assets/diescend/itch-thumbnail.png', r: 1.26, caption: 'Thumbnail.' },
+                            { src: 'assets/diescend/cast-banner.jpg', r: 3.48, caption: 'Cast banner.' },
+                            { src: 'assets/diescend/itch-background.jpg', r: 1.78, caption: 'Page background with the cast framing the game.' }
+                        ]
+                    }
+                ],
+                note: 'The characters were drawn by the 2D and 3D artists of the team; I composed them into the banners and the itch.io page.'
+            }
+        ],
+        screenshots: ['assets/diescend/final-1.jpg', 'assets/diescend/final-2.jpg', 'assets/diescend/final-3.jpg'],
+        shotsFirst: true   // las capturas finales van justo despues de la lista, antes del video y del Miro
     },
     {
         id: 'guard-my-hive', year: '2026 (Coming soon)', title: 'Guard My Hive',

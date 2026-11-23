@@ -66,6 +66,15 @@
             letter-spacing: .06em; font-size: 13px; line-height: 1; padding: 5px 10px 4px; transform: skewX(-12deg); }
         .tag > span { display: inline-block; transform: skewX(12deg); }
         .tag-paper { background: var(--paper); color: var(--ink); }
+        /* proyectos de jam: color propio (amarillo) para distinguirlos de un vistazo */
+        .tag-jam { background: #ffd23f; color: var(--ink); margin-left: 4px; }
+        .jam-stamp { display: inline-flex; align-items: center; gap: 10px; background: #ffd23f; color: var(--ink); padding: 8px 16px 7px; transform: rotate(-4deg);
+            border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--paper); font-family: var(--ui); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; line-height: 1.15; }
+        .jam-stamp i { font-size: 24px; }
+        .jam-stamp b { display: block; font-family: var(--display); font-weight: 400; font-size: 24px; letter-spacing: .04em; }
+        /* el sello va abajo a la derecha de la cabecera: solo pisa la imagen de fondo, nunca el logo ni las etiquetas */
+        .d-hero .jam-stamp { position: absolute; right: 32px; bottom: 26px; z-index: 3; }
+        @media (max-width: 760px) { .d-hero .jam-stamp { right: 14px; top: 14px; bottom: auto; font-size: 11px; padding: 6px 10px 5px; } .d-hero .jam-stamp b { font-size: 18px; } }
         /* "Open to work": junto al titulo de la ficha, con un punto que late */
         .tag-open { background: var(--pop); color: var(--ink); display: inline-flex; align-items: center; gap: 7px; }
         .tag-open .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: openPulse 1.6s ease-in-out infinite; }
@@ -462,7 +471,13 @@
         /* banners con logo que se reparten todo el alto del bloque */
         #shelf .less { flex: 1 1 auto; min-height: 0; }
         .less .banners { flex: 1 1 auto; min-height: 0; }
-        .less .banner { height: auto; flex: 1 1 0; min-height: 40px; }
+        .less .banner { height: auto; flex: 1 1 0; min-height: 56px; }
+        /* boton "More projects": abre la vista grande con todos los proyectos */
+        .less .banner.more-projects { flex: 0 0 44px; min-height: 44px; display: flex; align-items: center; gap: 12px; width: 100%; padding: 0 14px; cursor: pointer;
+            background: var(--paper); color: var(--ink); border-color: var(--ink); font-family: var(--display); font-size: 20px; letter-spacing: .04em; text-transform: uppercase; text-align: left; }
+        .banner.more-projects .mp-n { font-family: var(--ui); font-weight: 900; font-size: 13px; background: var(--accent); color: var(--ink); padding: 2px 8px; transform: skewX(-10deg); }
+        .less .banner.more-projects .b-go { margin-left: auto; position: static; transform: none; background: var(--ink); color: var(--paper); flex-shrink: 0; }
+        .banner.more-projects:hover { background: var(--hl); }
         .banner .b-logo { height: 74%; max-height: 72px; width: auto; max-width: 62%; object-fit: contain; object-position: left center; filter: drop-shadow(2px 2px 0 var(--ink)); }
         .banner.big .b-logo { height: 44px; max-height: 44px; }
         .banner .b-txt h4 { font-size: 24px; }
@@ -517,6 +532,19 @@
         /* grupos de imagenes con titulo dentro de un rol */
         .c-group { margin: 4px 0 16px; }
         .c-group h6 { margin: 0 0 8px; font-family: var(--ui); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--pop); }
+        /* parrafo de introduccion y video dentro de un bloque de contribuciones */
+        .c-intro { margin: 0 0 10px; }
+        .c-video { max-width: 720px; }
+        .c-video .yt { position: relative; width: 100%; aspect-ratio: 16 / 9; border: 4px solid var(--paper); box-shadow: 8px 8px 0 var(--accent); background: #000; overflow: hidden; }
+        .c-video .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .d-main .c-video .c-video-cap { margin: 22px 0 0; font-size: 12.5px; line-height: 1.4; color: #c3c6d2; }
+        /* galeria "justificada": cada imagen entera con su proporcion; las filas se reparten el ancho */
+        .c-fit { display: flex; flex-wrap: wrap; gap: 14px; }
+        .c-fit figure { margin: 0; min-width: 0; }
+        .c-fit a { display: block; border: 3px solid var(--paper); box-shadow: 5px 5px 0 var(--accent); overflow: hidden; background: #fff; transition: transform .15s var(--ease-snap), box-shadow .15s; }
+        .c-fit a:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--pop); }
+        .c-fit img { width: 100%; height: auto; }
+        .c-fit figcaption { margin-top: 8px; font-size: 12.5px; line-height: 1.35; color: #c3c6d2; }
         /* piezas sueltas de UI: miniaturas sin recortar sobre fondo oscuro */
         .c-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
         .c-tiles figure { margin: 0; }
@@ -565,9 +593,13 @@
         /* con video, cifras y datos van en una franja arriba de la columna principal */
         .d-main .d-factbar { display: block; margin-bottom: 26px; }
         /* boton de Steam (y demas enlaces) a todo el ancho de la columna del video */
-        .has-video .d-links { align-items: stretch; }
-        .has-video .d-links .btn-link { display: block; text-align: center; font-size: 19px; padding: 11px 14px 9px; }
-        .has-video .d-links .btn-link > * { display: inline-block; }
+        /* boton de Steam / itch.io a todo el ancho de la columna derecha */
+        .d-side .d-links { align-items: stretch; }
+        .d-side .d-links .btn-link { display: block; text-align: center; font-size: 19px; padding: 11px 14px 9px; }
+        .d-side .d-links .btn-link > * { display: inline-block; }
+        /* sin video, la columna derecha (solo botones) es mas estrecha y se queda fija */
+        .d-grid.no-video { grid-template-columns: minmax(0, 1fr) 260px; }
+        .d-grid.no-video .d-side { top: 80px; }
         .d-main .d-factbar .stats { grid-template-columns: 1fr; }
         .d-main .d-factbar .stat { padding: 8px 12px; }
         .d-main .d-factbar .stat b { font-size: 30px; }
@@ -614,11 +646,12 @@
             .d-hero.art { height: 200px; }
             .d-logo { height: 76px; }
             .d-logo-big { height: 124px; max-width: 45%; }
+            .d-logo-big.tall { height: 146px; }   /* logos altos (con ilustracion encima del titulo) */
         }
         @media (max-width: 1023px) {
             .d-grid { grid-template-columns: 1fr; padding: 20px 18px 0; }
             .d-side { position: static; }
-            .d-grid.has-video { grid-template-columns: 1fr; }
+            .d-grid.has-video, .d-grid.no-video { grid-template-columns: 1fr; }
             .d-main .d-factbar { grid-template-columns: 1fr; }
             .d-main .d-factbar .d-facts { grid-template-columns: auto minmax(0, 1fr); }
             .d-hero { height: 220px; }
@@ -1074,6 +1107,8 @@
             const feat = projects.find(p => p.featured) || projects[0];
             // los enlaces externos (itch.io) van en la cabecera, no en la estanteria
             const rest = projects.filter(p => p !== feat && !p.external);
+            // en la portada solo se ven los primeros (orden de data.js); el resto, en la vista grande con "More projects"
+            const SHELF_SHOWN = 3;
             const stats = (feat.stats || []).map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
 
             const featuredCard = (cls) => `
@@ -1093,14 +1128,14 @@
             // (si un juego no tiene logo en data.js, se muestra su titulo en texto)
             const banner = (p, big) => {
                 const name = p.logo ? `<img class="b-logo" src="${p.logo}" alt="${p.title}">` : `<h4>${p.title}</h4>`;
-                const year = `<span class="tag tag-paper"><span>${p.year}</span></span>`;
+                const year = `<span class="tag tag-paper"><span>${p.year}</span></span>${p.jam ? `<span class="tag tag-jam"><span><i class="fa-solid fa-stopwatch"></i> Jam</span></span>` : ''}`;
                 return `
                 <a class="banner ${big ? 'big' : ''}" ${itemAttrs(p)}>
                     ${bannerImg(p, "bg")}
                     <div class="shade"></div>
                     <div class="b-txt">
                         ${big
-                            ? `<span class="b-meta">${year}<span class="b-tags">${p.tags.slice(1, 3).join(' · ')}</span></span>${name}<p>${p.summary}</p>`
+                            ? `<span class="b-meta">${year}<span class="b-tags">${p.tags.slice(-2).join(' · ')}</span></span>${name}<p>${p.summary}</p>`
                             : `${name}<span class="b-meta">${year}</span>`}
                     </div>
                     <i class="fa-solid fa-chevron-right b-go"></i>
@@ -1111,7 +1146,10 @@
               <div class="less">
                 <div class="shelf-title">Projects <span class="tag tag-pop"><span>Out on Steam</span></span></div>
                 ${featuredCard('')}
-                <div class="banners">${rest.map(p => banner(p, false)).join('')}</div>
+                <div class="banners">${rest.slice(0, SHELF_SHOWN).map(p => banner(p, false)).join('')}
+                    ${rest.length > SHELF_SHOWN ? `<button class="banner more-projects" type="button" onclick="toggleFocus('shelf', event)" onmouseenter="sayOnHover(&quot;There's more in the back! Open it up and you'll see all my projects.&quot;)">
+                        <i class="fa-solid fa-layer-group"></i><span>More projects</span><span class="mp-n">+${rest.length - SHELF_SHOWN}</span><i class="fa-solid fa-chevron-right b-go"></i></button>` : ''}
+                </div>
               </div>
               <div class="more shelf-full">
                 <div>
@@ -1237,7 +1275,7 @@
             isPanelOpen = false;
             $('panelBody').querySelectorAll('video').forEach(v => v.pause());
             // al cerrar, el video de YouTube se quita para que deje de sonar
-            $('panelBody').querySelectorAll('.yt iframe').forEach(f => f.remove());
+            $('panelBody').querySelectorAll('.yt iframe, .c-video iframe').forEach(f => f.remove());
             say("What else would you like to see? Everything else is still on display.");
         }
 
@@ -1258,16 +1296,22 @@
             const links = (p.links || []).map(l => `<a class="btn-link" href="${l.url}" target="_blank" rel="noopener">${l.text} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`).join('');
             // cifras + datos rapidos: en la columna lateral o, si hay video, en una franja arriba de la columna principal
             // (con video la franja va sin las cifras grandes: ya salen en los datos de al lado)
-            const factBar = `<div class="d-factbar">${stats && !p.youtube ? `<div class="stats" style="--n:${p.stats.length}">${stats}</div>` : ''}<dl class="d-facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></div>`;
+            const factBar = `<div class="d-factbar"><dl class="d-facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></div>`;
             const shots = (p.screenshots || []).map(s => `<img src="${s}" alt="${p.title} screenshot" loading="lazy">`).join('');
             const shotGrid = list => `<div class="c-shots n${Math.min(list.length, 3)}">${list.map(im => `<figure><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${(im.caption || '').replace(/<[^>]+>/g, '')}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`;
             const contribs = (p.contributions || []).map(c => `
                 <section class="contrib">
                     <h4>${c.role}</h4>
+                    ${c.intro ? `<p class="c-intro">${c.intro}</p>` : ''}
                     <ul>${c.points.map(x => `<li>${x}</li>`).join('')}</ul>
+                    ${p.shotsFirst && shots ? `<div class="c-group"><h6>Final game screenshots</h6><div class="shots">${shots}</div></div>` : ''}
+                    ${c.video ? `<div class="c-group"><h6>${c.video.title || 'Video'}</h6><div class="c-video"><div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/${c.video.id}?rel=0" title="${c.video.title || p.title}" loading="lazy"
+                        allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>${c.video.caption ? `<p class="c-video-cap">${c.video.caption}</p>` : ''}</div></div>` : ''}
                     ${c.images ? shotGrid(c.images) : ''}
                     ${c.groups ? c.groups.map(g => `<div class="c-group"><h6>${g.title}</h6>${g.tiles
                         ? `<div class="c-tiles">${g.images.map(im => `<figure><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${im.caption || ''}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`
+                        : g.fit
+                        ? `<div class="c-fit">${g.images.map(im => `<figure style="flex: ${im.r || 1.6} ${im.r || 1.6} ${Math.round((im.r || 1.6) * 150)}px"><a href="${im.src}" target="_blank" rel="noopener"><img src="${im.src}" alt="${(im.caption || '').replace(/<[^>]+>/g, '')}" loading="lazy"></a>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ''}</figure>`).join('')}</div>`
                         : shotGrid(g.images)}</div>`).join('') : ''}
                     ${c.note ? `<p class="note">${c.note}</p>` : ''}
                     ${c.highlights ? `<div class="hl-grid">${c.highlights.map(([t, d]) => `<div class="hl"><b>${t}</b><span>${d}</span></div>`).join('')}</div>` : ''}
@@ -1291,21 +1335,22 @@
                 <header class="d-hero">
                     ${bannerImg(p, "bg")}
                     <div class="shade"></div>
+                    ${p.jam ? `<span class="jam-stamp"><i class="fa-solid fa-stopwatch"></i><span><b>Game Jam project</b>${p.jam}</span></span>` : ''}
                     <div class="d-hero-txt">
-                        ${p.logo ? `<img class="d-logo d-logo-big" src="${p.logo}" alt="${p.title}">` : `<h2 class="d-title">${p.title}</h2>`}
+                        ${p.heroLogo || p.logo ? `<img class="d-logo d-logo-big ${p.heroLogo ? 'tall' : ''}" src="${p.heroLogo || p.logo}" alt="${p.title}">` : `<h2 class="d-title">${p.title}</h2>`}
                         <div class="d-meta"><span class="tag tag-paper"><span>${p.year}</span></span>${p.tags.map((t, i) => `<span class="tag ${tagCls[i % 2]}"><span>${t}</span></span>`).join('')}</div>
                     </div>
                 </header>
-                <div class="d-grid ${p.youtube ? 'has-video' : ''}">
+                <div class="d-grid ${p.youtube ? 'has-video' : 'no-video'}">
                     <div class="d-main">
-                        ${p.youtube ? factBar : ''}
+                        ${factBar}
                         ${p.about ? `<h3 class="d-h">${p.aboutTitle || 'About the game'}</h3><p>${p.about}</p>` : (p.details || '')}
                         ${contribs}
-                        ${shots ? `<h3 class="d-h">Final game screenshots</h3><div class="shots">${shots}</div>` : ''}
+                        ${shots && !p.shotsFirst ? `<h3 class="d-h">Final game screenshots</h3><div class="shots">${shots}</div>` : ''}
                         ${!p.about && !p.details && !contribs ? `<p class="d-soon">A full write-up of this project is coming soon.</p>` : ''}
                     </div>
                     <aside class="d-side">
-                        ${p.youtube ? `<div class="d-video">${ytPlayer(p.youtube, p.title)}<span class="cap"><i class="fa-brands fa-youtube"></i> Trailer</span></div>` : factBar}
+                        ${p.youtube ? `<div class="d-video">${ytPlayer(p.youtube, p.title)}<span class="cap"><i class="fa-brands fa-youtube"></i> ${p.youtubeLabel || 'Trailer'}</span></div>` : ''}
                         ${links ? `<div class="d-links">${links}</div>` : ''}
                         <button class="back-mini" onclick="openVault(event)"><i class="fa-solid fa-grip"></i> All projects</button>
                     </aside>
