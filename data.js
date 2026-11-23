@@ -4,9 +4,10 @@
 // - dialogue: lo que digo yo (en primera persona) al pasar el raton por encima o al abrirlo.
 // - details (opcional): texto HTML que se ve al abrir el proyecto.
 // - external (opcional): si existe, la tarjeta abre ese enlace en vez del panel.
+// - kind: tipo de proyecto (game | jam | misc): sale en la franja vertical de color de cada banner.
 const projects = [
     {
-        id: 'dorothy', year: '2025', title: "Dorothy's Job", featured: true,
+        id: 'dorothy', kind: 'game', year: '2025', title: "Dorothy's Job", featured: true,
         banner: 'assets/images/dorothy-banner.jpg', logo: 'assets/images/dorothy-logo.png',
         tags: ['Game', 'Twin-stick Shooter', 'Unreal Engine 5'],
         role: 'Mechanics Designer & Producer',
@@ -135,7 +136,7 @@ const projects = [
         ]
     },
     {
-        id: 'diescend', year: '2026', title: 'Diescend',
+        id: 'diescend', kind: 'jam', year: '2026', title: 'Diescend',
         banner: 'assets/images/diescend-banner.png', logo: 'assets/images/diescend-logo.png',
         heroLogo: 'assets/diescend/brand-logo.png',   // logo grande (con la torre de dados) solo para la cabecera de la ficha
         // mismo esquema de etiquetas que Dorothy's Job: tipo de proyecto · genero · motor
@@ -149,10 +150,10 @@ const projects = [
         facts: [
             ['Jam', 'GMTK Game Jam 2026 · Theme: "Count Down"'],
             ['Result', 'Top 1000 out of 10,600+ entries'],
-            ['Best ratings', 'Narrative #960 · Artwork #1054 (4.00 / 5)'],
+            ['Game jam time', '96 hours (July 22 – 26, 2026)'],
             ['Team', '7 people: programming, 3D art, 2D art, music and design'],
             ['My role', 'Game Designer & Producer'],
-            ['Engine', 'Godot']
+            ['Platform', 'PC (itch.io)']
         ],
         about: "Diescend is a roguelike dice duel built around the jam's theme, <b>Count Down</b>. You play a former high-ranking member of a mafia that burned down your house and your family, and you return to their tower months later, very much alive.<br><br>Floor by floor you descend, facing your old comrades at the table: before each clash you bet on whether your die will win or lose, and every successful bet counts your dice down. The first to run out of dice wins. Major Arcana tarot cards twist the rules of every match, a revolver settles the disputes and, as the mafia's motto goes, <i>\"Fortune is a sore loser\"</i>.",
         // proyecto de jam: un solo bloque con lo que hice, sin separar por roles
@@ -217,17 +218,70 @@ const projects = [
         shotsFirst: true   // las capturas finales van justo despues de la lista, antes del video y del Miro
     },
     {
-        id: 'guard-my-hive', year: '2026 (Coming soon)', title: 'Guard My Hive',
-        banner: 'assets/images/guard-my-hive-banner.png',
-        tags: ['Game (Unreleased)', 'Tower Defense with Auto-chess mechanics', 'Unity'],
-        summary: 'A game about defending a bee colony. Bzz!!',
+        id: 'guard-my-hive', kind: 'game', year: '2026', title: 'Guard My Hive',
+        // BORRADOR: proyecto sin revelar. Solo se ensena lo basico (sin presupuesto, nombres, calendario ni lista de fichas)
+        banner: 'assets/images/guard-my-hive-banner.png', logo: 'assets/guard-my-hive/logo.png', squareLogo: true,
+        tags: ['Game (In development)', 'Tower Defense with Auto-chess mechanics', 'Unity'],
+        summary: 'Defend Queen Beeatriz from waves of wasps: buy, merge and place your pieces on a hexagonal hive, then watch them fight.',
         dialogue: "Fresh stock, I haven't even released it yet! Tower defense with auto-chess... and bees. Bzz!",
-        details: ''
+        links: [
+            { text: 'Visit the project page', url: 'https://mochuelogames.github.io/Hive' }
+        ],
+        facts: [
+            ['Studio', 'Mochuelo Games'],
+            ['Status', 'In development · playable prototype'],
+            ['Team', '8 people'],
+            ['Roles', 'Producer · UX Designer & UI Artist · Game Designer'],
+            ['Platform', 'PC'],
+            ['Engine', 'Unity']
+        ],
+        about: "Guard My Hive is a PvE tower defense with auto-chess mechanics. You protect <b>Queen Beeatriz</b> from hordes of wasps from a hive made of hexagonal cells, and if the queen falls, you lose.<br><br>Every round has two phases: in <b>planning</b> you buy, merge and place your pieces, and in <b>combat</b> the pieces you placed defend the hive on their own. Honey is the currency for everything, merging two equal pieces levels them up, and class synergies reward thinking about where each piece goes, not just which ones you own.",
+        contributions: [
+            // BORRADOR: mismos roles que en Dorothy's Job pero mas cortos (textos provisionales, pendientes de las preguntas)
+            {
+                role: 'Game Producer',
+                points: [
+                    '<b>Produce the project</b>: production planning, task breakdown and scheduling for a part-time team of 8.',
+                    'Plan the <b>open playtest</b> to validate the design with around 200 players.'
+                ]
+            },
+            {
+                role: 'UX Designer & UI Artist',
+                points: [
+                    'Design and draw the <b>interface</b>: shop, synergy indicators and HUD.',
+                    'Lead <b>accessibility</b>: a self-assessment based on the Fundación ONCE accessibility white paper, plus colour-blind mode and a repositionable HUD.'
+                ]
+            },
+            {
+                role: 'Game Designer',
+                points: [
+                    'Support the design of the <b>core systems</b>: the shop and reroll economy, merging and the class synergies.'
+                ],
+                groups: [
+                    {
+                        title: 'Key art',
+                        fit: true,
+                        images: [ { src: 'assets/guard-my-hive/keyart.jpg', r: 1.75, caption: 'Key art concept: Queen Beeatriz and the wasps.' } ]
+                    },
+                    {
+                        title: 'Characters & pieces · art by the team',
+                        tiles: true,
+                        images: [
+                            { src: 'assets/guard-my-hive/queen.png', caption: 'Queen Beeatriz' },
+                            { src: 'assets/guard-my-hive/enemy.png', caption: 'Base enemy' },
+                            { src: 'assets/guard-my-hive/tower-forge.png', caption: 'Forge' },
+                            { src: 'assets/guard-my-hive/tower-honey-cannon.png', caption: 'Honey Cannon' },
+                            { src: 'assets/guard-my-hive/tower-telescope.png', caption: 'Telescope' }
+                        ]
+                    }
+                ]
+            }
+        ]
     },
     {
         // Nacio de mi TFG y ahora se desarrolla con la URJC. Sin "banner": se pinta un fondo de trama.
         // Texto provisional sacado de la memoria del TFG (pendiente de revisar).
-        id: 'crisis-sim', year: '2026 (In development)', title: 'Crisis Sim Game',
+        id: 'crisis-sim', kind: 'game', year: '2026 (In development)', title: 'Crisis Sim Game',
         tags: ['Serious Game (In development)', '2.5D Crisis Management Simulation', 'Unreal Engine 5'],
         role: 'Game Designer & Developer',
         summary: 'A 2.5D serious game that puts you in charge of a crisis cabinet: gather fragmented reports, race the clock and make the calls that decide how the crisis ends.',
@@ -270,15 +324,15 @@ const projects = [
         ]
     },
     {
-        id: 'steadicam', year: '2025', title: 'Ready, Steadicam!',
+        id: 'steadicam', kind: 'jam', year: '2025', title: 'Ready, Steadicam!',
         banner: 'assets/images/steadicam-banner.png', logo: 'assets/images/steadicam-logo.png',
-        tags: ['HackJam 11 MiG 2nd best game award', 'Local Coop Experience', 'Godot'],
+        tags: ['Hackathon 11 · 2nd best game award', 'Local Coop Experience', 'Godot'],
         summary: 'Local coop mini game experience about sightseeing and taking photos!',
         dialogue: "A local co-op photo adventure. My team won 2nd best game at Madrid Hackathon 11 with it!",
         details: ''
     },
     {
-        id: 'walking-time', year: '2024', title: 'Walking Time',
+        id: 'walking-time', kind: 'game', year: '2024', title: 'Walking Time',
         banner: 'assets/images/walking-time-banner.png', logo: 'assets/images/walking-time-logo.png',
         tags: ['Game', 'Educational & Resource management', 'Unity'],
         summary: 'Educational strategic puzzle game about excentric characters exploring an island!',
@@ -287,7 +341,7 @@ const projects = [
     },
     {
         // Cosas sueltas que no son un unico proyecto. Sin "banner": se pinta un fondo de trama.
-        id: 'misc', year: '2024', title: 'Miscellaneous',
+        id: 'misc', kind: 'misc', year: '2024', title: 'Miscellaneous',
         tags: ['Various works', 'UI/UX & game concepts', 'Kumiho Esports'],
         role: 'Game Designer & UI Designer | 2D Artist',
         summary: 'Smaller works that are not a single project: interfaces, HUDs and game concepts.',
